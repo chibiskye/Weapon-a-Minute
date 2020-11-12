@@ -23,11 +23,9 @@ public class PlayerController : MonoBehaviour
     {
         // Read movement value from input controls
         Vector2 moveInput = inputManager.GetPlayerMovement();
-        Vector3 moveVector = new Vector3(moveInput.x, 0f, moveInput.y);
 
         // Move the player
+        Vector3 moveVector = transform.right * moveInput.x + transform.forward * moveInput.y;
         characterController.Move(moveVector.normalized * moveSpeed * Time.deltaTime);
-
-        // Rotates player to look in the direction that they are moving in
     }
 }

@@ -6,6 +6,8 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform = null;
     [SerializeField] private float mouseSensitivity = 100f;
+    [SerializeField] private float upViewLimit = -90f;
+    [SerializeField] private float downViewLimit = 90f;
 
     private InputManager inputManager = null;
     private float xRotation = 0f;
@@ -29,7 +31,7 @@ public class CameraController : MonoBehaviour
 
         // Rotate camera in the y-direction (look up or down)
         xRotation -= lookY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, upViewLimit, downViewLimit);
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         // Rotate player in the x-direction (turn left or right)
