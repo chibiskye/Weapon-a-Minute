@@ -10,34 +10,22 @@ public class LazerGunScript : MonoBehaviour
     // [SerializeField] private float range = 3.0f;
     [SerializeField] private float fireRate = 1.0f;
     
-    private WeaponControls weaponControls = null;
+    private InputManager inputManager;
     private bool canShoot = true;
     // private float nextTimeToFire = 0f; //currently not used
-
-    void Awake()
-    {
-        weaponControls = new WeaponControls();
-    }
-
-    void OnEnable()
-    {
-        weaponControls.Enable();
-    }
-
-    void OnDisable()
-    {
-        weaponControls.Disable();
-    }
 
     // Start is called before the first frame update
     void Start()
     {
-        weaponControls.Shooter.Shoot.performed += _ => Shoot();
+        inputManager = InputManager.Instance;
+        // weaponControls.Shooter.Shoot.performed += _ => Shoot();
     }
 
     void Update()
     {
-
+        // Check if player clicked button for shoot
+        bool playerShoot = inputManager.GetPlayerAttacked();
+        if (playerShoot) Shoot();
     }
 
     // void FixedUpdate()

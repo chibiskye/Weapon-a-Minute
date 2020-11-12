@@ -14,6 +14,7 @@ public class InputManager : MonoBehaviour
     }
 
     private PlayerControls playerControls = null;
+    private WeaponControls weaponControls = null;
 
     // Awake is called once before Start
     void Awake()
@@ -25,20 +26,23 @@ public class InputManager : MonoBehaviour
             _instance = this;
         }
 
-        // Instantiate player controls input actions
+        // Instantiate input actions
         playerControls = new PlayerControls();
+        weaponControls = new WeaponControls();
     }
 
     // OnEnable is called when script is enabled
     void OnEnable()
     {
         playerControls.Enable();
+        weaponControls.Enable();
     }
 
     // OnDisable is called when script is disabled
     void OnDisable()
     {
         playerControls.Disable();
+        weaponControls.Disable();
     }
 
     public Vector2 GetPlayerMovement()
@@ -49,5 +53,20 @@ public class InputManager : MonoBehaviour
     public Vector2 GetMouseDelta()
     {
         return playerControls.Movement.Look.ReadValue<Vector2>();
+    }
+
+    public Vector2 GetMousePosition()
+    {
+        return weaponControls.Shooter.Aim.ReadValue<Vector2>();
+    }
+
+    public bool GetPlayerJumped()
+    {
+        return playerControls.Movement.Jump.triggered;
+    }
+
+    public bool GetPlayerAttacked()
+    {
+        return weaponControls.Shooter.Shoot.triggered;
     }
 }
