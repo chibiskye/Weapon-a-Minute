@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private PlayerControls playerControls;
+    private PlayerControls playerControls = null;
 
     // Awake is called once before Start
     void Awake()

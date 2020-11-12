@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private float moveSpeed = 10f;
 
-    private CharacterController characterController;
-    private InputManager inputManager;
+    private CharacterController characterController = null;
+    private InputManager inputManager = null;
 
     // Start is called before the first frame update
     void Start()

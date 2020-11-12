@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform playerTransform = null;
     [SerializeField] private float mouseSensitivity = 100f;
 
-    private InputManager inputManager;
+    private InputManager inputManager = null;
     private float xRotation = 0f;
 
     // Start is called before the first frame update

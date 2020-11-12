@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class LaserGunBulletScript : MonoBehaviour
 {
-    [SerializeField] private float speed = 30.0f;
+    [SerializeField] private float speed = 30f;
 
-    private Rigidbody rigidbody;
-    private float timeToLive = 3.0f;
+    private Rigidbody rigidBody = null;
+    private float timeToLive = 3f;
 
     // Deletes self after a set amount of time
     IEnumerator DestroySelf()
@@ -19,8 +19,8 @@ public class LaserGunBulletScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        rigidbody.velocity = new Vector3(0f, 0f, speed);
+        rigidBody = GetComponent<Rigidbody>();
+        rigidBody.velocity = new Vector3(0f, 0f, speed);
         StartCoroutine(DestroySelf());
     }
 

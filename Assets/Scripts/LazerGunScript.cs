@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class LazerGunScript : MonoBehaviour
 {
-    [SerializeField] private GameObject bullet;
-    [SerializeField] private Transform bulletParent;
-    [SerializeField] private Transform shootDirection;
+    [SerializeField] private GameObject bullet = null;
+    [SerializeField] private Transform bulletParent = null;
+    [SerializeField] private Transform shootDirection = null;
     // [SerializeField] private float range = 3.0f;
     [SerializeField] private float fireRate = 1.0f;
     
-    private WeaponControls weaponControls;
+    private WeaponControls weaponControls = null;
     private bool canShoot = true;
     // private float nextTimeToFire = 0f; //currently not used
 
