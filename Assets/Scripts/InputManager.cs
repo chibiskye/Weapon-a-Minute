@@ -45,4 +45,9 @@ public class InputManager : MonoBehaviour
     {
         return playerControls.Movement.Move.ReadValue<Vector2>();
     }
+
+    public Vector2 GetMouseDelta()
+    {
+        return playerControls.Movement.Look.ReadValue<Vector2>();
+    }
 }

@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController characterController;
     private InputManager inputManager;
-    private Vector3 playerVelocity;
-    private bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -20,23 +18,16 @@ public class PlayerController : MonoBehaviour
         inputManager = InputManager.Instance;
     }
 
-    // Update is called once per frame
-    void Update()
+    // FixedUpdate is called once per physics frame
+    void FixedUpdate()
     {
-        // Check if player is airborn or on the ground
-        isGrounded = characterController.isGrounded;
-
         // Read movement value from input controls
         Vector2 moveInput = inputManager.GetPlayerMovement();
         Vector3 moveVector = new Vector3(moveInput.x, 0f, moveInput.y);
 
         // Move the player
-        characterController.Move(moveVector * moveSpeed * Time.deltaTime);
+        characterController.Move(moveVector.normalized * moveSpeed * Time.deltaTime);
 
         // Rotates player to look in the direction that they are moving in
-        if (moveVector != Vector3.zero)
-        {
-            transform.forward = moveVector;
-        }
     }
 }
