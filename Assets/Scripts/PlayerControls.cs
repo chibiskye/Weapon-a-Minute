@@ -15,7 +15,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""Default"",
+            ""name"": ""Movement"",
             ""id"": ""a204f2dc-45c2-4121-a078-3e93b08e34e5"",
             ""actions"": [
                 {
@@ -23,14 +23,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""869e6c8e-f0b5-4aff-8468-64156206be27"",
                     ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Look"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""85d03e5f-f026-45a6-9e4d-2a9d557b7105"",
-                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -145,27 +137,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""717b4339-e716-43f4-ad9e-27621a00bc0e"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Default
-        m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
-        m_Default_Move = m_Default.FindAction("Move", throwIfNotFound: true);
-        m_Default_Look = m_Default.FindAction("Look", throwIfNotFound: true);
+        // Movement
+        m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
+        m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -212,49 +192,40 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // Default
-    private readonly InputActionMap m_Default;
-    private IDefaultActions m_DefaultActionsCallbackInterface;
-    private readonly InputAction m_Default_Move;
-    private readonly InputAction m_Default_Look;
-    public struct DefaultActions
+    // Movement
+    private readonly InputActionMap m_Movement;
+    private IMovementActions m_MovementActionsCallbackInterface;
+    private readonly InputAction m_Movement_Move;
+    public struct MovementActions
     {
         private @PlayerControls m_Wrapper;
-        public DefaultActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Default_Move;
-        public InputAction @Look => m_Wrapper.m_Default_Look;
-        public InputActionMap Get() { return m_Wrapper.m_Default; }
+        public MovementActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Movement_Move;
+        public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(DefaultActions set) { return set.Get(); }
-        public void SetCallbacks(IDefaultActions instance)
+        public static implicit operator InputActionMap(MovementActions set) { return set.Get(); }
+        public void SetCallbacks(IMovementActions instance)
         {
-            if (m_Wrapper.m_DefaultActionsCallbackInterface != null)
+            if (m_Wrapper.m_MovementActionsCallbackInterface != null)
             {
-                @Move.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMove;
-                @Move.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMove;
-                @Move.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMove;
-                @Look.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnLook;
+                @Move.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
             }
-            m_Wrapper.m_DefaultActionsCallbackInterface = instance;
+            m_Wrapper.m_MovementActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
             }
         }
     }
-    public DefaultActions @Default => new DefaultActions(this);
-    public interface IDefaultActions
+    public MovementActions @Movement => new MovementActions(this);
+    public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnLook(InputAction.CallbackContext context);
     }
 }

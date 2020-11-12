@@ -2,7 +2,7 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Default",
+            "name": "Movement",
             "id": "a204f2dc-45c2-4121-a078-3e93b08e34e5",
             "actions": [
                 {
@@ -10,14 +10,6 @@
                     "type": "Button",
                     "id": "869e6c8e-f0b5-4aff-8468-64156206be27",
                     "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Look",
-                    "type": "PassThrough",
-                    "id": "85d03e5f-f026-45a6-9e4d-2a9d557b7105",
-                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -132,17 +124,6 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "717b4339-e716-43f4-ad9e-27621a00bc0e",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }

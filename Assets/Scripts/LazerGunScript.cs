@@ -4,46 +4,85 @@ using UnityEngine;
 
 public class LazerGunScript : MonoBehaviour
 {
-    public GameObject bullet;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform bulletParent;
+    [SerializeField] private Transform shootDirection;
+    // [SerializeField] private float range = 3.0f;
+    [SerializeField] private float fireRate = 1.0f;
+    
+    private WeaponControls weaponControls;
+    private bool canShoot = true;
+    // private float nextTimeToFire = 0f; //currently not used
 
-    [SerializeField] float range = 3.0f;
-    public float fireRate = 15f; //currently not used
+    void Awake()
+    {
+        weaponControls = new WeaponControls();
+    }
 
-    private float nextTimeToFire = 0f; //currently not used
+    void OnEnable()
+    {
+        weaponControls.Enable();
+    }
+
+    void OnDisable()
+    {
+        weaponControls.Disable();
+    }
+
     // Start is called before the first frame update
     void Start()
+    {
+        weaponControls.Shooter.Shoot.performed += _ => Shoot();
+    }
+
+    void Update()
     {
 
     }
 
-    void FixedUpdate()
+    // void FixedUpdate()
+    // {
+    //     int layerMask = 1 << 8; //does not affect the player
+    //     layerMask = ~layerMask;
+
+    //     if (Input.GetButtonDown("Fire1") )//&& Time.time >= nextTimeToFire)
+    //     {
+    //         nextTimeToFire = Time.time + 1f / fireRate;
+    //         Shoot();
+    //     }
+
+    //     RaycastHit hit;
+    //     if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, range, layerMask))
+    //     {
+    //         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * hit.distance, Color.yellow);
+    //         //Debug.Log("Did Hit");
+    //     }
+    //     else
+    //     {
+    //         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 1000, Color.white);
+    //        // Debug.Log("Did not Hit");
+    //     }
+    // }
+
+    IEnumerator WaitToShoot()
     {
-        int layerMask = 1 << 8; //does not affect the player
-        layerMask = ~layerMask;
-
-
-        if (Input.GetButtonDown("Fire1") )//&& Time.time >= nextTimeToFire)
-        {
-            nextTimeToFire = Time.time + 1f / fireRate;
-            Shoot();
-        }
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, range, layerMask))
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * hit.distance, Color.yellow);
-            //Debug.Log("Did Hit");
-        }
-        else
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 1000, Color.white);
-           // Debug.Log("Did not Hit");
-        }
+        canShoot = false;
+        yield return new WaitForSeconds(fireRate);
+        canShoot = true;
     }
 
     void Shoot()
     {
         Debug.Log("shooting");
-        Instantiate(bullet, transform.position, transform.rotation);
+
+        // Check if able to shoot
+        if (!canShoot) return;
+
+        // Instantiate bullet
+        GameObject g = Instantiate(bullet, shootDirection.position, shootDirection.rotation, bulletParent);
+        g.SetActive(true);
+
+        // Prevents gun from shooting multiple shots too quickly
+        StartCoroutine(WaitToShoot());
     }
 }

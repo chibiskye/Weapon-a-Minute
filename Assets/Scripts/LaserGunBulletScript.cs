@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class LaserGunBulletScript : MonoBehaviour
 {
-    public Rigidbody rigidbody;
+    [SerializeField] private float speed = 30.0f;
 
-    public float speed = 30f;
+    private Rigidbody rigidbody;
+    private float timeToLive = 3.0f;
+
+    // Deletes self after a set amount of time
+    IEnumerator DestroySelf()
+    {
+        yield return new WaitForSeconds(timeToLive);
+        Destroy(gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody.velocity = new Vector3(0, 0, speed);
+        rigidbody = GetComponent<Rigidbody>();
+        rigidbody.velocity = new Vector3(0f, 0f, speed);
+        StartCoroutine(DestroySelf());
     }
 
-    // Update is called once per frame
-    void Update()
+    // OnTriggerEnter is called whenever the game object collides with another collider
+    void OnTriggerEnter(Collider other)
     {
-        
+        Destroy(gameObject);
     }
 }
