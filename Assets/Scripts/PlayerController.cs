@@ -32,9 +32,10 @@ public class PlayerController : MonoBehaviour
         // Read movement value from input controls
         Vector2 moveInput = inputManager.GetPlayerMovement();
         bool jumpInput = inputManager.GetPlayerJumped();
-        if (jumpInput) {
-            Debug.Log("jumped");
-        }
+        if (jumpInput) Debug.Log("jumped");
+
+        // Make the player jump
+        
 
         // Move the player
         Vector3 moveVector = transform.right * moveInput.x + transform.forward * moveInput.y;
