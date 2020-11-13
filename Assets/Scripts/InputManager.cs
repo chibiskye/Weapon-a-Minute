@@ -69,4 +69,16 @@ public class InputManager : MonoBehaviour
     {
         return weaponControls.Shooter.Shoot.triggered;
     }
+
+    // Below are methods used to trigger debug commands
+
+    public bool GetHealthDecrease()
+    {
+        return playerControls.Debug.HealthDecrease.triggered;
+    }
+
+    public bool GetHealthIncrease()
+    {
+        return playerControls.Debug.HealthIncrease.triggered;
+    }
 }

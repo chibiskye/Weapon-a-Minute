@@ -177,6 +177,52 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""6af00990-2913-45a0-b714-ce90481d5218"",
+            ""actions"": [
+                {
+                    ""name"": ""HealthDecrease"",
+                    ""type"": ""Button"",
+                    ""id"": ""3f885115-8b92-44e6-924e-ad9bb1ea9382"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""HealthIncrease"",
+                    ""type"": ""Button"",
+                    ""id"": ""cb1d150e-2b1a-4390-832c-c6fb71f7cee4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""11552ab6-58fc-4698-aa97-d5f3899d4278"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HealthDecrease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9295f21-72cf-425f-a754-82a49d0271fe"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HealthIncrease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -186,6 +232,10 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
         m_Movement_Look = m_Movement.FindAction("Look", throwIfNotFound: true);
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
+        // Debug
+        m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_HealthDecrease = m_Debug.FindAction("HealthDecrease", throwIfNotFound: true);
+        m_Debug_HealthIncrease = m_Debug.FindAction("HealthIncrease", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -280,10 +330,56 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public MovementActions @Movement => new MovementActions(this);
+
+    // Debug
+    private readonly InputActionMap m_Debug;
+    private IDebugActions m_DebugActionsCallbackInterface;
+    private readonly InputAction m_Debug_HealthDecrease;
+    private readonly InputAction m_Debug_HealthIncrease;
+    public struct DebugActions
+    {
+        private @PlayerControls m_Wrapper;
+        public DebugActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @HealthDecrease => m_Wrapper.m_Debug_HealthDecrease;
+        public InputAction @HealthIncrease => m_Wrapper.m_Debug_HealthIncrease;
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        public void SetCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+            {
+                @HealthDecrease.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthDecrease;
+                @HealthDecrease.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthDecrease;
+                @HealthDecrease.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthDecrease;
+                @HealthIncrease.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
+                @HealthIncrease.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
+                @HealthIncrease.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
+            }
+            m_Wrapper.m_DebugActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @HealthDecrease.started += instance.OnHealthDecrease;
+                @HealthDecrease.performed += instance.OnHealthDecrease;
+                @HealthDecrease.canceled += instance.OnHealthDecrease;
+                @HealthIncrease.started += instance.OnHealthIncrease;
+                @HealthIncrease.performed += instance.OnHealthIncrease;
+                @HealthIncrease.canceled += instance.OnHealthIncrease;
+            }
+        }
+    }
+    public DebugActions @Debug => new DebugActions(this);
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+    }
+    public interface IDebugActions
+    {
+        void OnHealthDecrease(InputAction.CallbackContext context);
+        void OnHealthIncrease(InputAction.CallbackContext context);
     }
 }

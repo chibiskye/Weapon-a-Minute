@@ -164,6 +164,52 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Debug",
+            "id": "6af00990-2913-45a0-b714-ce90481d5218",
+            "actions": [
+                {
+                    "name": "HealthDecrease",
+                    "type": "Button",
+                    "id": "3f885115-8b92-44e6-924e-ad9bb1ea9382",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "HealthIncrease",
+                    "type": "Button",
+                    "id": "cb1d150e-2b1a-4390-832c-c6fb71f7cee4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "11552ab6-58fc-4698-aa97-d5f3899d4278",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HealthDecrease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9295f21-72cf-425f-a754-82a49d0271fe",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HealthIncrease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
