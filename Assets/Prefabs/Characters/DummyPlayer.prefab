@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5415339028034783495}
   - component: {fileID: 5415339028034783492}
   - component: {fileID: 5415339028034783493}
-  - component: {fileID: 5415339028034783494}
   m_Layer: 8
   m_Name: LHand
   m_TagString: Untagged
@@ -80,19 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &5415339028034783494
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5415339028034783488}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5415339028431190428
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +272,6 @@ GameObject:
   - component: {fileID: 5415339028797359079}
   - component: {fileID: 5415339028797359076}
   - component: {fileID: 5415339028797359077}
-  - component: {fileID: 5415339028797359078}
   m_Layer: 8
   m_Name: Hands
   m_TagString: Untagged
@@ -357,19 +342,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &5415339028797359078
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5415339028797359072}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5415339029344161925
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,7 +507,6 @@ GameObject:
   - component: {fileID: 5415339029620642099}
   - component: {fileID: 5415339029620642096}
   - component: {fileID: 5415339029620642097}
-  - component: {fileID: 5415339029620642098}
   m_Layer: 8
   m_Name: RHand
   m_TagString: Untagged
@@ -604,19 +575,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &5415339029620642098
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5415339029620642108}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5415339029750001546
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,7 +617,7 @@ GameObject:
   - component: {fileID: 5415339029919799333}
   - component: {fileID: 5415339029919799334}
   m_Layer: 8
-  m_Name: Player
+  m_Name: DummyPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -715,7 +673,7 @@ MonoBehaviour:
   detectMasks:
     serializedVersion: 2
     m_Bits: 3639
-  healthBar: {fileID: 861764661454603888}
+  healthBar: {fileID: 0}
   maxHealth: 100
   groundTransform: {fileID: 5415339029750001545}
   groundDistance: 0.4
@@ -849,18 +807,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc00efa08e3daba48989ea519e64a92d, type: 3}
---- !u!114 &861764661454603888 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2010844919992617848, guid: dc00efa08e3daba48989ea519e64a92d,
-    type: 3}
-  m_PrefabInstance: {fileID: 1158109729796623624}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d5c0ac2f08669b4bb213bca19e0da51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &5415339029233111224 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6572239006087257520, guid: dc00efa08e3daba48989ea519e64a92d,

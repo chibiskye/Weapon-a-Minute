@@ -184,6 +184,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SummonGun",
+                    "type": "Button",
+                    "id": "1a4a5dc2-d872-4ac6-9ba6-01abaa31b3d5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -206,6 +214,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "HealthIncrease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2640bfb2-4915-45e3-a5e5-6ad988e694c9",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SummonGun",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

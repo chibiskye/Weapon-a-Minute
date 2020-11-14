@@ -197,6 +197,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SummonGun"",
+                    ""type"": ""Button"",
+                    ""id"": ""1a4a5dc2-d872-4ac6-9ba6-01abaa31b3d5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -221,6 +229,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""HealthIncrease"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2640bfb2-4915-45e3-a5e5-6ad988e694c9"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SummonGun"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -236,6 +255,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_HealthDecrease = m_Debug.FindAction("HealthDecrease", throwIfNotFound: true);
         m_Debug_HealthIncrease = m_Debug.FindAction("HealthIncrease", throwIfNotFound: true);
+        m_Debug_SummonGun = m_Debug.FindAction("SummonGun", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -336,12 +356,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private IDebugActions m_DebugActionsCallbackInterface;
     private readonly InputAction m_Debug_HealthDecrease;
     private readonly InputAction m_Debug_HealthIncrease;
+    private readonly InputAction m_Debug_SummonGun;
     public struct DebugActions
     {
         private @PlayerControls m_Wrapper;
         public DebugActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @HealthDecrease => m_Wrapper.m_Debug_HealthDecrease;
         public InputAction @HealthIncrease => m_Wrapper.m_Debug_HealthIncrease;
+        public InputAction @SummonGun => m_Wrapper.m_Debug_SummonGun;
         public InputActionMap Get() { return m_Wrapper.m_Debug; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -357,6 +379,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @HealthIncrease.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
                 @HealthIncrease.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
                 @HealthIncrease.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
+                @SummonGun.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonGun;
+                @SummonGun.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonGun;
+                @SummonGun.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonGun;
             }
             m_Wrapper.m_DebugActionsCallbackInterface = instance;
             if (instance != null)
@@ -367,6 +392,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @HealthIncrease.started += instance.OnHealthIncrease;
                 @HealthIncrease.performed += instance.OnHealthIncrease;
                 @HealthIncrease.canceled += instance.OnHealthIncrease;
+                @SummonGun.started += instance.OnSummonGun;
+                @SummonGun.performed += instance.OnSummonGun;
+                @SummonGun.canceled += instance.OnSummonGun;
             }
         }
     }
@@ -381,5 +409,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     {
         void OnHealthDecrease(InputAction.CallbackContext context);
         void OnHealthIncrease(InputAction.CallbackContext context);
+        void OnSummonGun(InputAction.CallbackContext context);
     }
 }

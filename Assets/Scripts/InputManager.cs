@@ -72,13 +72,18 @@ public class InputManager : MonoBehaviour
 
     // Below are methods used to trigger debug commands
 
-    public bool GetHealthDecrease()
+    public bool GetDebugHealthDecrease()
     {
         return playerControls.Debug.HealthDecrease.triggered;
     }
 
-    public bool GetHealthIncrease()
+    public bool GetDebugHealthIncrease()
     {
         return playerControls.Debug.HealthIncrease.triggered;
+    }
+
+    public bool GetDebugSummonGun()
+    {
+        return playerControls.Debug.SummonGun.triggered;
     }
 }
