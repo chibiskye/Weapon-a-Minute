@@ -7,12 +7,15 @@ public class PlayerController : MonoBehaviour
 {
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private LayerMask detectMasks;
+    [SerializeField] private HealthBar healthBar = null;
+    [SerializeField] private int maxHealth = 100;
     [SerializeField] private Transform groundTransform = null;
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private float moveSpeed = 10f;
 
     private CharacterController characterController = null;
     private InputManager inputManager = null;
+    private int currentHealth = 100;
     private bool isGrounded = true;
 
     // Start is called before the first frame update
@@ -20,6 +23,9 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         inputManager = InputManager.Instance;
+
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // FixedUpdate is called once per physics frame
@@ -28,6 +34,12 @@ public class PlayerController : MonoBehaviour
         // Prevent additional player movement when player is in mid-air
         isGrounded = Physics.CheckSphere(groundTransform.position, groundDistance, detectMasks);
         if (!isGrounded) return;
+
+        // Read values from debug input controls
+        bool debugInput = inputManager.GetHealthDecrease();
+        if (debugInput) TakeDamage(10);
+        debugInput = inputManager.GetHealthIncrease();
+        if (debugInput) AddHealth(10);
 
         // Read movement value from input controls
         Vector2 moveInput = inputManager.GetPlayerMovement();
@@ -40,5 +52,19 @@ public class PlayerController : MonoBehaviour
         // Move the player
         Vector3 moveVector = transform.right * moveInput.x + transform.forward * moveInput.y;
         characterController.Move(moveVector.normalized * moveSpeed * Time.deltaTime);
+    }
+
+    // Below are methods used for debugging
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
+    }
+
+    void AddHealth(int health)
+    {
+        currentHealth += health;
+        healthBar.SetHealth(currentHealth);
     }
 }
