@@ -59,12 +59,18 @@ public class PlayerController : MonoBehaviour
     void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        if (currentHealth < 0) {
+            currentHealth = 0;
+        }
         healthBar.SetHealth(currentHealth);
     }
 
     void AddHealth(int health)
     {
         currentHealth += health;
+        if (currentHealth > maxHealth) {
+            currentHealth = maxHealth;
+        }
         healthBar.SetHealth(currentHealth);
     }
 }
