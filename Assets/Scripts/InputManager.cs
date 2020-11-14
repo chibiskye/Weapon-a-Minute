@@ -57,7 +57,7 @@ public class InputManager : MonoBehaviour
 
     public Vector2 GetMousePosition()
     {
-        return weaponControls.Shooter.Aim.ReadValue<Vector2>();
+        return weaponControls.AttackActions.Aim.ReadValue<Vector2>();
     }
 
     public bool GetPlayerJumped()
@@ -67,7 +67,7 @@ public class InputManager : MonoBehaviour
 
     public bool GetPlayerAttacked()
     {
-        return weaponControls.Shooter.Shoot.triggered;
+        return weaponControls.AttackActions.Attack.triggered;
     }
 
     // Below are methods used to trigger debug commands

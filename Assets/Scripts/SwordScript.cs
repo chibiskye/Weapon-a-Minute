@@ -5,9 +5,10 @@ using UnityEngine;
 public class SwordScript : MonoBehaviour
 {
     [SerializeField] private float range = 3.0f;
-    int layerMask = ~(1 << 8); //attacking doesn't affect the player
 
     private InputManager inputManager = null;
+    private int layerMask = ~(1 << 8); //attacking doesn't affect the player
+
     // Start is called before the first frame update
     void Start()
     {

@@ -15,7 +15,7 @@ public class @WeaponControls : IInputActionCollection, IDisposable
     ""name"": ""WeaponControls"",
     ""maps"": [
         {
-            ""name"": ""Shooter"",
+            ""name"": ""AttackActions"",
             ""id"": ""2e0690cd-c97d-4b62-9845-4fadeea1a2b7"",
             ""actions"": [
                 {
@@ -27,7 +27,7 @@ public class @WeaponControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Shoot"",
+                    ""name"": ""Attack"",
                     ""type"": ""PassThrough"",
                     ""id"": ""a770111c-6133-41d6-adde-ea0a3935e89e"",
                     ""expectedControlType"": ""Button"",
@@ -54,7 +54,7 @@ public class @WeaponControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shoot"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -63,10 +63,10 @@ public class @WeaponControls : IInputActionCollection, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Shooter
-        m_Shooter = asset.FindActionMap("Shooter", throwIfNotFound: true);
-        m_Shooter_Aim = m_Shooter.FindAction("Aim", throwIfNotFound: true);
-        m_Shooter_Shoot = m_Shooter.FindAction("Shoot", throwIfNotFound: true);
+        // AttackActions
+        m_AttackActions = asset.FindActionMap("AttackActions", throwIfNotFound: true);
+        m_AttackActions_Aim = m_AttackActions.FindAction("Aim", throwIfNotFound: true);
+        m_AttackActions_Attack = m_AttackActions.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -113,49 +113,49 @@ public class @WeaponControls : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // Shooter
-    private readonly InputActionMap m_Shooter;
-    private IShooterActions m_ShooterActionsCallbackInterface;
-    private readonly InputAction m_Shooter_Aim;
-    private readonly InputAction m_Shooter_Shoot;
-    public struct ShooterActions
+    // AttackActions
+    private readonly InputActionMap m_AttackActions;
+    private IAttackActionsActions m_AttackActionsActionsCallbackInterface;
+    private readonly InputAction m_AttackActions_Aim;
+    private readonly InputAction m_AttackActions_Attack;
+    public struct AttackActionsActions
     {
         private @WeaponControls m_Wrapper;
-        public ShooterActions(@WeaponControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Aim => m_Wrapper.m_Shooter_Aim;
-        public InputAction @Shoot => m_Wrapper.m_Shooter_Shoot;
-        public InputActionMap Get() { return m_Wrapper.m_Shooter; }
+        public AttackActionsActions(@WeaponControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Aim => m_Wrapper.m_AttackActions_Aim;
+        public InputAction @Attack => m_Wrapper.m_AttackActions_Attack;
+        public InputActionMap Get() { return m_Wrapper.m_AttackActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ShooterActions set) { return set.Get(); }
-        public void SetCallbacks(IShooterActions instance)
+        public static implicit operator InputActionMap(AttackActionsActions set) { return set.Get(); }
+        public void SetCallbacks(IAttackActionsActions instance)
         {
-            if (m_Wrapper.m_ShooterActionsCallbackInterface != null)
+            if (m_Wrapper.m_AttackActionsActionsCallbackInterface != null)
             {
-                @Aim.started -= m_Wrapper.m_ShooterActionsCallbackInterface.OnAim;
-                @Aim.performed -= m_Wrapper.m_ShooterActionsCallbackInterface.OnAim;
-                @Aim.canceled -= m_Wrapper.m_ShooterActionsCallbackInterface.OnAim;
-                @Shoot.started -= m_Wrapper.m_ShooterActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_ShooterActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_ShooterActionsCallbackInterface.OnShoot;
+                @Aim.started -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnAim;
+                @Attack.started -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnAttack;
             }
-            m_Wrapper.m_ShooterActionsCallbackInterface = instance;
+            m_Wrapper.m_AttackActionsActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
-                @Shoot.started += instance.OnShoot;
-                @Shoot.performed += instance.OnShoot;
-                @Shoot.canceled += instance.OnShoot;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
             }
         }
     }
-    public ShooterActions @Shooter => new ShooterActions(this);
-    public interface IShooterActions
+    public AttackActionsActions @AttackActions => new AttackActionsActions(this);
+    public interface IAttackActionsActions
     {
         void OnAim(InputAction.CallbackContext context);
-        void OnShoot(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
 }
