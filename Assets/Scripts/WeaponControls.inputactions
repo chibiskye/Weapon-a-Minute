@@ -2,7 +2,7 @@
     "name": "WeaponControls",
     "maps": [
         {
-            "name": "Shooter",
+            "name": "AttackActions",
             "id": "2e0690cd-c97d-4b62-9845-4fadeea1a2b7",
             "actions": [
                 {
@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Shoot",
+                    "name": "Attack",
                     "type": "PassThrough",
                     "id": "a770111c-6133-41d6-adde-ea0a3935e89e",
                     "expectedControlType": "Button",
@@ -41,7 +41,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
