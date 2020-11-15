@@ -33,6 +33,14 @@ public class @WeaponControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SecondAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""dc88ff8a-b902-4401-8fb5-4068f0ae8fef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -57,6 +65,17 @@ public class @WeaponControls : IInputActionCollection, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""75c2d5ec-f6bc-4b44-8ec4-f1f5985da136"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -67,6 +86,7 @@ public class @WeaponControls : IInputActionCollection, IDisposable
         m_AttackActions = asset.FindActionMap("AttackActions", throwIfNotFound: true);
         m_AttackActions_Aim = m_AttackActions.FindAction("Aim", throwIfNotFound: true);
         m_AttackActions_Attack = m_AttackActions.FindAction("Attack", throwIfNotFound: true);
+        m_AttackActions_SecondAction = m_AttackActions.FindAction("SecondAction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +138,14 @@ public class @WeaponControls : IInputActionCollection, IDisposable
     private IAttackActionsActions m_AttackActionsActionsCallbackInterface;
     private readonly InputAction m_AttackActions_Aim;
     private readonly InputAction m_AttackActions_Attack;
+    private readonly InputAction m_AttackActions_SecondAction;
     public struct AttackActionsActions
     {
         private @WeaponControls m_Wrapper;
         public AttackActionsActions(@WeaponControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Aim => m_Wrapper.m_AttackActions_Aim;
         public InputAction @Attack => m_Wrapper.m_AttackActions_Attack;
+        public InputAction @SecondAction => m_Wrapper.m_AttackActions_SecondAction;
         public InputActionMap Get() { return m_Wrapper.m_AttackActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -139,6 +161,9 @@ public class @WeaponControls : IInputActionCollection, IDisposable
                 @Attack.started -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnAttack;
+                @SecondAction.started -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnSecondAction;
+                @SecondAction.performed -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnSecondAction;
+                @SecondAction.canceled -= m_Wrapper.m_AttackActionsActionsCallbackInterface.OnSecondAction;
             }
             m_Wrapper.m_AttackActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -149,6 +174,9 @@ public class @WeaponControls : IInputActionCollection, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @SecondAction.started += instance.OnSecondAction;
+                @SecondAction.performed += instance.OnSecondAction;
+                @SecondAction.canceled += instance.OnSecondAction;
             }
         }
     }
@@ -157,5 +185,6 @@ public class @WeaponControls : IInputActionCollection, IDisposable
     {
         void OnAim(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnSecondAction(InputAction.CallbackContext context);
     }
 }
