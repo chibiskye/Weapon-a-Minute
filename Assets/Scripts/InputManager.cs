@@ -70,6 +70,16 @@ public class InputManager : MonoBehaviour
         return weaponControls.AttackActions.Attack.triggered;
     }
 
+    public bool GetPlayerIsDefending()
+    {
+        return weaponControls.DefendActions.BlockStart.triggered;
+    }
+
+    public bool GetPlayerNotDefending()
+    {
+        return weaponControls.DefendActions.BlockEnd.triggered;
+    }
+
     // Below are methods used to trigger debug commands
 
     public bool GetDebugHealthDecrease()
@@ -82,8 +92,23 @@ public class InputManager : MonoBehaviour
         return playerControls.Debug.HealthIncrease.triggered;
     }
 
-    public bool GetDebugSummonGun()
+    public bool GetDebugSummonHandGun()
     {
-        return playerControls.Debug.SummonGun.triggered;
+        return playerControls.Debug.SummonHandGun.triggered;
+    }
+
+    public bool GetDebugSummonLaserGun()
+    {
+        return playerControls.Debug.SummonLaserGun.triggered;
+    }
+
+    public bool GetDebugSummonSword()
+    {
+        return playerControls.Debug.SummonSword.triggered;
+    }
+
+    public bool GetDebugSummonShield()
+    {
+        return playerControls.Debug.SummonShield.triggered;
     }
 }

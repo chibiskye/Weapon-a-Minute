@@ -239,5 +239,5 @@ MonoBehaviour:
   camera: {fileID: 0}
   laserSpawnPoint: {fileID: 7612899959024916125}
   range: 30
-  fireRate: 1
+  fireRate: 0.5
   shootDuration: 0.01

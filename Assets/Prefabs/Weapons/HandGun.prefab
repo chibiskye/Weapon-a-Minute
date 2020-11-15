@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 322672221080543220}
   - component: {fileID: 5978442053772900141}
   m_Layer: 9
-  m_Name: LazerGun
+  m_Name: HandGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 238105279803398058, guid: f9ae9607c5825485583759234278da17, type: 3}
   bulletSpawnPoint: {fileID: 8227475250209375090}
-  range: 3
+  range: 30
   fireRate: 0.5
 --- !u!1 &8227475250209375091
 GameObject:

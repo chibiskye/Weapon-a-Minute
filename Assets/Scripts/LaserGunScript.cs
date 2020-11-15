@@ -8,7 +8,7 @@ public class LaserGunScript : MonoBehaviour
     [SerializeField] private Transform laserSpawnPoint = null;
     [SerializeField] private float range = 30.0f;
     [SerializeField] private float fireRate = 1.0f;
-    [SerializeField] private float shootDuration = 0.01f;
+    [SerializeField] private float shootDuration = 1.0f;
     // [SerializeField] private int hitDamage = 10; // not used yet
 
     private InputManager inputManager = null;
@@ -31,26 +31,38 @@ public class LaserGunScript : MonoBehaviour
     }
 
     // Renders laser line for as long as specified shoot duration
-    IEnumerator HoldLaserLine()
+    IEnumerator DrawLaserLine()
     {
         laserLine.enabled = true;
         yield return new WaitForSeconds(shootDuration);
         laserLine.enabled = false;
     }
 
-    void Update()
+    void DebugRaycast()
     {
-        // Check if player is able to shoot
-        if (!canShoot) return;
+        Vector3 rayOrigin = camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
 
-        // Get input from input manager
-        bool playerShoot = inputManager.GetPlayerAttacked();
-        if (playerShoot) Shoot();
+        if (Physics.Raycast(rayOrigin, camera.transform.forward, out hit, range, layerMask))
+        {
+            Debug.DrawRay(rayOrigin, camera.transform.forward * hit.distance, Color.yellow);
+        }
+        else
+        {
+            Debug.DrawRay(rayOrigin, camera.transform.forward * 1000, Color.white);
+        }
     }
 
     void FixedUpdate()
     {
         DebugRaycast();
+
+        // Check if player is able to shoot
+        if (!canShoot) return;
+
+        // Check if player clicked button for attack
+        bool playerShoot = inputManager.GetPlayerAttacked();
+        if (playerShoot) Shoot();
     }
 
     void Shoot()
@@ -65,28 +77,16 @@ public class LaserGunScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, camera.transform.forward, out hit, range, layerMask))
         {
-            laserLine.SetPosition(1, hit.point);
-            StartCoroutine(HoldLaserLine());
-        }
-        else
-        {
-            laserLine.SetPosition(1, rayOrigin + (camera.transform.forward * range));
-        }
-    }
-
-    void DebugRaycast()
-    {
-        Vector3 rayOrigin = camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
-
-        if (Physics.Raycast(rayOrigin, camera.transform.forward, out hit, range, layerMask))
-        {
             Debug.Log(hit.transform.name);
-            Debug.DrawRay(rayOrigin, camera.transform.forward * hit.distance, Color.yellow);
+
+            laserLine.SetPosition(1, hit.point);
+            StartCoroutine(DrawLaserLine());
+            StartCoroutine(WaitToShoot());
         }
         else
         {
-            Debug.DrawRay(rayOrigin, camera.transform.forward * 1000, Color.white);
+            Debug.Log("missed");
+            laserLine.SetPosition(1, rayOrigin + (camera.transform.forward * range));
         }
     }
 }
