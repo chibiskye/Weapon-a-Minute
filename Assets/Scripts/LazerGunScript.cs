@@ -5,7 +5,6 @@ using UnityEngine;
 public class LazerGunScript : MonoBehaviour
 {
     [SerializeField] private GameObject bullet = null;
-    [SerializeField] private Transform bulletParent = null;
     [SerializeField] private Transform shootDirection = null;
     [SerializeField] private float range = 3.0f;
     [SerializeField] private float fireRate = 1.0f;
@@ -69,7 +68,8 @@ public class LazerGunScript : MonoBehaviour
         }
 
         // Instantiate bullet
-        GameObject g = Instantiate(bullet, shootDirection.position, shootDirection.rotation, bulletParent);
+        GameObject g = Instantiate(bullet, shootDirection.position, shootDirection.rotation, shootDirection);
+        g.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
         g.SetActive(true);
 
         // Prevents gun from shooting multiple shots too quickly

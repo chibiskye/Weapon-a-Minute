@@ -45,8 +45,8 @@ public class PlayerController : MonoBehaviour
         if (debugInput) DebugTakeDamage(10);
         debugInput = inputManager.GetDebugHealthIncrease();
         if (debugInput) DebugAddHealth(10);
-        debugInput = inputManager.GetDebugSummonGun();
-        if (debugInput) DebugSummonGun();
+        // debugInput = inputManager.GetDebugSummonGun();
+        // if (debugInput) DebugSummonGun();
 
         // Read movement value from input controls
         Vector2 moveInput = inputManager.GetPlayerMovement();
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         if (jumpInput) Debug.Log("jumped");
 
         // Make the player jump
-        
+
 
         // Move the player
         Vector3 moveVector = transform.right * moveInput.x + transform.forward * moveInput.y;
@@ -88,17 +88,15 @@ public class PlayerController : MonoBehaviour
 
         // Instantiate weapon on player's right hand
         GameObject gun = usableWeapons[0];
-        Vector3 gunPosition = gun.transform.position;
-        Quaternion gunRotation = gun.transform.rotation;
 
-        float positionY = r_HandWeaponHold.position.y + gunPosition.y;
-        float rotationX = r_HandWeaponHold.rotation.x + gunRotation.x;
+        // Add slight offset in y-direction above player hand
+        Vector3 gunPosition = new Vector3(r_HandWeaponHold.transform.position.x, r_HandWeaponHold.transform.position.y + 0.2f, r_HandWeaponHold.transform.position.z);
+        
+        // Rotate gun to make it horizontal
+        Quaternion gunRotation = Quaternion.Euler(90f, 0f, 0f);
 
-        // TODO: instantiates with wrong rotation
-        Vector3 instantiatePosition = new Vector3(r_HandWeaponHold.position.x, positionY, r_HandWeaponHold.position.z);
-        Quaternion instantiateRotation = Quaternion.Euler(rotationX, r_HandWeaponHold.rotation.y, r_HandWeaponHold.rotation.z);
-
-        r_HandWeapon = Instantiate(gun, instantiatePosition, instantiateRotation, r_HandWeaponHold);
+        r_HandWeapon = Instantiate(gun, gunPosition, gunRotation, r_HandWeaponHold);
+        r_HandWeapon.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         r_HandWeapon.SetActive(true);
     }
 }
