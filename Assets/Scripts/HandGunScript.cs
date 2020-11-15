@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LazerGunScript : MonoBehaviour
+public class HandGunScript : MonoBehaviour
 {
     [SerializeField] private GameObject bullet = null;
-    [SerializeField] private Transform shootDirection = null;
+    [SerializeField] private Transform bulletSpawnPoint = null;
     [SerializeField] private float range = 3.0f;
-    [SerializeField] private float fireRate = 1.0f;
+    [SerializeField] private float fireRate = 0.5f;
     
     private InputManager inputManager = null;
     private bool canShoot = true;
@@ -18,7 +18,6 @@ public class LazerGunScript : MonoBehaviour
     void Start()
     {
         inputManager = InputManager.Instance;
-        // weaponControls.Shooter.Shoot.performed += _ => Shoot();
     }
 
     void FixedUpdate()
@@ -52,10 +51,9 @@ public class LazerGunScript : MonoBehaviour
 
     void Shoot()
     {
-        Debug.Log("shooting");
-
         // Check if able to shoot
         if (!canShoot) return;
+        Debug.Log("shooting");
 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, range, layerMask))
@@ -68,7 +66,7 @@ public class LazerGunScript : MonoBehaviour
         }
 
         // Instantiate bullet
-        GameObject g = Instantiate(bullet, shootDirection.position, shootDirection.rotation, shootDirection);
+        GameObject g = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint);
         g.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
         g.SetActive(true);
 
