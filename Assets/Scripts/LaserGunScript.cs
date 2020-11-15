@@ -55,18 +55,18 @@ public class LaserGunScript : MonoBehaviour
 
     void Shoot()
     {
-        // Set laser line starting point and render the line
+        // Set starting point for laser line
         laserLine.SetPosition(0, laserSpawnPoint.position);
-        StartCoroutine(HoldLaserLine());
 
         // Gets center of camera viewport
         Vector3 rayOrigin = camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
 
-        // Set laser line end point and draw raycast
+        // Set end point for laser line and draw raycast
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, camera.transform.forward, out hit, range, layerMask))
         {
             laserLine.SetPosition(1, hit.point);
+            StartCoroutine(HoldLaserLine());
         }
         else
         {
