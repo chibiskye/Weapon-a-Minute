@@ -45,40 +45,70 @@ public class InputManager : MonoBehaviour
         weaponControls.Disable();
     }
 
-    public Vector2 GetPlayerMovement()
-    {
-        return playerControls.Movement.Move.ReadValue<Vector2>();
-    }
+    // public Vector2 GetPlayerMovement()
+    // {
+    //     return playerControls.Movement.Move.ReadValue<Vector2>();
+    // }
 
-    public Vector2 GetMouseDelta()
-    {
-        return playerControls.Movement.Look.ReadValue<Vector2>();
-    }
+    // public Vector2 GetMouseDelta()
+    // {
+    //     return playerControls.Movement.Look.ReadValue<Vector2>();
+    // }
 
-    public Vector2 GetMousePosition()
-    {
-        return weaponControls.AttackActions.Aim.ReadValue<Vector2>();
-    }
+    // public Vector2 GetMousePosition()
+    // {
+    //     return weaponControls.AttackActions.Aim.ReadValue<Vector2>();
+    // }
 
-    public bool GetPlayerJumped()
-    {
-        return playerControls.Movement.Jump.triggered;
-    }
+    // public bool GetPlayerJumped()
+    // {
+    //     return playerControls.Movement.Jump.triggered;
+    // }
 
-    public bool GetPlayerAttacked()
-    {
-        return weaponControls.AttackActions.Attack.triggered;
-    }
+    // public bool GetPlayerAttacked()
+    // {
+    //     return weaponControls.AttackActions.Attack.triggered;
+    // }
 
-    // Below are methods used to trigger debug commands
+    // public bool GetPlayerIsDefending()
+    // {
+    //     return weaponControls.DefendActions.BlockStart.triggered;
+    // }
 
-    public bool GetHealthDecrease()
-    {
-        return playerControls.Debug.HealthDecrease.triggered;
-    }
+    // public bool GetPlayerNotDefending()
+    // {
+    //     return weaponControls.DefendActions.BlockEnd.triggered;
+    // }
 
-    public bool GetHealthIncrease()
-    {
-        return playerControls.Debug.HealthIncrease.triggered;
-    }
+    // // Below are methods used to trigger debug commands
+
+    // public bool GetDebugHealthDecrease()
+    // {
+    //     return playerControls.Debug.HealthDecrease.triggered;
+    // }
+
+    // public bool GetDebugHealthIncrease()
+    // {
+    //     return playerControls.Debug.HealthIncrease.triggered;
+    // }
+
+    // public bool GetDebugSummonHandGun()
+    // {
+    //     return playerControls.Debug.SummonHandGun.triggered;
+    // }
+
+    // public bool GetDebugSummonLaserGun()
+    // {
+    //     return playerControls.Debug.SummonLaserGun.triggered;
+    // }
+
+    // public bool GetDebugSummonSword()
+    // {
+    //     return playerControls.Debug.SummonSword.triggered;
+    // }
+
+    // public bool GetDebugSummonShield()
+    // {
+    //     return playerControls.Debug.SummonShield.triggered;
+    // }
 }

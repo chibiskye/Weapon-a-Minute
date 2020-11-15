@@ -14,14 +14,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Look",
-                    "type": "PassThrough",
-                    "id": "dc4dec27-c060-4e30-bc14-9a27f647ef35",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "662188a9-37bd-4369-bd03-265c5129d002",
@@ -151,17 +143,6 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3c21f2b0-059d-4d9a-a7b5-416ba027208b",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -184,13 +165,61 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SummonHandGun",
+                    "type": "Button",
+                    "id": "1a4a5dc2-d872-4ac6-9ba6-01abaa31b3d5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SummonLaserGun",
+                    "type": "Button",
+                    "id": "9db4eda4-0f01-414e-bc34-8ace7dee6ede",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SummonSword",
+                    "type": "Button",
+                    "id": "a7b77210-52a5-4df0-b9a7-31c89a0ab967",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SummonShield",
+                    "type": "Button",
+                    "id": "5c3ef148-7692-422b-ab6a-1820353c924f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SummonBanana",
+                    "type": "Button",
+                    "id": "c7ee3e60-427e-4e10-83e9-2ead7c734ef7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SummonBoomerang",
+                    "type": "Button",
+                    "id": "b105f24a-5827-44f8-9d42-2e40562edb8a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "11552ab6-58fc-4698-aa97-d5f3899d4278",
-                    "path": "<Keyboard>/1",
+                    "path": "<Keyboard>/minus",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -201,11 +230,77 @@
                 {
                     "name": "",
                     "id": "f9295f21-72cf-425f-a754-82a49d0271fe",
-                    "path": "<Keyboard>/2",
+                    "path": "<Keyboard>/equals",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "HealthIncrease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2640bfb2-4915-45e3-a5e5-6ad988e694c9",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SummonHandGun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ca8a546-bab1-489f-978a-fd8ac72077f1",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SummonLaserGun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0fbabf30-03f7-43bd-ba60-8410ef9ac043",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SummonSword",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d75600a9-4453-4ead-8614-5899ab405cc8",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SummonShield",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50f7917a-6c5e-4935-913c-d70f465022a0",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SummonBanana",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3edca27f-358f-4891-9791-05c5eb4c2dca",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SummonBoomerang",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
