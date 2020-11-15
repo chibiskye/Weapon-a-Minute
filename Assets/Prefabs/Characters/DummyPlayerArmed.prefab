@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f03568e83168004b8b617ddd32f3033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 4117179042479136218}
+  m_camera: {fileID: 4117179042479136218}
   range: 8
 --- !u!1 &4117179040552123681
 GameObject:
@@ -858,7 +858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14013291cc14f420381ff1e40fdbdf70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 4117179042479136218}
+  m_camera: {fileID: 4117179042479136218}
   bullet: {fileID: 238105279803398058, guid: f9ae9607c5825485583759234278da17, type: 3}
   bulletSpawnPoint: {fileID: 4117179041539542147}
   range: 30
@@ -1236,7 +1236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4897f7ad833549d44a9ab352c53d484f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 4117179042479136218}
+  m_camera: {fileID: 4117179042479136218}
   range: 5
 --- !u!1 &4117179041513022594
 GameObject:
@@ -1448,7 +1448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577b489b54578d146826c92e7be10724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 4117179042479136218}
+  m_camera: {fileID: 4117179042479136218}
   range: 8
 --- !u!1 &4117179041895539123
 GameObject:
@@ -1875,7 +1875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c979ba10e479c4fa23eac65a17621d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 4117179042479136218}
+  m_camera: {fileID: 4117179042479136218}
   laserSpawnPoint: {fileID: 4117179040761907127}
   range: 30
   fireRate: 0.5
