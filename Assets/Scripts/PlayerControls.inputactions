@@ -14,14 +14,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Look",
-                    "type": "PassThrough",
-                    "id": "dc4dec27-c060-4e30-bc14-9a27f647ef35",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "662188a9-37bd-4369-bd03-265c5129d002",
@@ -151,17 +143,6 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3c21f2b0-059d-4d9a-a7b5-416ba027208b",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -213,6 +194,22 @@
                     "name": "SummonShield",
                     "type": "Button",
                     "id": "5c3ef148-7692-422b-ab6a-1820353c924f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SummonBanana",
+                    "type": "Button",
+                    "id": "c7ee3e60-427e-4e10-83e9-2ead7c734ef7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SummonBoomerang",
+                    "type": "Button",
+                    "id": "b105f24a-5827-44f8-9d42-2e40562edb8a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -282,6 +279,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "SummonShield",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50f7917a-6c5e-4935-913c-d70f465022a0",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SummonBanana",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3edca27f-358f-4891-9791-05c5eb4c2dca",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SummonBoomerang",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

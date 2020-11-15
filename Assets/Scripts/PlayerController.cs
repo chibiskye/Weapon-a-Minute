@@ -17,18 +17,48 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject[] weaponsList = null;
 
     private CharacterController characterController = null;
-    private InputManager inputManager = null;
+    private PlayerControls playerControls = null;
     // private GameObject l_handWeapon = null;
     // private GameObject r_HandWeapon = null;
     private int currentHealth = 100;
     private bool isGrounded = true;
 
+    // Awake is called once before the Start method
+    void Awake()
+    {
+        playerControls = new PlayerControls();
+
+        // Detect user input
+        playerControls.Movement.Jump.performed += _ => Jump();
+
+        // Debug commands
+        playerControls.Debug.HealthDecrease.performed += _ => DebugTakeDamage(10);
+        playerControls.Debug.HealthIncrease.performed += _ => DebugAddHealth(10);
+        playerControls.Debug.SummonHandGun.performed += _ => DebugSummon(0);
+        playerControls.Debug.SummonLaserGun.performed += _ => DebugSummon(1);
+        playerControls.Debug.SummonSword.performed += _ => DebugSummon(2);
+        playerControls.Debug.SummonShield.performed += _ => DebugSummon(3);
+        playerControls.Debug.SummonBanana.performed += _ => DebugSummon(4);
+    }
+
+    // OnEnable is called when script is first enabled
+    void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    // OnDisable is called when script is disabled
+    void OnDisable()
+    {
+        playerControls.Disable();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        inputManager = InputManager.Instance;
 
+        // Set values for health bar
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
@@ -40,34 +70,23 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundTransform.position, groundDistance, detectMasks);
         if (!isGrounded) return;
 
-        // Read values from debug input controls
-        bool debugInput = inputManager.GetDebugHealthDecrease();
-        if (debugInput) DebugTakeDamage(10);
-        debugInput = inputManager.GetDebugHealthIncrease();
-        if (debugInput) DebugAddHealth(10);
-        debugInput = inputManager.GetDebugSummonHandGun();
-        if (debugInput) DebugSummon(0);
-        debugInput = inputManager.GetDebugSummonLaserGun();
-        if (debugInput) DebugSummon(1);
-        debugInput = inputManager.GetDebugSummonSword();
-        if (debugInput) DebugSummon(2);
-        debugInput = inputManager.GetDebugSummonShield();
-        if (debugInput) DebugSummon(3);
-
         // Read movement value from input controls
-        Vector2 moveInput = inputManager.GetPlayerMovement();
-        bool jumpInput = inputManager.GetPlayerJumped();
-        if (jumpInput) Debug.Log("jumped");
-
-        // Make the player jump
-
+        Vector2 moveInput = playerControls.Movement.Move.ReadValue<Vector2>();
 
         // Move the player
         Vector3 moveVector = transform.right * moveInput.x + transform.forward * moveInput.y;
         characterController.Move(moveVector.normalized * moveSpeed * Time.deltaTime);
     }
 
+    void Jump()
+    {
+        // TODO: implement jump action
+        Debug.Log("jump");
+    }
+
+    // ---------------------------------------------------------------------------------------------
     // Below are methods used for debugging
+    // ---------------------------------------------------------------------------------------------
 
     void DebugTakeDamage(int damage)
     {

@@ -9,23 +9,36 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float upViewLimit = -90f;
     [SerializeField] private float downViewLimit = 90f;
 
-    private InputManager inputManager = null;
+    private CameraControls cameraControls = null;
     private float xRotation = 0f;
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called once before the Start method
+    void Awake()
     {
+        // Lock cursor to center of screen and make it invisible
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        inputManager = InputManager.Instance;
+        cameraControls = new CameraControls();
+    }
+
+    // OnEnable is called when script is first enabled
+    void OnEnable()
+    {
+        cameraControls.Enable();
+    }
+
+    // OnDisable is called when script is disabled
+    void OnDisable()
+    {
+        cameraControls.Disable();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Read mouse position from input controls
-        Vector2 lookInput = inputManager.GetMouseDelta();
+        Vector2 lookInput = cameraControls.Player.Look.ReadValue<Vector2>();
         float lookX = lookInput.x * mouseSensitivity * Time.deltaTime;
         float lookY = lookInput.y * mouseSensitivity * Time.deltaTime;
 

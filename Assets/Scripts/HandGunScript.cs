@@ -4,41 +4,32 @@ using UnityEngine;
 
 public class HandGunScript : MonoBehaviour
 {
+    [SerializeField] private Camera m_camera = null;
     [SerializeField] private GameObject bullet = null;
     [SerializeField] private Transform bulletSpawnPoint = null;
-    [SerializeField] private float range = 3.0f;
+    [SerializeField] private float range = 30.0f;
     [SerializeField] private float fireRate = 0.5f;
+    // [SerializeField] private int hitDamage = 10; // not used yet
     
-    private InputManager inputManager = null;
+    private WeaponControls weaponControls = null;
+    private int layerMask = ~((1 << 8) | (1 << 10)); //shooting does not affect the player or other bullets
     private bool canShoot = true;
-    int layerMask = ~((1 << 8) | (1 << 10)); //shooting does not affect the player or other bullets
     // private float nextTimeToFire = 0f; //currently not used
 
-    void Start()
+    void Awake()
     {
-        inputManager = InputManager.Instance;
+        weaponControls = new WeaponControls();
+        weaponControls.GunInputs.Shoot.performed += _ => Shoot();
     }
 
-    void FixedUpdate()
+    void OnEnable()
     {
-        DebugRaycast();
-
-        // Check if player clicked button for shoot
-        bool playerShoot = inputManager.GetPlayerAttacked();
-        if (playerShoot) Shoot();
+        weaponControls.Enable();
     }
 
-    void DebugRaycast()
+    void OnDisable()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, range, layerMask))
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * hit.distance, Color.yellow);
-        }
-        else
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 1000, Color.white);
-        }
+        weaponControls.Disable();
     }
 
     IEnumerator WaitToShoot()
@@ -48,20 +39,28 @@ public class HandGunScript : MonoBehaviour
         canShoot = true;
     }
 
+    void FixedUpdate()
+    {
+        DebugRaycast();
+    }
+
     void Shoot()
     {
         // Check if able to shoot
         if (!canShoot) return;
         Debug.Log("shooting");
 
+        // Draw raycast
+        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, range, layerMask))
+
+        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
         {
-            Debug.Log("Did Hit");
+            Debug.Log(hit.transform.name);
         }
         else
         {
-            Debug.Log("Did not Hit");
+            Debug.Log("missed");
         }
 
         // Instantiate bullet
@@ -71,5 +70,24 @@ public class HandGunScript : MonoBehaviour
 
         // Prevents gun from shooting multiple shots too quickly
         StartCoroutine(WaitToShoot());
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Below are methods used for debugging
+    // ---------------------------------------------------------------------------------------------
+
+    void DebugRaycast()
+    {
+        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
+
+        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
+        {
+            Debug.DrawRay(rayOrigin, m_camera.transform.forward * hit.distance, Color.yellow);
+        }
+        else
+        {
+            Debug.DrawRay(rayOrigin, m_camera.transform.forward * 1000, Color.white);
+        }
     }
 }
