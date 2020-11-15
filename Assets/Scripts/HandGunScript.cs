@@ -14,7 +14,6 @@ public class HandGunScript : MonoBehaviour
     int layerMask = ~((1 << 8) | (1 << 10)); //shooting does not affect the player or other bullets
     // private float nextTimeToFire = 0f; //currently not used
 
-    // Start is called before the first frame update
     void Start()
     {
         inputManager = InputManager.Instance;
