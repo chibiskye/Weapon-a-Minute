@@ -70,15 +70,45 @@ public class InputManager : MonoBehaviour
         return weaponControls.AttackActions.Attack.triggered;
     }
 
+    public bool GetPlayerIsDefending()
+    {
+        return weaponControls.DefendActions.BlockStart.triggered;
+    }
+
+    public bool GetPlayerNotDefending()
+    {
+        return weaponControls.DefendActions.BlockEnd.triggered;
+    }
+
     // Below are methods used to trigger debug commands
 
-    public bool GetHealthDecrease()
+    public bool GetDebugHealthDecrease()
     {
         return playerControls.Debug.HealthDecrease.triggered;
     }
 
-    public bool GetHealthIncrease()
+    public bool GetDebugHealthIncrease()
     {
         return playerControls.Debug.HealthIncrease.triggered;
+    }
+
+    public bool GetDebugSummonHandGun()
+    {
+        return playerControls.Debug.SummonHandGun.triggered;
+    }
+
+    public bool GetDebugSummonLaserGun()
+    {
+        return playerControls.Debug.SummonLaserGun.triggered;
+    }
+
+    public bool GetDebugSummonSword()
+    {
+        return playerControls.Debug.SummonSword.triggered;
+    }
+
+    public bool GetDebugSummonShield()
+    {
+        return playerControls.Debug.SummonShield.triggered;
     }
 }

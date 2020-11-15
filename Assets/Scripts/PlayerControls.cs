@@ -197,13 +197,45 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SummonHandGun"",
+                    ""type"": ""Button"",
+                    ""id"": ""1a4a5dc2-d872-4ac6-9ba6-01abaa31b3d5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SummonLaserGun"",
+                    ""type"": ""Button"",
+                    ""id"": ""9db4eda4-0f01-414e-bc34-8ace7dee6ede"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SummonSword"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7b77210-52a5-4df0-b9a7-31c89a0ab967"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SummonShield"",
+                    ""type"": ""Button"",
+                    ""id"": ""5c3ef148-7692-422b-ab6a-1820353c924f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""11552ab6-58fc-4698-aa97-d5f3899d4278"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Keyboard>/minus"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -214,11 +246,55 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f9295f21-72cf-425f-a754-82a49d0271fe"",
-                    ""path"": ""<Keyboard>/2"",
+                    ""path"": ""<Keyboard>/equals"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""HealthIncrease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2640bfb2-4915-45e3-a5e5-6ad988e694c9"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SummonHandGun"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3ca8a546-bab1-489f-978a-fd8ac72077f1"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SummonLaserGun"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0fbabf30-03f7-43bd-ba60-8410ef9ac043"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SummonSword"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d75600a9-4453-4ead-8614-5899ab405cc8"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SummonShield"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -236,6 +312,10 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_HealthDecrease = m_Debug.FindAction("HealthDecrease", throwIfNotFound: true);
         m_Debug_HealthIncrease = m_Debug.FindAction("HealthIncrease", throwIfNotFound: true);
+        m_Debug_SummonHandGun = m_Debug.FindAction("SummonHandGun", throwIfNotFound: true);
+        m_Debug_SummonLaserGun = m_Debug.FindAction("SummonLaserGun", throwIfNotFound: true);
+        m_Debug_SummonSword = m_Debug.FindAction("SummonSword", throwIfNotFound: true);
+        m_Debug_SummonShield = m_Debug.FindAction("SummonShield", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -336,12 +416,20 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private IDebugActions m_DebugActionsCallbackInterface;
     private readonly InputAction m_Debug_HealthDecrease;
     private readonly InputAction m_Debug_HealthIncrease;
+    private readonly InputAction m_Debug_SummonHandGun;
+    private readonly InputAction m_Debug_SummonLaserGun;
+    private readonly InputAction m_Debug_SummonSword;
+    private readonly InputAction m_Debug_SummonShield;
     public struct DebugActions
     {
         private @PlayerControls m_Wrapper;
         public DebugActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @HealthDecrease => m_Wrapper.m_Debug_HealthDecrease;
         public InputAction @HealthIncrease => m_Wrapper.m_Debug_HealthIncrease;
+        public InputAction @SummonHandGun => m_Wrapper.m_Debug_SummonHandGun;
+        public InputAction @SummonLaserGun => m_Wrapper.m_Debug_SummonLaserGun;
+        public InputAction @SummonSword => m_Wrapper.m_Debug_SummonSword;
+        public InputAction @SummonShield => m_Wrapper.m_Debug_SummonShield;
         public InputActionMap Get() { return m_Wrapper.m_Debug; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -357,6 +445,18 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @HealthIncrease.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
                 @HealthIncrease.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
                 @HealthIncrease.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
+                @SummonHandGun.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonHandGun;
+                @SummonHandGun.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonHandGun;
+                @SummonHandGun.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonHandGun;
+                @SummonLaserGun.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonLaserGun;
+                @SummonLaserGun.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonLaserGun;
+                @SummonLaserGun.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonLaserGun;
+                @SummonSword.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonSword;
+                @SummonSword.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonSword;
+                @SummonSword.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonSword;
+                @SummonShield.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonShield;
+                @SummonShield.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonShield;
+                @SummonShield.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonShield;
             }
             m_Wrapper.m_DebugActionsCallbackInterface = instance;
             if (instance != null)
@@ -367,6 +467,18 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @HealthIncrease.started += instance.OnHealthIncrease;
                 @HealthIncrease.performed += instance.OnHealthIncrease;
                 @HealthIncrease.canceled += instance.OnHealthIncrease;
+                @SummonHandGun.started += instance.OnSummonHandGun;
+                @SummonHandGun.performed += instance.OnSummonHandGun;
+                @SummonHandGun.canceled += instance.OnSummonHandGun;
+                @SummonLaserGun.started += instance.OnSummonLaserGun;
+                @SummonLaserGun.performed += instance.OnSummonLaserGun;
+                @SummonLaserGun.canceled += instance.OnSummonLaserGun;
+                @SummonSword.started += instance.OnSummonSword;
+                @SummonSword.performed += instance.OnSummonSword;
+                @SummonSword.canceled += instance.OnSummonSword;
+                @SummonShield.started += instance.OnSummonShield;
+                @SummonShield.performed += instance.OnSummonShield;
+                @SummonShield.canceled += instance.OnSummonShield;
             }
         }
     }
@@ -381,5 +493,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     {
         void OnHealthDecrease(InputAction.CallbackContext context);
         void OnHealthIncrease(InputAction.CallbackContext context);
+        void OnSummonHandGun(InputAction.CallbackContext context);
+        void OnSummonLaserGun(InputAction.CallbackContext context);
+        void OnSummonSword(InputAction.CallbackContext context);
+        void OnSummonShield(InputAction.CallbackContext context);
     }
 }

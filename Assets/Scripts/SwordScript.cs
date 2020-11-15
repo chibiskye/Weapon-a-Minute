@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SwordScript : MonoBehaviour
 {
-    [SerializeField] private float range = 3.0f;
+    [SerializeField] private Camera camera = null;
+    [SerializeField] private float range = 8.0f;
+    // [SerializeField] private int hitDamage = 10; // not used yet
 
     private InputManager inputManager = null;
     private int layerMask = ~(1 << 8); //attacking doesn't affect the player
@@ -17,38 +19,40 @@ public class SwordScript : MonoBehaviour
 
     void DebugRaycast()
     {
+        Vector3 rayOrigin = camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
+
+        if (Physics.Raycast(rayOrigin, camera.transform.forward, out hit, range, layerMask))
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            Debug.DrawRay(rayOrigin, camera.transform.forward * hit.distance, Color.yellow);
         }
         else
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+            Debug.DrawRay(rayOrigin, camera.transform.forward * 1000, Color.white);
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         DebugRaycast();
 
-        // Check if player clicked button for swing
+        // Check if player clicked button for attack
         bool playerSwing = inputManager.GetPlayerAttacked();
         if (playerSwing) Swing();
-
     }
 
     void Swing()
     {
+        Vector3 rayOrigin = camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
+
+        if (Physics.Raycast(rayOrigin, camera.transform.forward, out hit, range, layerMask))
         {
-            Debug.Log("Did Hit");
+            Debug.Log(hit.transform.name);
         }
         else
         {
-            Debug.Log("Did not Hit");
+            Debug.Log("missed");
         }
     }
 }

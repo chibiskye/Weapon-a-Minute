@@ -46,6 +46,52 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "DefendActions",
+            "id": "2daec7dc-a0f0-4787-a978-740532a54960",
+            "actions": [
+                {
+                    "name": "BlockStart",
+                    "type": "Button",
+                    "id": "a3c2e99f-5c57-4e81-ae5a-4954211efa01",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "BlockEnd",
+                    "type": "Button",
+                    "id": "34529302-d3fe-4984-a655-f2f0310d1204",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2bd4e85c-9d19-40e6-8c19-d9e0f135f869",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlockStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ff89bf09-8cda-4337-a765-515cca70c066",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlockEnd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

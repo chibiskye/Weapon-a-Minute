@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserGunBulletScript : MonoBehaviour
+public class HandGunBulletScript : MonoBehaviour
 {
     [SerializeField] private float speed = 30f;
 
