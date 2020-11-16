@@ -11,7 +11,23 @@ public class BoomerangScript : MonoBehaviour
     private Vector3 throwLocation;
     private Vector3 returnLocation;
     private Quaternion origionalRotation;
-    private InputManager inputManager = null;
+    private WeaponControls weaponControls = null;
+
+    void Awake()
+    {
+        weaponControls = new WeaponControls();
+        weaponControls.BoomerangInputs.Throw.performed += _ => Throw();
+    }
+
+    void OnEnable()
+    {
+        weaponControls.Enable();
+    }
+
+    void OnDisable()
+    {
+        weaponControls.Disable();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +35,7 @@ public class BoomerangScript : MonoBehaviour
         go = false;
         isThrown = false;
         returnLocation = transform.position;
-        inputManager = InputManager.Instance;
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     IEnumerator Boom()
@@ -56,15 +72,11 @@ public class BoomerangScript : MonoBehaviour
                 //TODO the player should be holding the boomerang again
             }
         }
-        else
-        {
-            bool playerThrow = inputManager.GetPlayerAttacked();
-            if (playerThrow) Throw();
-        }
     }
 
     void Throw()
     {
+        if(isThrown) { return; }
         Debug.Log("Throwing");
         returnLocation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         throwLocation = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1, gameObject.transform.position.z) + gameObject.transform.forward * range;

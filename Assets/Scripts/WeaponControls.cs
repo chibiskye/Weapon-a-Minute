@@ -178,6 +178,33 @@ public class @WeaponControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""BoomerangInputs"",
+            ""id"": ""fe8f3493-ebb0-4f1a-8ef0-d9af38db4eb2"",
+            ""actions"": [
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""9850b0d0-4b0e-46af-a41a-0c0c86c1baaf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b6bd2a59-53e9-49aa-93dc-44b81e029ea7"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -197,6 +224,9 @@ public class @WeaponControls : IInputActionCollection, IDisposable
         m_BananaInputs = asset.FindActionMap("BananaInputs", throwIfNotFound: true);
         m_BananaInputs_Swing = m_BananaInputs.FindAction("Swing", throwIfNotFound: true);
         m_BananaInputs_Throw = m_BananaInputs.FindAction("Throw", throwIfNotFound: true);
+        // BoomerangInputs
+        m_BoomerangInputs = asset.FindActionMap("BoomerangInputs", throwIfNotFound: true);
+        m_BoomerangInputs_Throw = m_BoomerangInputs.FindAction("Throw", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -398,6 +428,39 @@ public class @WeaponControls : IInputActionCollection, IDisposable
         }
     }
     public BananaInputsActions @BananaInputs => new BananaInputsActions(this);
+
+    // BoomerangInputs
+    private readonly InputActionMap m_BoomerangInputs;
+    private IBoomerangInputsActions m_BoomerangInputsActionsCallbackInterface;
+    private readonly InputAction m_BoomerangInputs_Throw;
+    public struct BoomerangInputsActions
+    {
+        private @WeaponControls m_Wrapper;
+        public BoomerangInputsActions(@WeaponControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Throw => m_Wrapper.m_BoomerangInputs_Throw;
+        public InputActionMap Get() { return m_Wrapper.m_BoomerangInputs; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BoomerangInputsActions set) { return set.Get(); }
+        public void SetCallbacks(IBoomerangInputsActions instance)
+        {
+            if (m_Wrapper.m_BoomerangInputsActionsCallbackInterface != null)
+            {
+                @Throw.started -= m_Wrapper.m_BoomerangInputsActionsCallbackInterface.OnThrow;
+                @Throw.performed -= m_Wrapper.m_BoomerangInputsActionsCallbackInterface.OnThrow;
+                @Throw.canceled -= m_Wrapper.m_BoomerangInputsActionsCallbackInterface.OnThrow;
+            }
+            m_Wrapper.m_BoomerangInputsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Throw.started += instance.OnThrow;
+                @Throw.performed += instance.OnThrow;
+                @Throw.canceled += instance.OnThrow;
+            }
+        }
+    }
+    public BoomerangInputsActions @BoomerangInputs => new BoomerangInputsActions(this);
     public interface IGunInputsActions
     {
         void OnShoot(InputAction.CallbackContext context);
@@ -415,6 +478,10 @@ public class @WeaponControls : IInputActionCollection, IDisposable
     public interface IBananaInputsActions
     {
         void OnSwing(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
+    }
+    public interface IBoomerangInputsActions
+    {
         void OnThrow(InputAction.CallbackContext context);
     }
 }
