@@ -9,6 +9,7 @@ public class BananaScript : MonoBehaviour
 
     private WeaponControls weaponControls = null;
     private Rigidbody rigidBody = null;
+    private Collider collider = null;
     private int layerMask = ~(1 << 8); //attacking doesn't affect the player
     private bool beenThrown = false;
 
@@ -32,6 +33,7 @@ public class BananaScript : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        collider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -43,12 +45,25 @@ public class BananaScript : MonoBehaviour
         if (beenThrown) return;
     }
 
+    IEnumerator tempTrigger()
+    {
+        //temporarily make it a trigger
+        collider.isTrigger = true;
+        yield return new WaitForSeconds(0.5f);
+        collider.isTrigger = false;
+    }
+
     void Throw()
     {
         // Update state
         Debug.Log("throwing");
-        beenThrown = true;
 
+        // Unfreeze the position, but still freeze the rotation
+        rigidBody.constraints = RigidbodyConstraints.None;
+        rigidBody.freezeRotation = true;
+
+        beenThrown = true;
+        StartCoroutine(tempTrigger());
         rigidBody.AddForce(new Vector3(1, 1, 1) * 400f);
         rigidBody.useGravity = true;
     }
@@ -78,6 +93,7 @@ public class BananaScript : MonoBehaviour
         // Check if other collider is damageable
         if (collision.gameObject.layer == 11)
         {
+            collider.isTrigger = false;
             rigidBody.velocity = Vector3.zero;
         }
         else 
