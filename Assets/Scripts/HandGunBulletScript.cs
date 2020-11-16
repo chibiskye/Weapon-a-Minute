@@ -20,7 +20,7 @@ public class HandGunBulletScript : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
-        rigidBody.velocity = new Vector3(0f, 0f, speed);
+        rigidBody.velocity = transform.up * speed;
         StartCoroutine(DestroySelf());
     }
 
