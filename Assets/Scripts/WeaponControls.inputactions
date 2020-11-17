@@ -165,6 +165,33 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "BoomerangInputs",
+            "id": "fe8f3493-ebb0-4f1a-8ef0-d9af38db4eb2",
+            "actions": [
+                {
+                    "name": "Throw",
+                    "type": "Button",
+                    "id": "9850b0d0-4b0e-46af-a41a-0c0c86c1baaf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b6bd2a59-53e9-49aa-93dc-44b81e029ea7",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
