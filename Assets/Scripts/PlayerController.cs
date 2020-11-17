@@ -7,10 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private LayerMask detectMasks;
-    [SerializeField] private HealthBar healthBar = null;
     // [SerializeField] private Transform groundTransform = null;
     // [SerializeField] private float groundDistance = 0.4f;
-    [SerializeField] private int maxHealth = 100;
     [SerializeField] private float moveSpeed = 10f;
     // [SerializeField] private Transform l_HandWeaponHold = null;
     // [SerializeField] private Transform r_HandWeaponHold = null;
@@ -20,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private PlayerControls playerControls = null;
     // private GameObject l_handWeapon = null;
     // private GameObject r_HandWeapon = null;
-    private int currentHealth = 100;
     private bool isGrounded = true;
 
     // Awake is called once before the Start method
@@ -58,10 +55,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-
-        // Set values for health bar
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
     }
 
     // FixedUpdate is called once per physics frame
@@ -91,22 +84,14 @@ public class PlayerController : MonoBehaviour
 
     void DebugTakeDamage(int damage)
     {
-        currentHealth -= damage;
-        if (currentHealth < 0)
-        {
-            currentHealth = 0;
-        }
-        healthBar.SetHealth(currentHealth);
+        Health healthScript = GetComponent<Health>();
+        healthScript.LoseHealth(damage);
     }
 
     void DebugAddHealth(int health)
     {
-        currentHealth += health;
-        if (currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-        healthBar.SetHealth(currentHealth);
+        Health healthScript = GetComponent<Health>();
+        healthScript.AddHealth(health);
     }
 
     void DebugSummon(int weaponIndex)

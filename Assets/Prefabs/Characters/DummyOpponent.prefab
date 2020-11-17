@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 4602814613298975814}
   - component: {fileID: 4602814613298975815}
   - component: {fileID: 4602814613298975809}
+  - component: {fileID: 5675838869955593405}
   - component: {fileID: 4602814613298975808}
   m_Layer: 12
   m_Name: DummyOpponent
@@ -179,6 +180,21 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5675838869955593405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4602814613298975811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f981dfc1ef3dec34d9819a2c2e5c28d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  maxHealth: 100
+  currentHealth: 100
 --- !u!114 &4602814613298975808
 MonoBehaviour:
   m_ObjectHideFlags: 0

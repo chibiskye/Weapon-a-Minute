@@ -22,11 +22,13 @@ public class EnemySwordScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(raycastOrigin.position, transform.forward, out hit, range, layerMask))
         {
-            if (hit.transform.gameObject.layer == 8)    // successfully hit the player
+            Health opponentHealth = hit.collider.GetComponent<Health>();
+            if (opponentHealth != null) // successfully hit the player
             {
+                opponentHealth.LoseHealth(hitDamage);
                 Debug.Log("Attack in the name of our Lord and Savior!!!");
             }
-            else    // hit something else other than the player
+            else // hit something else other than the player
             {
                 Debug.Log("If you have the guts, stand there and let me hit you!");
             }

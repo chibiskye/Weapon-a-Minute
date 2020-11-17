@@ -12,11 +12,6 @@ public class AIController : MonoBehaviour
     [SerializeField] private EnemySwordScript weapon = null;
     private NavMeshAgent agent = null;
 
-    //Health
-    // [SerializeField] private HealthBar healthBar = null;
-    [SerializeField] private int maxHealth = 100;
-    private int currentHealth = 100;
-
     //Patroling
     [SerializeField] private float walkPointRange = 10.0f;
     [SerializeField] private float walkPointCheckRange = 2.0f;
@@ -37,8 +32,6 @@ public class AIController : MonoBehaviour
     {
         player = GameObject.Find("DummyPlayerArmed").transform;
         agent = GetComponent<NavMeshAgent>();
-        currentHealth = maxHealth;
-        // healthBar.SetMaxHealth(maxHealth);
     }
 
     private void FixedUpdate()
@@ -64,7 +57,6 @@ public class AIController : MonoBehaviour
         {
             agent.SetDestination(walkPoint);
         }
-
 
         // Vector3 distanceToWalkPoint = transform.position - walkPoint;
         // if (distanceToWalkPoint.magnitude < 1.0f)
@@ -129,16 +121,6 @@ public class AIController : MonoBehaviour
         alreadyAttacked = true;
         yield return new WaitForSeconds(timeBetweenAttacks);
         alreadyAttacked = false;
-    }
-
-    // TODO: replace with universal health script, if more convenient
-    private void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     // ---------------------------------------------------------------------------------------------
