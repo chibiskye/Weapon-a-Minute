@@ -4,41 +4,37 @@ using UnityEngine;
 
 public class EnemySwordScript : MonoBehaviour
 {
-
-
+    [SerializeField] private Transform raycastOrigin = null;
     [SerializeField] private float range = 8.0f;
-    private int layerMask = ~(1 << 13); //attacking doesn't affect the enemies
+    [SerializeField] private int hitDamage = 10;
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    public void Attack()
-    {
-        //For now we assume the weapon is holding a sword
-        Vector3 rayOrigin = transform.position;
-        RaycastHit hit;
-
-        if (Physics.Raycast(rayOrigin, transform.forward, out hit, range, layerMask))
-        {
-            Debug.Log(hit.transform.name);
-        }
-        else
-        {
-            Debug.Log("missed");
-        }
-    }
+    private int layerMask = ~(1 << 12); //attacking doesn't affect the enemies (no friendly fire amongst us)
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
-
         DebugRaycast();
+    }
+
+    public void Attack()
+    {
+        // TODO: assume weapon is a sword, replace with other weapons in the future
+        RaycastHit hit;
+        if (Physics.Raycast(raycastOrigin.position, transform.forward, out hit, range, layerMask))
+        {
+            if (hit.transform.gameObject.layer == 8)    // successfully hit the player
+            {
+                Debug.Log("Attack in the name of our Lord and Savior!!!");
+            }
+            else    // hit something else other than the player
+            {
+                Debug.Log("If you have the guts, stand there and let me hit you!");
+            }
+        }
+        else
+        {
+            Debug.Log("Come back here you cowardly trespasser!");
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -47,16 +43,14 @@ public class EnemySwordScript : MonoBehaviour
 
     void DebugRaycast()
     {
-        Vector3 rayOrigin = transform.position;
         RaycastHit hit;
-
-        if (Physics.Raycast(rayOrigin, transform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(raycastOrigin.position, transform.forward, out hit, range, layerMask))
         {
-            Debug.DrawRay(rayOrigin, transform.forward * hit.distance, Color.yellow);
+            Debug.DrawRay(raycastOrigin.position, transform.forward * hit.distance, Color.yellow);
         }
         else
         {
-            Debug.DrawRay(rayOrigin, transform.forward * 1000, Color.white);
+            Debug.DrawRay(raycastOrigin.position, transform.forward * 1000, Color.white);
         }
     }
 }

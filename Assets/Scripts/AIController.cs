@@ -9,8 +9,8 @@ public class AIController : MonoBehaviour
     //Components
     [SerializeField] private LayerMask whatIsGround, whatIsPlayer;
     [SerializeField] private Transform player = null;
+    [SerializeField] private EnemySwordScript weapon = null;
     private NavMeshAgent agent = null;
-    private EnemySwordScript weapon = null;
 
     //Health
     // [SerializeField] private HealthBar healthBar = null;
@@ -65,11 +65,18 @@ public class AIController : MonoBehaviour
             agent.SetDestination(walkPoint);
         }
 
+
+        // Vector3 distanceToWalkPoint = transform.position - walkPoint;
+        // if (distanceToWalkPoint.magnitude < 1.0f)
+        // {
+        //     walkPointSet = false; // calculate next walk point
+        // }
+
+        //Thought that this method would be more intuitive to understand
         // Check if AI reached walk point
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-        if (distanceToWalkPoint.magnitude < 1.0f)
+        if (Vector3.Distance(transform.position, walkPoint) <= agent.stoppingDistance)
         {
-            walkPointSet = false; // calculate next walk point
+            walkPointSet = false;
         }
     }
 

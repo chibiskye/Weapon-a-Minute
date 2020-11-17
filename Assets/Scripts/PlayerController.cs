@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private LayerMask detectMasks;
     [SerializeField] private HealthBar healthBar = null;
-    [SerializeField] private Transform groundTransform = null;
-    [SerializeField] private float groundDistance = 0.4f;
+    // [SerializeField] private Transform groundTransform = null;
+    // [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private float moveSpeed = 10f;
     // [SerializeField] private Transform l_HandWeaponHold = null;
@@ -67,9 +67,9 @@ public class PlayerController : MonoBehaviour
     // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
-        // Prevent additional player movement when player is in mid-air
-        isGrounded = Physics.CheckSphere(groundTransform.position, groundDistance, detectMasks);
-        if (!isGrounded) return;
+        // // Prevent additional player movement when player is in mid-air
+        // isGrounded = Physics.CheckSphere(groundTransform.position, groundDistance, detectMasks);
+        // if (!isGrounded) return;
 
         // Read movement value from input controls
         Vector2 moveInput = playerControls.Movement.Move.ReadValue<Vector2>();
