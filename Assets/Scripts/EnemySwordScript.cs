@@ -26,16 +26,16 @@ public class EnemySwordScript : MonoBehaviour
             if (opponentHealth != null) // successfully hit the player
             {
                 opponentHealth.LoseHealth(hitDamage);
-                Debug.Log("Attack in the name of our Lord and Savior!!!");
+                Debug.Log("Opponent: Attack in the name of our Lord and Savior!!!");
             }
             else // hit something else other than the player
             {
-                Debug.Log("If you have the guts, stand there and let me hit you!");
+                Debug.Log("Opponent: If you have the guts, stand there and let me hit you!");
             }
         }
         else
         {
-            Debug.Log("Come back here you cowardly trespasser!");
+            Debug.Log("Opponent: Come back here you cowardly trespasser!");
         }
     }
 

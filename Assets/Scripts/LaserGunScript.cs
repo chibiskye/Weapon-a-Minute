@@ -9,7 +9,7 @@ public class LaserGunScript : MonoBehaviour
     [SerializeField] private float range = 30.0f;
     [SerializeField] private float fireRate = 0.5f;
     [SerializeField] private float shootDuration = 0.01f;
-    // [SerializeField] private int hitDamage = 10; // not used yet
+    [SerializeField] private int hitDamage = 10;
 
     private WeaponControls weaponControls = null;
     private LineRenderer laserLine = null;
@@ -78,10 +78,20 @@ public class LaserGunScript : MonoBehaviour
             laserLine.SetPosition(1, hit.point);
             StartCoroutine(DrawLaserLine());
             StartCoroutine(WaitToShoot());
+
+            Health opponentHealth = hit.collider.GetComponent<Health>();
+            if (opponentHealth != null) // successfully hit the opponent
+            {
+                opponentHealth.LoseHealth(hitDamage);
+                Debug.Log("Try and dodge this pink ray of death!");
+            }
+            else 
+            {
+                Debug.Log("Darn! What a slippery foe!");
+            }
         }
         else
         {
-            Debug.Log("missed");
             laserLine.SetPosition(1, rayOrigin + (m_camera.transform.forward * range));
         }
     }

@@ -9,7 +9,6 @@ public class HandGunScript : MonoBehaviour
     [SerializeField] private Transform bulletSpawnPoint = null;
     [SerializeField] private float range = 30.0f;
     [SerializeField] private float fireRate = 0.5f;
-    // [SerializeField] private int hitDamage = 10; // not used yet
     
     private WeaponControls weaponControls = null;
     private int layerMask = ~((1 << 8) | (1 << 10)); //shooting does not affect the player or other bullets
@@ -48,7 +47,6 @@ public class HandGunScript : MonoBehaviour
     {
         // Check if able to shoot
         if (!canShoot) return;
-        Debug.Log("shooting");
 
         // Draw raycast
         Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
@@ -56,20 +54,24 @@ public class HandGunScript : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
         {
-            Debug.Log(hit.transform.name);
-        }
-        else
-        {
-            Debug.Log("missed");
-        }
+            if (hit.transform.gameObject.layer == 12) // successfully hit the opponent
+            {
+                Debug.Log("Take this bullet from me!");
 
-        // Instantiate bullet
-        GameObject g = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint);
-        g.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-        g.SetActive(true);
+                // Instantiate bullet
+                GameObject g = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint);
+                g.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                g.transform.LookAt(hit.transform);
+                g.SetActive(true);
 
-        // Prevents gun from shooting multiple shots too quickly
-        StartCoroutine(WaitToShoot());
+                // Prevents gun from shooting multiple shots too quickly
+                StartCoroutine(WaitToShoot());
+            }
+            else // hit something else other than the player
+            {
+                Debug.Log("Darn! What a slippery foe!");
+            }
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
