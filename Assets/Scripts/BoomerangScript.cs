@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class BoomerangScript : MonoBehaviour
 {
-    [SerializeField] public Rigidbody rigidbody;
     [SerializeField] private float range = 25.0f;
-    private bool go;
-    private bool isThrown;
+
+    private WeaponControls weaponControls = null;
+    private Rigidbody rigidBody = null;
     private Vector3 throwLocation;
     private Vector3 returnLocation;
     private Quaternion origionalRotation;
-    private WeaponControls weaponControls = null;
+    private bool go;
+    private bool isThrown;
 
     void Awake()
     {
@@ -35,7 +36,7 @@ public class BoomerangScript : MonoBehaviour
         go = false;
         isThrown = false;
         returnLocation = transform.position;
-        rigidbody = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     IEnumerator Boom()
@@ -67,7 +68,7 @@ public class BoomerangScript : MonoBehaviour
                 isThrown = false;
                 transform.rotation = origionalRotation;
                 transform.position = returnLocation;
-                rigidbody.velocity = new Vector3(0, 0, 0);
+                rigidBody.velocity = new Vector3(0, 0, 0);
 
                 //TODO the player should be holding the boomerang again
             }

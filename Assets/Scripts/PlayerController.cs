@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
         playerControls.Debug.SummonSword.performed += _ => DebugSummon(2);
         playerControls.Debug.SummonShield.performed += _ => DebugSummon(3);
         playerControls.Debug.SummonBanana.performed += _ => DebugSummon(4);
+        playerControls.Debug.SummonBoomerang.performed += _ => DebugSummon(5);
     }
 
     // OnEnable is called when script is first enabled
