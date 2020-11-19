@@ -167,6 +167,22 @@
                     "interactions": ""
                 },
                 {
+                    "name": "SwitchTimerOn",
+                    "type": "Button",
+                    "id": "e2c1b8d8-4a32-48bb-84bf-400196e58dff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SwitchTimerOff",
+                    "type": "Button",
+                    "id": "5da93cfc-2b1d-4926-9c61-57823e8fb491",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "SummonHandGun",
                     "type": "Button",
                     "id": "1a4a5dc2-d872-4ac6-9ba6-01abaa31b3d5",
@@ -301,6 +317,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "SummonBoomerang",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d973e61d-e956-4f2a-ac31-524560b8ef2e",
+                    "path": "<Keyboard>/comma",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchTimerOn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b24bb9a1-bce9-4dad-a13d-40c1d0daeeac",
+                    "path": "<Keyboard>/period",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchTimerOff",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

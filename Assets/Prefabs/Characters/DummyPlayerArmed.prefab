@@ -258,6 +258,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3639
   moveSpeed: 10
+  timeToSwitch: 10
   weaponsList:
   - {fileID: 6428209963232040458}
   - {fileID: 6428209963664862026}
@@ -1812,6 +1813,7 @@ MonoBehaviour:
   range: 30
   fireRate: 0.5
   shootDuration: 0.01
+  hitDamage: 10
 --- !u!1 &6428209963698885428
 GameObject:
   m_ObjectHideFlags: 0

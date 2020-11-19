@@ -434,6 +434,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DummyPlayerArmed
       objectReference: {fileID: 0}
+    - target: {fileID: 6428209962157472027, guid: 3e808ac014617e541b1e57e42686bc06,
+        type: 3}
+      propertyPath: timeToSwitch
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6428209962157472029, guid: 3e808ac014617e541b1e57e42686bc06,
         type: 3}
       propertyPath: m_LocalPosition.x
