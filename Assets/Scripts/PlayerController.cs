@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 // Script will not run if game object does not have a character controller component
 [RequireComponent(typeof(CharacterController))]
