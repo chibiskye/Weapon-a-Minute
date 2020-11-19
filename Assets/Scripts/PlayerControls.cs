@@ -164,6 +164,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ""id"": ""6af00990-2913-45a0-b714-ce90481d5218"",
             ""actions"": [
                 {
+                    ""name"": ""ToggleSwitchTimer"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2c1b8d8-4a32-48bb-84bf-400196e58dff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""HealthDecrease"",
                     ""type"": ""Button"",
                     ""id"": ""3f885115-8b92-44e6-924e-ad9bb1ea9382"",
@@ -175,22 +183,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": ""HealthIncrease"",
                     ""type"": ""Button"",
                     ""id"": ""cb1d150e-2b1a-4390-832c-c6fb71f7cee4"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""SwitchTimerOn"",
-                    ""type"": ""Button"",
-                    ""id"": ""e2c1b8d8-4a32-48bb-84bf-400196e58dff"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""SwitchTimerOff"",
-                    ""type"": ""Button"",
-                    ""id"": ""5da93cfc-2b1d-4926-9c61-57823e8fb491"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -336,22 +328,11 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d973e61d-e956-4f2a-ac31-524560b8ef2e"",
-                    ""path"": ""<Keyboard>/comma"",
+                    ""path"": ""<Keyboard>/backquote"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SwitchTimerOn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b24bb9a1-bce9-4dad-a13d-40c1d0daeeac"",
-                    ""path"": ""<Keyboard>/period"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SwitchTimerOff"",
+                    ""action"": ""ToggleSwitchTimer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -366,10 +347,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_ToggleSwitchTimer = m_Debug.FindAction("ToggleSwitchTimer", throwIfNotFound: true);
         m_Debug_HealthDecrease = m_Debug.FindAction("HealthDecrease", throwIfNotFound: true);
         m_Debug_HealthIncrease = m_Debug.FindAction("HealthIncrease", throwIfNotFound: true);
-        m_Debug_SwitchTimerOn = m_Debug.FindAction("SwitchTimerOn", throwIfNotFound: true);
-        m_Debug_SwitchTimerOff = m_Debug.FindAction("SwitchTimerOff", throwIfNotFound: true);
         m_Debug_SummonHandGun = m_Debug.FindAction("SummonHandGun", throwIfNotFound: true);
         m_Debug_SummonLaserGun = m_Debug.FindAction("SummonLaserGun", throwIfNotFound: true);
         m_Debug_SummonSword = m_Debug.FindAction("SummonSword", throwIfNotFound: true);
@@ -466,10 +446,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     // Debug
     private readonly InputActionMap m_Debug;
     private IDebugActions m_DebugActionsCallbackInterface;
+    private readonly InputAction m_Debug_ToggleSwitchTimer;
     private readonly InputAction m_Debug_HealthDecrease;
     private readonly InputAction m_Debug_HealthIncrease;
-    private readonly InputAction m_Debug_SwitchTimerOn;
-    private readonly InputAction m_Debug_SwitchTimerOff;
     private readonly InputAction m_Debug_SummonHandGun;
     private readonly InputAction m_Debug_SummonLaserGun;
     private readonly InputAction m_Debug_SummonSword;
@@ -480,10 +459,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     {
         private @PlayerControls m_Wrapper;
         public DebugActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ToggleSwitchTimer => m_Wrapper.m_Debug_ToggleSwitchTimer;
         public InputAction @HealthDecrease => m_Wrapper.m_Debug_HealthDecrease;
         public InputAction @HealthIncrease => m_Wrapper.m_Debug_HealthIncrease;
-        public InputAction @SwitchTimerOn => m_Wrapper.m_Debug_SwitchTimerOn;
-        public InputAction @SwitchTimerOff => m_Wrapper.m_Debug_SwitchTimerOff;
         public InputAction @SummonHandGun => m_Wrapper.m_Debug_SummonHandGun;
         public InputAction @SummonLaserGun => m_Wrapper.m_Debug_SummonLaserGun;
         public InputAction @SummonSword => m_Wrapper.m_Debug_SummonSword;
@@ -499,18 +477,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_DebugActionsCallbackInterface != null)
             {
+                @ToggleSwitchTimer.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleSwitchTimer;
+                @ToggleSwitchTimer.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleSwitchTimer;
+                @ToggleSwitchTimer.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleSwitchTimer;
                 @HealthDecrease.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthDecrease;
                 @HealthDecrease.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthDecrease;
                 @HealthDecrease.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthDecrease;
                 @HealthIncrease.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
                 @HealthIncrease.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
                 @HealthIncrease.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnHealthIncrease;
-                @SwitchTimerOn.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnSwitchTimerOn;
-                @SwitchTimerOn.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnSwitchTimerOn;
-                @SwitchTimerOn.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnSwitchTimerOn;
-                @SwitchTimerOff.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnSwitchTimerOff;
-                @SwitchTimerOff.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnSwitchTimerOff;
-                @SwitchTimerOff.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnSwitchTimerOff;
                 @SummonHandGun.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonHandGun;
                 @SummonHandGun.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonHandGun;
                 @SummonHandGun.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnSummonHandGun;
@@ -533,18 +508,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             m_Wrapper.m_DebugActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @ToggleSwitchTimer.started += instance.OnToggleSwitchTimer;
+                @ToggleSwitchTimer.performed += instance.OnToggleSwitchTimer;
+                @ToggleSwitchTimer.canceled += instance.OnToggleSwitchTimer;
                 @HealthDecrease.started += instance.OnHealthDecrease;
                 @HealthDecrease.performed += instance.OnHealthDecrease;
                 @HealthDecrease.canceled += instance.OnHealthDecrease;
                 @HealthIncrease.started += instance.OnHealthIncrease;
                 @HealthIncrease.performed += instance.OnHealthIncrease;
                 @HealthIncrease.canceled += instance.OnHealthIncrease;
-                @SwitchTimerOn.started += instance.OnSwitchTimerOn;
-                @SwitchTimerOn.performed += instance.OnSwitchTimerOn;
-                @SwitchTimerOn.canceled += instance.OnSwitchTimerOn;
-                @SwitchTimerOff.started += instance.OnSwitchTimerOff;
-                @SwitchTimerOff.performed += instance.OnSwitchTimerOff;
-                @SwitchTimerOff.canceled += instance.OnSwitchTimerOff;
                 @SummonHandGun.started += instance.OnSummonHandGun;
                 @SummonHandGun.performed += instance.OnSummonHandGun;
                 @SummonHandGun.canceled += instance.OnSummonHandGun;
@@ -574,10 +546,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     }
     public interface IDebugActions
     {
+        void OnToggleSwitchTimer(InputAction.CallbackContext context);
         void OnHealthDecrease(InputAction.CallbackContext context);
         void OnHealthIncrease(InputAction.CallbackContext context);
-        void OnSwitchTimerOn(InputAction.CallbackContext context);
-        void OnSwitchTimerOff(InputAction.CallbackContext context);
         void OnSummonHandGun(InputAction.CallbackContext context);
         void OnSummonLaserGun(InputAction.CallbackContext context);
         void OnSummonSword(InputAction.CallbackContext context);

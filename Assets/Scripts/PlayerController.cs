@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController = null;
     private PlayerControls playerControls = null;
     private float switchTimeLeft = 0f;
-    private bool timerOn = false;
+    private bool timerOn = true;
     // private GameObject l_handWeapon = null;
     // private GameObject r_HandWeapon = null;
     // private bool isGrounded = true;
@@ -32,8 +32,7 @@ public class PlayerController : MonoBehaviour
         playerControls.Movement.Jump.performed += _ => Jump();
 
         // Debug commands
-        playerControls.Debug.SwitchTimerOn.performed += _ => DebugTimerOn();
-        playerControls.Debug.SwitchTimerOff.performed += _ => DebugTimerOff();
+        playerControls.Debug.ToggleSwitchTimer.performed += _ => DebugToggleTimer();
         playerControls.Debug.HealthDecrease.performed += _ => DebugTakeDamage(10);
         playerControls.Debug.HealthIncrease.performed += _ => DebugAddHealth(10);
         playerControls.Debug.SummonHandGun.performed += _ => DebugSummon(0);
@@ -99,16 +98,18 @@ public class PlayerController : MonoBehaviour
     // Below are methods used for debugging
     // ---------------------------------------------------------------------------------------------
 
-    void DebugTimerOn()
+    void DebugToggleTimer()
     {
-        Debug.Log("random weapon switching on");
-        timerOn = true;
-    }
-
-    void DebugTimerOff()
-    {
-        Debug.Log("random weapon switching off");
-        timerOn = false;
+        timerOn = !timerOn;
+        if (timerOn)
+        {
+            Debug.Log("random weapon switching on");
+            switchTimeLeft = timeToSwitch; // reset timer
+        }
+        else
+        {
+            Debug.Log("random weapon switching off");
+        }
     }
 
     void DebugTakeDamage(int damage)

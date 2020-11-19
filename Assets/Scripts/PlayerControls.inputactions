@@ -151,6 +151,14 @@
             "id": "6af00990-2913-45a0-b714-ce90481d5218",
             "actions": [
                 {
+                    "name": "ToggleSwitchTimer",
+                    "type": "Button",
+                    "id": "e2c1b8d8-4a32-48bb-84bf-400196e58dff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "HealthDecrease",
                     "type": "Button",
                     "id": "3f885115-8b92-44e6-924e-ad9bb1ea9382",
@@ -162,22 +170,6 @@
                     "name": "HealthIncrease",
                     "type": "Button",
                     "id": "cb1d150e-2b1a-4390-832c-c6fb71f7cee4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "SwitchTimerOn",
-                    "type": "Button",
-                    "id": "e2c1b8d8-4a32-48bb-84bf-400196e58dff",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "SwitchTimerOff",
-                    "type": "Button",
-                    "id": "5da93cfc-2b1d-4926-9c61-57823e8fb491",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -323,22 +315,11 @@
                 {
                     "name": "",
                     "id": "d973e61d-e956-4f2a-ac31-524560b8ef2e",
-                    "path": "<Keyboard>/comma",
+                    "path": "<Keyboard>/backquote",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchTimerOn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b24bb9a1-bce9-4dad-a13d-40c1d0daeeac",
-                    "path": "<Keyboard>/period",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchTimerOff",
+                    "action": "ToggleSwitchTimer",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

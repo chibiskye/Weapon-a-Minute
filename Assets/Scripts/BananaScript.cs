@@ -5,7 +5,10 @@ using UnityEngine;
 public class BananaScript : MonoBehaviour
 {
     [SerializeField] private Camera m_camera = null;
-    [SerializeField] private float range = 5.0f;
+    [SerializeField] private float swingRange = 5.0f;
+    [SerializeField] private float throwForce = 400f;
+    [SerializeField] private int swingDamage = 1;
+    [SerializeField] private int throwDamage = 10;
 
     private WeaponControls weaponControls = null;
     private Rigidbody rigidBody = null;
@@ -40,9 +43,6 @@ public class BananaScript : MonoBehaviour
     void FixedUpdate()
     {
         DebugRaycast();
-
-        // Check if weapon still in player's hand
-        if (beenThrown) return;
     }
 
     IEnumerator tempTrigger()
@@ -58,28 +58,41 @@ public class BananaScript : MonoBehaviour
         // Update state
         Debug.Log("throwing");
 
+        // Detach weapon from player
+        transform.parent = null;
+
         // Unfreeze the position, but still freeze the rotation
         rigidBody.constraints = RigidbodyConstraints.None;
         rigidBody.freezeRotation = true;
 
         beenThrown = true;
         StartCoroutine(tempTrigger());
-        rigidBody.AddForce(new Vector3(1, 1, 1) * 400f);
+        Vector3 throwDirection = transform.forward + new Vector3(100f, 0f, 0f);
+        rigidBody.AddForce(throwDirection * throwForce);
         rigidBody.useGravity = true;
     }
 
     void Swing()
     {
+        // Check if weapon still in player's hand
+        if (beenThrown) return;
+
+        // Draw raycast
         Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, swingRange, layerMask))
         {
-            Debug.Log(hit.transform.name);
-        }
-        else
-        {
-            Debug.Log("missed");
+            Health opponentHealth = hit.collider.GetComponent<Health>();
+            if (opponentHealth != null) // successfully hit the opponent
+            {
+                Debug.Log("I slap you with a banana!");
+                opponentHealth.LoseHealth(swingDamage);
+            }
+            else // hit something else other than the player
+            {
+                Debug.Log("Why are you dodging so seriously? Scared of a tiny little banana?");
+            }
         }
     }
 
@@ -113,7 +126,7 @@ public class BananaScript : MonoBehaviour
         Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, swingRange, layerMask))
         {
             Debug.DrawRay(rayOrigin, m_camera.transform.forward * hit.distance, Color.yellow);
         }

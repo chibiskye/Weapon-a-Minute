@@ -11,6 +11,7 @@ public class AIController : MonoBehaviour
     [SerializeField] private Transform player = null;
     [SerializeField] private EnemySwordScript weapon = null;
     private NavMeshAgent agent = null;
+    private AIControls aiControls = null;
 
     //Patroling
     [SerializeField] private float walkPointRange = 10.0f;
@@ -32,11 +33,27 @@ public class AIController : MonoBehaviour
     {
         player = GameObject.Find("DummyPlayerArmed").transform;
         agent = GetComponent<NavMeshAgent>();
+
+        // Detect debug commands
+        aiControls = new AIControls();
+        aiControls.Debug.ToggleMovement.performed += _ => DebugToggleMove();
+    }
+
+    void OnEnable()
+    {
+        aiControls.Enable();
+    }
+
+    void OnDisable()
+    {
+        aiControls.Disable();
     }
 
     private void FixedUpdate()
     {
-        //Check for sight and attack range
+        if (agent.isStopped) return;
+
+        // Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
@@ -133,6 +150,19 @@ public class AIController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+
+    void DebugToggleMove()
+    {
+        agent.isStopped = !agent.isStopped;
+        if (agent.isStopped)
+        {
+            Debug.Log("opponent paused");
+        }
+        else
+        {
+            Debug.Log("opponent unpaused");
+        }
     }
 
 }
