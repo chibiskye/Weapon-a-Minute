@@ -1,0 +1,33 @@
+{
+    "name": "AIControls",
+    "maps": [
+        {
+            "name": "Debug",
+            "id": "6f4a89ff-cdd8-47d5-919c-5d4129223174",
+            "actions": [
+                {
+                    "name": "ToggleMovement",
+                    "type": "Button",
+                    "id": "0f666fe3-1e5a-44b6-b848-5cea31aa33a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ccf10630-b934-4519-bdde-7e169cb1e5a4",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

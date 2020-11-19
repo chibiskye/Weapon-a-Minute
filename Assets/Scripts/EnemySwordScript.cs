@@ -25,8 +25,8 @@ public class EnemySwordScript : MonoBehaviour
             Health opponentHealth = hit.collider.GetComponent<Health>();
             if (opponentHealth != null) // successfully hit the player
             {
-                opponentHealth.LoseHealth(hitDamage);
                 Debug.Log("Opponent: Attack in the name of our Lord and Savior!!!");
+                opponentHealth.LoseHealth(hitDamage);
             }
             else // hit something else other than the player
             {

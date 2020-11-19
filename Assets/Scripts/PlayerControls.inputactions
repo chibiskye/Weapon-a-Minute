@@ -151,6 +151,14 @@
             "id": "6af00990-2913-45a0-b714-ce90481d5218",
             "actions": [
                 {
+                    "name": "ToggleSwitchTimer",
+                    "type": "Button",
+                    "id": "e2c1b8d8-4a32-48bb-84bf-400196e58dff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "HealthDecrease",
                     "type": "Button",
                     "id": "3f885115-8b92-44e6-924e-ad9bb1ea9382",
@@ -301,6 +309,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SummonBoomerang",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d973e61d-e956-4f2a-ac31-524560b8ef2e",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleSwitchTimer",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

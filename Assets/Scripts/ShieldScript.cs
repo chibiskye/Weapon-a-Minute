@@ -5,10 +5,12 @@ using UnityEngine;
 public class ShieldScript : MonoBehaviour
 {
     [SerializeField] private Camera m_camera = null;
-    [SerializeField] private float range = 8.0f;
-    // [SerializeField] private int hitDamage = 10; // not used yet
+    [SerializeField] private float attackRange = 8.0f;
+    [SerializeField] private int hitDamage = 10;
 
     private WeaponControls weaponControls = null;
+    private Vector3 holdPosition = new Vector3(2f, 0f, 1.75f);
+    private Vector3 blockPosition = new Vector3(0f, 0f, 1.75f);
     private int layerMask = ~(1 << 8); //attacking doesn't affect the player
     private bool canDefend = true;
     private bool canAttack = true;
@@ -40,20 +42,22 @@ public class ShieldScript : MonoBehaviour
     {
         // Check if player is performing one action at a time
         if (!canDefend) return;
-
-        // TODO: player should not be able to block if hit from behind
-        
-        Debug.Log("blocking");
         canAttack = false;
+
+        // Move shield in front of the player
+        Debug.Log("blocking");
+        transform.localPosition = holdPosition;
     }
 
     void Unblock()
     {
         // Check if player is performing one action at a time
         if (!canDefend) return;
-
-        Debug.Log("not blocking");
         canAttack = true;
+
+        // Move shield away from front of player
+        Debug.Log("not blocking");
+        transform.localPosition = blockPosition;
     }
 
     void ShieldBash()
@@ -65,13 +69,18 @@ public class ShieldScript : MonoBehaviour
         Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, attackRange, layerMask))
         {
-            Debug.Log(hit.transform.name);
-        }
-        else
-        {
-            Debug.Log("missed");
+            Health opponentHealth = hit.collider.GetComponent<Health>();
+            if (opponentHealth != null) // successfully hit the opponent
+            {
+                opponentHealth.LoseHealth(hitDamage);
+                Debug.Log("Hahaha! How did my shield taste?");
+            }
+            else 
+            {
+                Debug.Log("There's more where that came from!");
+            }
         }
 
         // End attack action
@@ -87,7 +96,7 @@ public class ShieldScript : MonoBehaviour
         Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, attackRange, layerMask))
         {
             Debug.DrawRay(rayOrigin, m_camera.transform.forward * hit.distance, Color.yellow);
         }

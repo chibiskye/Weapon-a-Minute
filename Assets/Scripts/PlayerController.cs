@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 // Script will not run if game object does not have a character controller component
 [RequireComponent(typeof(CharacterController))]
@@ -7,18 +9,20 @@ public class PlayerController : MonoBehaviour
 {
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private LayerMask detectMasks;
-    // [SerializeField] private Transform groundTransform = null;
-    // [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float timeToSwitch = 10f;
     // [SerializeField] private Transform l_HandWeaponHold = null;
     // [SerializeField] private Transform r_HandWeaponHold = null;
     [SerializeField] private GameObject[] weaponsList = null;
 
     private CharacterController characterController = null;
     private PlayerControls playerControls = null;
+    private int nextWeaponIndex = -1;
+    private float switchTimeLeft = 0f;
+    private bool timerOn = true;
     // private GameObject l_handWeapon = null;
     // private GameObject r_HandWeapon = null;
-    private bool isGrounded = true;
+    // private bool isGrounded = true;
 
     // Awake is called once before the Start method
     void Awake()
@@ -29,6 +33,7 @@ public class PlayerController : MonoBehaviour
         playerControls.Movement.Jump.performed += _ => Jump();
 
         // Debug commands
+        playerControls.Debug.ToggleSwitchTimer.performed += _ => DebugToggleTimer();
         playerControls.Debug.HealthDecrease.performed += _ => DebugTakeDamage(10);
         playerControls.Debug.HealthIncrease.performed += _ => DebugAddHealth(10);
         playerControls.Debug.SummonHandGun.performed += _ => DebugSummon(0);
@@ -60,6 +65,25 @@ public class PlayerController : MonoBehaviour
     // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
+        // Switch weapons after some time interval
+        if (timerOn)
+        {
+            switchTimeLeft -= Time.deltaTime; // update timer
+            if (switchTimeLeft <= 0)
+            {
+                Debug.Log("switching weapons");
+
+                // Randomly select a weapon to summon next
+                nextWeaponIndex = Random.Range(0, weaponsList.Length);
+                while (weaponsList[nextWeaponIndex] == null)
+                {
+                    nextWeaponIndex = Random.Range(0, weaponsList.Length);
+                }
+                DebugSummon(nextWeaponIndex);
+                switchTimeLeft = timeToSwitch; // reset timer
+            }
+        }
+
         // // Prevent additional player movement when player is in mid-air
         // isGrounded = Physics.CheckSphere(groundTransform.position, groundDistance, detectMasks);
         // if (!isGrounded) return;
@@ -82,6 +106,20 @@ public class PlayerController : MonoBehaviour
     // Below are methods used for debugging
     // ---------------------------------------------------------------------------------------------
 
+    void DebugToggleTimer()
+    {
+        timerOn = !timerOn;
+        if (timerOn)
+        {
+            Debug.Log("random weapon switching on");
+            switchTimeLeft = timeToSwitch; // reset timer
+        }
+        else
+        {
+            Debug.Log("random weapon switching off");
+        }
+    }
+
     void DebugTakeDamage(int damage)
     {
         Health healthScript = GetComponent<Health>();
@@ -103,7 +141,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Using " + weaponsList[weaponIndex].transform.name);
                 weaponsList[weaponIndex].SetActive(true);
             }
-            else 
+            else if (weaponsList[i] != null) // ignore destroyed or one-time-use weapons
             {
                 weaponsList[i].SetActive(false);
             }
