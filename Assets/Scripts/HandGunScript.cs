@@ -54,18 +54,18 @@ public class HandGunScript : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
         {
-            // Instantiate bullet
-            GameObject g = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint);
-            g.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-            g.transform.LookAt(hit.transform);
-            g.SetActive(true);
-
-            // Prevents gun from shooting multiple shots too quickly
-            StartCoroutine(WaitToShoot());
-
             if (hit.transform.gameObject.layer == 12) // successfully hit the opponent
             {
                 Debug.Log("Take this bullet from me!");
+
+                // Instantiate bullet
+                GameObject g = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint);
+                g.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                g.transform.LookAt(hit.transform);
+                g.SetActive(true);
+
+                // Prevents gun from shooting multiple shots too quickly
+                StartCoroutine(WaitToShoot());
             }
             else // hit something else other than the player
             {
