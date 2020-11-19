@@ -48,10 +48,10 @@ public class BananaScript : MonoBehaviour
     void Throw()
     {
         // Check if player still has weapon in hand
-        if (!beenThrown) return;
+        if (beenThrown) return;
 
         // Update state
-        Debug.Log("throwing");
+        Debug.Log("Catch this!");
         beenThrown = true;
 
         // Detach weapon from player
@@ -71,7 +71,7 @@ public class BananaScript : MonoBehaviour
     void Swing()
     {
         // Check if player still has weapon in hand
-        if (!beenThrown) return;
+        if (beenThrown) return;
 
         // Draw raycast
         Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
