@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour
 {
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private LayerMask detectMasks;
-    // [SerializeField] private Transform groundTransform = null;
-    // [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float timeToSwitch = 10f;
     // [SerializeField] private Transform l_HandWeaponHold = null;
@@ -19,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController characterController = null;
     private PlayerControls playerControls = null;
+    private int nextWeaponIndex = -1;
     private float switchTimeLeft = 0f;
     private bool timerOn = true;
     // private GameObject l_handWeapon = null;
@@ -73,7 +72,14 @@ public class PlayerController : MonoBehaviour
             if (switchTimeLeft <= 0)
             {
                 Debug.Log("switching weapons");
-                DebugSummon(Random.Range(0, weaponsList.Length));
+
+                // Randomly select a weapon to summon next
+                nextWeaponIndex = Random.Range(0, weaponsList.Length);
+                while (weaponsList[nextWeaponIndex] == null)
+                {
+                    nextWeaponIndex = Random.Range(0, weaponsList.Length);
+                }
+                DebugSummon(nextWeaponIndex);
                 switchTimeLeft = timeToSwitch; // reset timer
             }
         }
@@ -135,7 +141,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Using " + weaponsList[weaponIndex].transform.name);
                 weaponsList[weaponIndex].SetActive(true);
             }
-            else 
+            else if (weaponsList[i] != null) // ignore destroyed or one-time-use weapons
             {
                 weaponsList[i].SetActive(false);
             }

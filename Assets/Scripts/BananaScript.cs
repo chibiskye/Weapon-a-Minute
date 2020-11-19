@@ -6,13 +6,13 @@ public class BananaScript : MonoBehaviour
 {
     [SerializeField] private Camera m_camera = null;
     [SerializeField] private float swingRange = 5.0f;
-    [SerializeField] private float throwForce = 400f;
+    [SerializeField] private float throwForce = 5f;
     [SerializeField] private int swingDamage = 1;
     [SerializeField] private int throwDamage = 10;
 
     private WeaponControls weaponControls = null;
     private Rigidbody rigidBody = null;
-    private Collider collider = null;
+    private Collider m_collider = null;
     private int layerMask = ~(1 << 8); //attacking doesn't affect the player
     private bool beenThrown = false;
 
@@ -36,7 +36,7 @@ public class BananaScript : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
+        m_collider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -45,37 +45,33 @@ public class BananaScript : MonoBehaviour
         DebugRaycast();
     }
 
-    IEnumerator tempTrigger()
-    {
-        //temporarily make it a trigger
-        collider.isTrigger = true;
-        yield return new WaitForSeconds(0.5f);
-        collider.isTrigger = false;
-    }
-
     void Throw()
     {
+        // Check if player still has weapon in hand
+        if (!beenThrown) return;
+
         // Update state
         Debug.Log("throwing");
+        beenThrown = true;
 
         // Detach weapon from player
         transform.parent = null;
 
         // Unfreeze the position, but still freeze the rotation
-        rigidBody.constraints = RigidbodyConstraints.None;
-        rigidBody.freezeRotation = true;
+        rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
 
-        beenThrown = true;
-        StartCoroutine(tempTrigger());
-        Vector3 throwDirection = transform.forward + new Vector3(100f, 0f, 0f);
-        rigidBody.AddForce(throwDirection * throwForce);
-        rigidBody.useGravity = true;
+        // Throw banana as a projectile
+        rigidBody.AddForce(transform.forward * throwForce, ForceMode.Impulse);
+        rigidBody.AddForce(transform.up * throwForce, ForceMode.Impulse);
+
+        // Make the collider a trigger
+        m_collider.isTrigger = true;
     }
 
     void Swing()
     {
-        // Check if weapon still in player's hand
-        if (beenThrown) return;
+        // Check if player still has weapon in hand
+        if (!beenThrown) return;
 
         // Draw raycast
         Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
@@ -96,24 +92,26 @@ public class BananaScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Collided with " + collision.gameObject.name);
-
         // Check if weapon has been thrown
         if (!beenThrown) return;
+        Debug.Log("Collided with " + other.gameObject.name);
 
-        // Check if other collider is damageable
-        if (collision.gameObject.layer == 11)
+        // If opponent was not hit, remain in the scene
+        if (other.gameObject.layer == 11)
         {
-            collider.isTrigger = false;
             rigidBody.velocity = Vector3.zero;
+            rigidBody.useGravity = false;
         }
-        else 
+        // If opponent was hit, decrease opponent health and destroy self
+        else if (other.gameObject.layer == 12)
         {
-            Debug.Log("Damage");
-            // TODO: damage the player/enemy that the weapon collided with
+            Debug.Log("Opponent: A trap! I was careless!");
             Destroy(gameObject);
+
+            Health opponentHealth = other.gameObject.GetComponent<Health>();
+            opponentHealth.LoseHealth(throwDamage);
         }
     }
 
