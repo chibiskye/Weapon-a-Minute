@@ -9,6 +9,7 @@ public class AIController : MonoBehaviour
     //Components
     [SerializeField] private LayerMask whatIsGround, whatIsPlayer;
     [SerializeField] private Transform player = null;
+    [SerializeField] private DebugLogScript debugLog = null;
     [SerializeField] private EnemySwordScript weapon = null;
     private NavMeshAgent agent = null;
     private AIControls aiControls = null;
@@ -75,18 +76,18 @@ public class AIController : MonoBehaviour
             agent.SetDestination(walkPoint);
         }
 
-        // Vector3 distanceToWalkPoint = transform.position - walkPoint;
-        // if (distanceToWalkPoint.magnitude < 1.0f)
-        // {
-        //     walkPointSet = false; // calculate next walk point
-        // }
-
-        //Thought that this method would be more intuitive to understand
-        // Check if AI reached walk point
-        if (Vector3.Distance(transform.position, walkPoint) <= agent.stoppingDistance)
+        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+        if (distanceToWalkPoint.magnitude < 1.0f)
         {
-            walkPointSet = false;
+            walkPointSet = false; // calculate next walk point
         }
+
+        // //Thought that this method would be more intuitive to understand
+        // // Check if AI reached walk point
+        // if (Vector3.Distance(transform.position, walkPoint) <= agent.stoppingDistance)
+        // {
+        //     walkPointSet = false;
+        // }
     }
 
     private void SearchWalkPoint()
@@ -157,11 +158,11 @@ public class AIController : MonoBehaviour
         agent.isStopped = !agent.isStopped;
         if (agent.isStopped)
         {
-            Debug.Log("opponent paused");
+            debugLog.AddLog("AI navigation: PAUSED");
         }
         else
         {
-            Debug.Log("opponent unpaused");
+            debugLog.AddLog("AI navigation: RESUMED");
         }
     }
 
