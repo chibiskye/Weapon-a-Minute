@@ -9,6 +9,7 @@ public class AIController : MonoBehaviour
     //Components
     [SerializeField] private LayerMask whatIsGround, whatIsPlayer;
     [SerializeField] private Transform player = null;
+    [SerializeField] private DebugLogScript debugLog = null;
     [SerializeField] private EnemySwordScript weapon = null;
     private NavMeshAgent agent = null;
     private AIControls aiControls = null;
@@ -148,13 +149,17 @@ public class AIController : MonoBehaviour
     void DebugToggleMove()
     {
         agent.isStopped = !agent.isStopped;
+
+        // Check if debug log is available to write in
+        if (debugLog == null) return;
+        
         if (agent.isStopped)
         {
-            Debug.Log("opponent paused");
+            debugLog.AddLog("AI navigation: PAUSED");
         }
         else
         {
-            Debug.Log("opponent unpaused");
+            debugLog.AddLog("AI navigation: RESUMED");
         }
     }
 

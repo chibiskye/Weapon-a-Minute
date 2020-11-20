@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private LayerMask detectMasks;
+    [SerializeField] private DebugLogScript debugLog = null;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float timeToSwitch = 10f;
     // [SerializeField] private Transform l_HandWeaponHold = null;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController characterController = null;
     private PlayerControls playerControls = null;
+    private int prevWeaponIndex = -1;
     private int nextWeaponIndex = -1;
     private float switchTimeLeft = 0f;
     private bool timerOn = true;
@@ -71,15 +73,14 @@ public class PlayerController : MonoBehaviour
             switchTimeLeft -= Time.deltaTime; // update timer
             if (switchTimeLeft <= 0)
             {
-                Debug.Log("switching weapons");
-
-                // Randomly select a weapon to summon next
+                // Randomly select a weapon to summon next, cannot use same weapon twice in a row
                 nextWeaponIndex = Random.Range(0, weaponsList.Length);
-                while (weaponsList[nextWeaponIndex] == null)
+                while (weaponsList[nextWeaponIndex] == null && nextWeaponIndex != prevWeaponIndex)
                 {
                     nextWeaponIndex = Random.Range(0, weaponsList.Length);
                 }
                 DebugSummon(nextWeaponIndex);
+                prevWeaponIndex = nextWeaponIndex; // save reference to selected weapon
                 switchTimeLeft = timeToSwitch; // reset timer
             }
         }
@@ -111,12 +112,11 @@ public class PlayerController : MonoBehaviour
         timerOn = !timerOn;
         if (timerOn)
         {
-            Debug.Log("random weapon switching on");
-            switchTimeLeft = timeToSwitch; // reset timer
+            debugLog.AddLog("Random weapon switching: ON");
         }
         else
         {
-            Debug.Log("random weapon switching off");
+            debugLog.AddLog("Random weapon switching: OFF");
         }
     }
 
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
         {
             if (i == weaponIndex)
             {
-                Debug.Log("Using " + weaponsList[weaponIndex].transform.name);
+                DebugLogWeapon(weaponIndex);
                 weaponsList[weaponIndex].SetActive(true);
             }
             else if (weaponsList[i] != null) // ignore destroyed or one-time-use weapons
@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
     //     // Add slight offset in y-direction above player hand
     //     Vector3 gunPosition = new Vector3(r_HandWeaponHold.transform.position.x, r_HandWeaponHold.transform.position.y + 0.2f, r_HandWeaponHold.transform.position.z);
-        
+
     //     // Rotate gun to make it horizontal
     //     Quaternion gunRotation = Quaternion.Euler(90f, 0f, 0f);
 
@@ -166,4 +166,30 @@ public class PlayerController : MonoBehaviour
     //     r_HandWeapon.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     //     r_HandWeapon.SetActive(true);
     // }
+
+    void DebugLogWeapon(int weaponIndex)
+    {
+        string debugText = "Current weapon: ";
+        switch (weaponIndex)
+        {
+            case 0:
+                debugLog.AddLog(debugText + "HAND GUN");
+                break;
+            case 1:
+                debugLog.AddLog(debugText + "LASER GUN");
+                break;
+            case 2:
+                debugLog.AddLog(debugText + "SWORD");
+                break;
+            case 3:
+                debugLog.AddLog(debugText + "SHIELD");
+                break;
+            case 4:
+                debugLog.AddLog(debugText + "BANANA");
+                break;
+            case 5:
+                debugLog.AddLog(debugText + "BOOMERANG");
+                break;
+        }
+    }
 }
