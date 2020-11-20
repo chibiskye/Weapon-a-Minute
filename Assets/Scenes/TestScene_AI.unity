@@ -131,7 +131,7 @@ PrefabInstance:
     - target: {fileID: 9043311209219805184, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
       propertyPath: m_Name
-      value: DummyOpponentUI (5)
+      value: DummyOpponentUI_5
       objectReference: {fileID: 0}
     - target: {fileID: 9043311209219805187, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
@@ -215,7 +215,7 @@ PrefabInstance:
     - target: {fileID: 9043311209219805184, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
       propertyPath: m_Name
-      value: DummyOpponentUI (6)
+      value: DummyOpponentUI_6
       objectReference: {fileID: 0}
     - target: {fileID: 9043311209219805187, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
@@ -391,7 +391,7 @@ PrefabInstance:
     - target: {fileID: 9043311209219805184, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
       propertyPath: m_Name
-      value: DummyOpponentUI (3)
+      value: DummyOpponentUI_3
       objectReference: {fileID: 0}
     - target: {fileID: 9043311209219805187, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
@@ -475,7 +475,7 @@ PrefabInstance:
     - target: {fileID: 9043311209219805184, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
       propertyPath: m_Name
-      value: DummyOpponentUI (2)
+      value: DummyOpponentUI_2
       objectReference: {fileID: 0}
     - target: {fileID: 9043311209219805187, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
@@ -559,7 +559,7 @@ PrefabInstance:
     - target: {fileID: 9043311209219805184, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
       propertyPath: m_Name
-      value: DummyOpponentUI (4)
+      value: DummyOpponentUI_4
       objectReference: {fileID: 0}
     - target: {fileID: 9043311209219805187, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
@@ -796,7 +796,7 @@ PrefabInstance:
     - target: {fileID: 9043311209219805184, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
       propertyPath: m_Name
-      value: DummyOpponentUI (1)
+      value: DummyOpponentUI_1
       objectReference: {fileID: 0}
     - target: {fileID: 9043311209219805187, guid: 3f189904b7a442b46ab5a748e244b399,
         type: 3}
