@@ -415,9 +415,32 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 362929522}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1579272926 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9043311209219805189, guid: 3f189904b7a442b46ab5a748e244b399,
+--- !u!1 &1476910995 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1135054319068964354, guid: 3e808ac014617e541b1e57e42686bc06,
+    type: 3}
+  m_PrefabInstance: {fileID: 2128845610}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &1476910998
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476910995}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 1989289236423521904, guid: c4889614bb303834cbdd6a317de61e47,
+    type: 3}
+  m_Animations:
+  - {fileID: 1989289236423521904, guid: c4889614bb303834cbdd6a317de61e47, type: 3}
+  m_WrapMode: 1
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &1527945167 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 516834077410113525, guid: 3f189904b7a442b46ab5a748e244b399,
     type: 3}
   m_PrefabInstance: {fileID: 2022365292}
   m_PrefabAsset: {fileID: 0}
@@ -904,7 +927,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 783332714}
     m_Modifications:
-    - target: {fileID: 9043311209219805184, guid: 3f189904b7a442b46ab5a748e244b399,
+    - target: {fileID: 1135054319068964352, guid: 3e808ac014617e541b1e57e42686bc06,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135054319068964352, guid: 3e808ac014617e541b1e57e42686bc06,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135054319068964352, guid: 3e808ac014617e541b1e57e42686bc06,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135054319068964354, guid: 3e808ac014617e541b1e57e42686bc06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140230570111343780, guid: 3e808ac014617e541b1e57e42686bc06,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1476910998}
+    - target: {fileID: 1140230570111343780, guid: 3e808ac014617e541b1e57e42686bc06,
+        type: 3}
+      propertyPath: swing
+      value: 
+      objectReference: {fileID: 1989289236423521904, guid: c4889614bb303834cbdd6a317de61e47,
+        type: 3}
+    - target: {fileID: 3170862112356371028, guid: 3e808ac014617e541b1e57e42686bc06,
         type: 3}
       propertyPath: m_Name
       value: DummyOpponentUI_4
