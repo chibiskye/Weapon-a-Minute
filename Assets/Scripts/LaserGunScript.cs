@@ -25,6 +25,7 @@ public class LaserGunScript : MonoBehaviour
     void OnEnable()
     {
         weaponControls.Enable();
+        canShoot = true;
     }
 
     void OnDisable()

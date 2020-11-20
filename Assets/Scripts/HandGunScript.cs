@@ -24,6 +24,7 @@ public class HandGunScript : MonoBehaviour
     void OnEnable()
     {
         weaponControls.Enable();
+        canShoot = true;
     }
 
     void OnDisable()
