@@ -156,8 +156,6 @@ public class AIController : MonoBehaviour
     void DebugToggleMove()
     {
         agent.isStopped = !agent.isStopped;
-        if (debugLog == null) return; // check if debug log is given
-
         if (agent.isStopped)
         {
             debugLog.AddLog("AI navigation: PAUSED");
