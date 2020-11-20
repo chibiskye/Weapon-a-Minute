@@ -6,6 +6,7 @@ public class BoomerangScript : MonoBehaviour
 {
     [SerializeField] private float range = 25.0f;
     [SerializeField] private GameObject playerWeaponHold;
+    [SerializeField] private int hitDamage = 10;
 
     private WeaponControls weaponControls = null;
     private Rigidbody rigidBody = null;
@@ -27,6 +28,7 @@ public class BoomerangScript : MonoBehaviour
         //Brings it back to the player when enabled
         go = false;
         transform.position = playerWeaponHold.transform.position;
+        transform.rotation = origionalRotation;
     }
 
     void OnDisable()
@@ -53,6 +55,10 @@ public class BoomerangScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //Tempory Patch for issue where the boomerang is changing rotation
+        if(!isThrown)
+            transform.rotation = new Quaternion(0,0,0,0); 
+
         if (isThrown)
         {
             gameObject.transform.Rotate(0, Time.deltaTime * 500, 0);
@@ -80,7 +86,7 @@ public class BoomerangScript : MonoBehaviour
     {
         if (isThrown) { return; }
         Debug.Log("Throwing");
-        throwLocation = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1, gameObject.transform.position.z) + gameObject.transform.forward * range;
+        throwLocation = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z) + gameObject.transform.forward * range;
         origionalRotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
         isThrown = true;
         StartCoroutine(Boom());
@@ -88,11 +94,22 @@ public class BoomerangScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("collision");
         if (isThrown)
         {
-            Debug.Log("Hit");
-            go = false;
-            transform.rotation = origionalRotation;
+            Debug.Log("hit");
+            Health opponentHealth = collision.gameObject.GetComponent<Health>();
+            if (opponentHealth != null) // successfully hit the opponent
+            {
+                opponentHealth.LoseHealth(hitDamage);
+                Debug.Log("I'll stab you to death!");
+            }
+            else 
+            {
+                Debug.Log("I dare you to come closer!");
+            }
         }
+        go = false;
+        transform.rotation = origionalRotation;
     }
 }
