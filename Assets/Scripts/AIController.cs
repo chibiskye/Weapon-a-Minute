@@ -75,17 +75,10 @@ public class AIController : MonoBehaviour
             agent.SetDestination(walkPoint);
         }
 
-        // Vector3 distanceToWalkPoint = transform.position - walkPoint;
-        // if (distanceToWalkPoint.magnitude < 1.0f)
-        // {
-        //     walkPointSet = false; // calculate next walk point
-        // }
-
-        //Thought that this method would be more intuitive to understand
-        // Check if AI reached walk point
-        if (Vector3.Distance(transform.position, walkPoint) <= agent.stoppingDistance)
+        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+        if (distanceToWalkPoint.magnitude < 1.0f)
         {
-            walkPointSet = false;
+            walkPointSet = false; // calculate next walk point
         }
     }
 
