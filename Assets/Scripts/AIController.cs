@@ -81,13 +81,6 @@ public class AIController : MonoBehaviour
         {
             walkPointSet = false; // calculate next walk point
         }
-
-        // //Thought that this method would be more intuitive to understand
-        // // Check if AI reached walk point
-        // if (Vector3.Distance(transform.position, walkPoint) <= agent.stoppingDistance)
-        // {
-        //     walkPointSet = false;
-        // }
     }
 
     private void SearchWalkPoint()
@@ -156,6 +149,10 @@ public class AIController : MonoBehaviour
     void DebugToggleMove()
     {
         agent.isStopped = !agent.isStopped;
+
+        // Check if debug log is available to write in
+        if (debugLog == null) return;
+        
         if (agent.isStopped)
         {
             debugLog.AddLog("AI navigation: PAUSED");
