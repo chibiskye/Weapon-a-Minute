@@ -5,11 +5,11 @@ using UnityEngine;
 public class BoomerangScript : MonoBehaviour
 {
     [SerializeField] private float range = 25.0f;
+    [SerializeField] private GameObject playerWeaponHold;
 
     private WeaponControls weaponControls = null;
     private Rigidbody rigidBody = null;
     private Vector3 throwLocation;
-    private Vector3 returnLocation;
     private Quaternion origionalRotation;
     private bool go;
     private bool isThrown;
@@ -35,7 +35,6 @@ public class BoomerangScript : MonoBehaviour
     {
         go = false;
         isThrown = false;
-        returnLocation = transform.position;
         rigidBody = GetComponent<Rigidbody>();
     }
 
@@ -60,17 +59,15 @@ public class BoomerangScript : MonoBehaviour
             }
             if (!go)
             {
-                transform.position = Vector3.MoveTowards(transform.position, returnLocation, Time.deltaTime * 40);
+                transform.position = Vector3.MoveTowards(transform.position, playerWeaponHold.transform.position, Time.deltaTime * 40);
             }
-            if (!go && Vector3.Distance(returnLocation, transform.position) < 1.5f)
+            if (!go && Vector3.Distance(playerWeaponHold.transform.position, transform.position) < 1.5f)
             {
                 Debug.Log("Gone back");
                 isThrown = false;
                 transform.rotation = origionalRotation;
-                transform.position = returnLocation;
+                transform.position = playerWeaponHold.transform.position;
                 rigidBody.velocity = new Vector3(0, 0, 0);
-
-                //TODO the player should be holding the boomerang again
             }
         }
     }
@@ -79,7 +76,6 @@ public class BoomerangScript : MonoBehaviour
     {
         if(isThrown) { return; }
         Debug.Log("Throwing");
-        returnLocation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         throwLocation = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1, gameObject.transform.position.z) + gameObject.transform.forward * range;
         origionalRotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
         isThrown = true;
