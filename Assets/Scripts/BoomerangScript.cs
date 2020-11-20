@@ -23,6 +23,10 @@ public class BoomerangScript : MonoBehaviour
     void OnEnable()
     {
         weaponControls.Enable();
+
+        //Brings it back to the player when enabled
+        go = false;
+        transform.position = playerWeaponHold.transform.position;
     }
 
     void OnDisable()
@@ -74,7 +78,7 @@ public class BoomerangScript : MonoBehaviour
 
     void Throw()
     {
-        if(isThrown) { return; }
+        if (isThrown) { return; }
         Debug.Log("Throwing");
         throwLocation = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1, gameObject.transform.position.z) + gameObject.transform.forward * range;
         origionalRotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
@@ -84,7 +88,7 @@ public class BoomerangScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(isThrown)
+        if (isThrown)
         {
             Debug.Log("Hit");
             go = false;
