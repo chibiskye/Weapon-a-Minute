@@ -5,18 +5,19 @@ using UnityEngine;
 public class SwordScript : MonoBehaviour
 {
     [SerializeField] private Camera m_camera = null;
-    [SerializeField] private Animation anim;
     [SerializeField] private AnimationClip swing;
     [SerializeField] private float range = 8.0f;
     [SerializeField] private int hitDamage = 10;
 
     private WeaponControls weaponControls = null;
+    private Animation anim = null;
     private int layerMask = ~(1 << 8); //attacking doesn't affect the player
 
     void Awake()
     {
         weaponControls = new WeaponControls();
         weaponControls.SwordInputs.Swing.performed += _ => Swing();
+        
         anim = GetComponent<Animation>();
         anim.clip = swing;
     }

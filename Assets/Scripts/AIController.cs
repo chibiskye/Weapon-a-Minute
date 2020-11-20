@@ -32,7 +32,7 @@ public class AIController : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("DummyPlayerArmed").transform;
+        // player = GameObject.Find("DummyPlayerArmed").transform;
         agent = GetComponent<NavMeshAgent>();
 
         // Detect debug commands
