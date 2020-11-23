@@ -28,10 +28,10 @@ public class EnemySwordScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(raycastOrigin.position, transform.forward, out hit, range, layerMask))
         {
-            Quaternion original_rotation = transform.rotation;
-            transform.rotation = new Quaternion(0, -45, 0, 0);
+            // Quaternion original_rotation = transform.rotation;
+            // transform.rotation = new Quaternion(0, -45, 0, 0);
             anim.Play();
-            transform.rotation = original_rotation;
+            // transform.rotation = original_rotation;
 
             Health opponentHealth = hit.collider.GetComponent<Health>();
             if (opponentHealth != null) // successfully hit the player
