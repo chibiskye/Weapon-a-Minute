@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
     // [SerializeField] private Transform r_HandWeaponHold = null;
     [SerializeField] private GameObject[] weaponsList = null;
 
+    [SerializeField] private GameObject camera = null;
+
+    [SerializeField] private GameObject body = null;
+
     private CharacterController characterController = null;
     private PlayerControls playerControls = null;
     private int prevWeaponIndex = -1;
@@ -94,7 +98,25 @@ public class PlayerController : MonoBehaviour
 
         // Move the player
         Vector3 moveVector = transform.right * moveInput.x + transform.forward * moveInput.y;
-        characterController.Move(moveVector.normalized * moveSpeed * Time.deltaTime);
+        characterController.Move(moveVector.normalized * this.moveSpeed * Time.deltaTime);
+
+        // Vector3 targetVector = new Vector3(moveInput.x, 0, moveInput.y);
+        // Vector3 movementVector = Quaternion.Euler(0, camera.gameObject.transform.eulerAngles.y, 0) * targetVector;
+        // if(movementVector.magnitude != 0) {
+        //     Quaternion rotation = Quaternion.LookRotation(movementVector);
+        //     transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 10f);
+        // }
+        // if(moveInput.y > 0) {
+        //     body.transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
+        // } else if (moveInput.y < 0) {
+        //     body.transform.eulerAngles = new Vector3(transform.eulerAngles.x, -180f, transform.eulerAngles.z);
+        // }
+        // if(moveInput.x > 0) {
+        //     body.transform.eulerAngles = new Vector3(transform.eulerAngles.x, 90f, transform.eulerAngles.z);
+        // } else if (moveInput.x < 0) {
+        //     body.transform.eulerAngles = new Vector3(transform.eulerAngles.x, -90f, transform.eulerAngles.z);
+        // }
+        // camera.transform.eulerAngles = new Vector3(36.01f, 0 , 0);
     }
 
     void Jump()
