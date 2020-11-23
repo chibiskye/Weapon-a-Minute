@@ -199,6 +199,7 @@ MonoBehaviour:
   debugLog: {fileID: 721495254176251827}
   moveSpeed: 10
   timeToSwitch: 5
+  model: {fileID: 0}
   weaponsList:
   - {fileID: 721495252374391834}
   - {fileID: 721495253678498363}
@@ -1242,8 +1243,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721495253708177370}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: -7.09}
-  m_LocalScale: {x: 2.352941, y: 5, z: 1.6666665}
+  m_LocalPosition: {x: 0, y: 5, z: -7.090003}
+  m_LocalScale: {x: 2.3529406, y: 5, z: 1.6666665}
   m_Children: []
   m_Father: {fileID: 721495254350692978}
   m_RootOrder: 0
@@ -1828,8 +1829,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721495254350692979}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.595, z: 0.3}
-  m_LocalScale: {x: 0.425, y: 0.2, z: 0.6}
+  m_LocalPosition: {x: 0, y: 0.595, z: 0.30000013}
+  m_LocalScale: {x: 0.42500007, y: 0.2, z: 0.6}
   m_Children:
   - {fileID: 721495253708177369}
   m_Father: {fileID: 721495254022788562}
@@ -2020,7 +2021,7 @@ Transform:
   m_GameObject: {fileID: 721495254489954910}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_LocalScale: {x: 0.34999993, y: 0.35, z: 0.34999993}
   m_Children:
   - {fileID: 721495254369191938}
   - {fileID: 721495252420509443}
