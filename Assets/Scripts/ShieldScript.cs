@@ -25,12 +25,11 @@ public class ShieldScript : MonoBehaviour
 
     void OnEnable()
     {
-        weaponControls.Enable();
-
         // Reset default values
         canDefend = true;
         canAttack = true;
         transform.localPosition = holdPosition;
+        weaponControls.Enable();
     }
 
     void OnDisable()

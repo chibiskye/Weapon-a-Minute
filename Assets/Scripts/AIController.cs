@@ -17,8 +17,10 @@ public class AIController : MonoBehaviour
     //Patroling
     [SerializeField] private float walkPointRange = 10.0f;
     [SerializeField] private float walkPointCheckRange = 2.0f;
+    [SerializeField] private float walkTime = 10.0f;
     public Vector3 walkPoint; // public for debug purposes
     private bool walkPointSet = false;
+    private float timeLeftToWalk = 0f;
 
     //Attacking
     [SerializeField] private float timeBetweenAttacks = 1.0f;
@@ -32,8 +34,8 @@ public class AIController : MonoBehaviour
 
     private void Awake()
     {
-        // player = GameObject.Find("DummyPlayerArmed").transform;
         agent = GetComponent<NavMeshAgent>();
+        timeLeftToWalk = walkTime;
 
         // Detect debug commands
         aiControls = new AIControls();
@@ -68,7 +70,8 @@ public class AIController : MonoBehaviour
     private void Patroling()
     {
         // Set next random walk point
-        if (!walkPointSet) SearchWalkPoint();
+        if (!walkPointSet || timeLeftToWalk <= 0) SearchWalkPoint();
+        timeLeftToWalk -= Time.deltaTime; // calcualte another walk point if take too long to get to point
 
         // Move AI towards walk point
         if (walkPointSet)
@@ -96,6 +99,7 @@ public class AIController : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up, walkPointCheckRange, whatIsGround))
         {
             walkPointSet = true;
+            timeLeftToWalk = walkTime;
         }
     }
 
