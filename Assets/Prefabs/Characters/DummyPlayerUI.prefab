@@ -199,7 +199,6 @@ MonoBehaviour:
   debugLog: {fileID: 721495254176251827}
   moveSpeed: 10
   timeToSwitch: 5
-  model: {fileID: 0}
   weaponsList:
   - {fileID: 721495252374391834}
   - {fileID: 721495253678498363}
@@ -207,6 +206,8 @@ MonoBehaviour:
   - {fileID: 721495253149616551}
   - {fileID: 721495252604203327}
   - {fileID: 721495253915295166}
+  camera: {fileID: 0}
+  body: {fileID: 0}
 --- !u!1 &721495252420509444
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,10 +622,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_camera: {fileID: 721495253708177350}
+  bananaPeelPrefab: {fileID: 0}
   swingRange: 5
-  throwForce: 5
   swingDamage: 1
-  throwDamage: 10
 --- !u!1 &721495253008032588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2152,6 +2152,11 @@ PrefabInstance:
       propertyPath: m_camera
       value: 
       objectReference: {fileID: 721495253708177350}
+    - target: {fileID: 2456247568294012046, guid: e5a6ed3c90bb7fb48a1afbea6b764cd4,
+        type: 3}
+      propertyPath: swing
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5a6ed3c90bb7fb48a1afbea6b764cd4, type: 3}
 --- !u!1 &721495253182539855 stripped
