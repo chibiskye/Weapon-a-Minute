@@ -5,10 +5,9 @@ using UnityEngine;
 public class BananaScript : MonoBehaviour
 {
     [SerializeField] private Camera m_camera = null;
+    [SerializeField] private Transform bananaPeelPrefab = null;
     [SerializeField] private float swingRange = 5.0f;
-    [SerializeField] private float throwForce = 5f;
     [SerializeField] private int swingDamage = 1;
-    [SerializeField] private int throwDamage = 10;
 
     private WeaponControls weaponControls = null;
     private Rigidbody rigidBody = null;
@@ -54,18 +53,11 @@ public class BananaScript : MonoBehaviour
         Debug.Log("Catch this!");
         beenThrown = true;
 
-        // Detach weapon from player
-        transform.parent = null;
+        //To represent the player throwing the banana as a banana peel, without destroying the gameobject 
+        //This way the player can use the banana again when it is time to switch weapons
+        Transform bananaPeel = Instantiate(bananaPeelPrefab, transform.position, transform.rotation);
 
-        // Unfreeze the position, but still freeze the rotation
-        rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
-
-        // Throw banana as a projectile
-        rigidBody.AddForce(transform.forward * throwForce, ForceMode.Impulse);
-        rigidBody.AddForce(transform.up * throwForce, ForceMode.Impulse);
-
-        // Make the collider a trigger
-        m_collider.isTrigger = true;
+        gameObject.SetActive(false);
     }
 
     void Swing()
@@ -89,29 +81,6 @@ public class BananaScript : MonoBehaviour
             {
                 Debug.Log("Why are you dodging so seriously? Scared of a tiny little banana?");
             }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // Check if weapon has been thrown
-        if (!beenThrown) return;
-        Debug.Log("Collided with " + other.gameObject.name);
-
-        // If opponent was not hit, remain in the scene
-        if (other.gameObject.layer == 11)
-        {
-            rigidBody.velocity = Vector3.zero;
-            rigidBody.useGravity = false;
-        }
-        // If opponent was hit, decrease opponent health and destroy self
-        else if (other.gameObject.layer == 12)
-        {
-            Debug.Log("Opponent: A trap! I was careless!");
-            Destroy(gameObject);
-
-            Health opponentHealth = other.gameObject.GetComponent<Health>();
-            opponentHealth.LoseHealth(throwDamage);
         }
     }
 
