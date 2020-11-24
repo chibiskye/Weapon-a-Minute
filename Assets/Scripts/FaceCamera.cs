@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class FaceCamera : MonoBehaviour
 {
-    [SerializeField] private GameObject camera = null;
     void FixedUpdate(){
-        transform.LookAt(camera.transform);
+        transform.LookAt(Camera.main.transform);
     }
 }
