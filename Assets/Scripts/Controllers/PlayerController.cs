@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Camera controls implemented with the help of the following tutorials:
+// - Third person movement = https://youtu.be/4HpC--2iowE
+
 // Script will not run if game object does not have a character controller component
 [RequireComponent(typeof(CharacterController))]
 
@@ -10,7 +13,9 @@ public class PlayerController : MonoBehaviour
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private LayerMask detectMasks;
     [SerializeField] private DebugLogScript debugLog = null;
+    [SerializeField] private Transform cameraTransform = null;
     [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float timeToSwitch = 10f;
     // [SerializeField] private Transform l_HandWeaponHold = null;
     // [SerializeField] private Transform r_HandWeaponHold = null;
@@ -21,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController characterController = null;
     private PlayerControls playerControls = null;
+    private float turnSmoothVelocity;
     private int prevWeaponIndex = -1;
     private int nextWeaponIndex = -1;
     private float switchTimeLeft = 0f;
@@ -92,16 +98,29 @@ public class PlayerController : MonoBehaviour
         // isGrounded = Physics.CheckSphere(groundTransform.position, groundDistance, detectMasks);
         // if (!isGrounded) return;
 
-        // Read movement value from input controls
+        // // Move the player
+        // Vector2 moveInput = playerControls.Movement.Move.ReadValue<Vector2>();
+        // Vector3 moveVector = transform.right * moveInput.x + transform.forward * moveInput.y;
+        // characterController.Move(moveVector.normalized * moveSpeed * Time.deltaTime);
+
+        // // Rotate player
+        // // Vector3 movement = new Vector3(moveInput.x, 0.0f, moveInput.y);
+        // // transform.rotation = Quaternion.LookRotation(movement);
+
+        // Handle player movement
         Vector2 moveInput = playerControls.Movement.Move.ReadValue<Vector2>();
+        Vector3 moveVector = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
+        if (moveVector.magnitude >= 0.1f)
+        {
+            // Smooth player rotation
+            float targetAngle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+            float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
 
-        // Move the player
-        Vector3 moveVector = transform.right * moveInput.x + transform.forward * moveInput.y;
-        characterController.Move(moveVector.normalized * this.moveSpeed * Time.deltaTime);
-
-        // //Rotate player
-        // Vector3 movement = new Vector3(moveInput.x, 0.0f, moveInput.y);
-        // transform.rotation = Quaternion.LookRotation(movement);
+            // Player moves forward in the direction that the camera points in
+            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            characterController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
+        }
     }
 
     void Jump()
