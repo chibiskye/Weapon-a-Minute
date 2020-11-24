@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Camera controls implemented with the help of the following tutorials:
+// - Mouse sensitivity and x-rotation = https://youtu.be/_QajrabyTJc
+// - Third person Cinemachine camera = https://youtu.be/4HpC--2iowE 
+
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform = null;
@@ -40,7 +44,14 @@ public class CameraController : MonoBehaviour
         // Read mouse position from input controls
         Vector2 lookInput = cameraControls.Player.Look.ReadValue<Vector2>();
         float lookX = lookInput.x * mouseSensitivity * Time.deltaTime;
-        playerTransform.Rotate(Vector3.up * lookX);
-        
+        float lookY = lookInput.y * mouseSensitivity * Time.deltaTime;
+
+        // Rotate camera in the y-direction (look up or down)
+        xRotation -= lookY;
+        xRotation = Mathf.Clamp(xRotation, upViewLimit, downViewLimit);
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        // // Rotate player in the x-direction (turn left or right)
+        // playerTransform.Rotate(Vector3.up * lookX);
     }
 }
