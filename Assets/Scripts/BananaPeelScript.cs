@@ -22,7 +22,7 @@ public class BananaPeelScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided with " + other.gameObject.name);
+        // Debug.Log("Collided with " + other.gameObject.name);
 
         // If opponent was not hit, remain in the scene
         if (other.gameObject.layer == 11)

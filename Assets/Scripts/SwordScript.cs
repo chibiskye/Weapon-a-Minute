@@ -5,7 +5,6 @@ using UnityEngine;
 public class SwordScript : MonoBehaviour
 {
     [SerializeField] private Camera m_camera = null;
-    [SerializeField] private AnimationClip swing;
     [SerializeField] private float range = 8.0f;
     [SerializeField] private int hitDamage = 10;
 
@@ -15,11 +14,10 @@ public class SwordScript : MonoBehaviour
 
     void Awake()
     {
+        anim = GetComponent<Animation>();
+
         weaponControls = new WeaponControls();
         weaponControls.SwordInputs.Swing.performed += _ => Swing();
-        
-        anim = GetComponent<Animation>();
-        anim.clip = swing;
     }
 
     void OnEnable()
@@ -39,10 +37,10 @@ public class SwordScript : MonoBehaviour
 
     void Swing()
     {
-        Quaternion original_rotation = transform.rotation;
-        transform.rotation = new Quaternion(0, -45, 0, 0);
+        // Quaternion original_rotation = transform.rotation;
+        // transform.rotation = new Quaternion(0, -45, 0, 0);
         anim.Play();
-        transform.rotation = original_rotation;
+        // transform.rotation = original_rotation;
 
         Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;

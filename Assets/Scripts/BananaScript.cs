@@ -5,7 +5,7 @@ using UnityEngine;
 public class BananaScript : MonoBehaviour
 {
     [SerializeField] private Camera m_camera = null;
-    [SerializeField] private Transform bananaPeelPrefab = null;
+    [SerializeField] private GameObject bananaPeelPrefab = null;
     [SerializeField] private float swingRange = 5.0f;
     [SerializeField] private int swingDamage = 1;
 
@@ -17,6 +17,9 @@ public class BananaScript : MonoBehaviour
 
     void Awake()
     {
+        rigidBody = GetComponent<Rigidbody>();
+        m_collider = GetComponent<Collider>();
+
         weaponControls = new WeaponControls();
         weaponControls.BananaInputs.Swing.performed += _ => Swing();
         weaponControls.BananaInputs.Throw.performed += _ => Throw();
@@ -24,6 +27,7 @@ public class BananaScript : MonoBehaviour
 
     void OnEnable()
     {
+        beenThrown = false;
         weaponControls.Enable();
     }
 
@@ -32,13 +36,6 @@ public class BananaScript : MonoBehaviour
         weaponControls.Disable();
     }
 
-    void Start()
-    {
-        rigidBody = GetComponent<Rigidbody>();
-        m_collider = GetComponent<Collider>();
-    }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         DebugRaycast();
@@ -48,16 +45,16 @@ public class BananaScript : MonoBehaviour
     {
         // Check if player still has weapon in hand
         if (beenThrown) return;
+        Debug.Log("Hehehe");
 
         // Update state
-        Debug.Log("Catch this!");
         beenThrown = true;
+        gameObject.SetActive(false);
 
         //To represent the player throwing the banana as a banana peel, without destroying the gameobject 
         //This way the player can use the banana again when it is time to switch weapons
-        Transform bananaPeel = Instantiate(bananaPeelPrefab, transform.position, transform.rotation);
-
-        gameObject.SetActive(false);
+        GameObject bananaPeel = Instantiate(bananaPeelPrefab, transform.position, transform.rotation);
+        bananaPeel.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
     void Swing()

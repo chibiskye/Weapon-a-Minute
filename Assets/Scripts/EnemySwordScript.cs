@@ -8,7 +8,13 @@ public class EnemySwordScript : MonoBehaviour
     [SerializeField] private float range = 8.0f;
     [SerializeField] private int hitDamage = 10;
 
+    private Animation anim = null;
     private int layerMask = ~(1 << 12); //attacking doesn't affect the enemies (no friendly fire amongst us)
+
+    void Start()
+    {
+        anim = GetComponent<Animation>();
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -22,6 +28,11 @@ public class EnemySwordScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(raycastOrigin.position, transform.forward, out hit, range, layerMask))
         {
+            // Quaternion original_rotation = transform.rotation;
+            // transform.rotation = new Quaternion(0, -45, 0, 0);
+            anim.Play();
+            // transform.rotation = original_rotation;
+
             Health opponentHealth = hit.collider.GetComponent<Health>();
             if (opponentHealth != null) // successfully hit the player
             {

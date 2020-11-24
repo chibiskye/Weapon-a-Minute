@@ -88,9 +88,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8877836451192014761}
+  - component: {fileID: 2529173920996317211}
   - component: {fileID: 8877836451192014760}
   m_Layer: 0
-  m_Name: SwordPrefab
+  m_Name: EnemySwordPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,6 +113,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &2529173920996317211
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8877836451192014763}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 1989289236423521904, guid: c4889614bb303834cbdd6a317de61e47,
+    type: 3}
+  m_Animations:
+  - {fileID: 1989289236423521904, guid: c4889614bb303834cbdd6a317de61e47, type: 3}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &8877836451192014760
 MonoBehaviour:
   m_ObjectHideFlags: 0

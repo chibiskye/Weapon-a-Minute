@@ -9,8 +9,8 @@ public class ShieldScript : MonoBehaviour
     [SerializeField] private int hitDamage = 10;
 
     private WeaponControls weaponControls = null;
-    private Vector3 holdPosition = new Vector3(2f, 0f, 1.75f);
-    private Vector3 blockPosition = new Vector3(0f, 0f, 1.75f);
+    private Vector3 blockPosition = new Vector3(2f, 0f, 1.75f);
+    private Vector3 holdPosition = new Vector3(0f, 0f, 1.75f);
     private int layerMask = ~(1 << 8); //attacking doesn't affect the player
     private bool canDefend = true;
     private bool canAttack = true;
@@ -25,6 +25,10 @@ public class ShieldScript : MonoBehaviour
 
     void OnEnable()
     {
+        // Reset default values
+        canDefend = true;
+        canAttack = true;
+        transform.localPosition = holdPosition;
         weaponControls.Enable();
     }
 
@@ -46,7 +50,7 @@ public class ShieldScript : MonoBehaviour
 
         // Move shield in front of the player
         Debug.Log("blocking");
-        transform.localPosition = holdPosition;
+        transform.localPosition = blockPosition;
     }
 
     void Unblock()
@@ -57,7 +61,7 @@ public class ShieldScript : MonoBehaviour
 
         // Move shield away from front of player
         Debug.Log("not blocking");
-        transform.localPosition = blockPosition;
+        transform.localPosition = holdPosition;
     }
 
     void ShieldBash()
