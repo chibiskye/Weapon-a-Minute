@@ -154,12 +154,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1605994437985541248, guid: 52c75c4f1af6d4ca09e8f1213c07cf8b,
         type: 3}
-    - target: {fileID: 721495252604203325, guid: 8c40ea19e20e60f49b080cf847503a2e,
-        type: 3}
-      propertyPath: bananaPeelPrefab
-      value: 
-      objectReference: {fileID: 1605994437985541248, guid: 52c75c4f1af6d4ca09e8f1213c07cf8b,
-        type: 3}
     - target: {fileID: 721495253091425767, guid: 8c40ea19e20e60f49b080cf847503a2e,
         type: 3}
       propertyPath: m_AnchoredPosition.x

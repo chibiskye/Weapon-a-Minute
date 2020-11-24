@@ -16,9 +16,8 @@ public class PlayerController : MonoBehaviour
     // [SerializeField] private Transform r_HandWeaponHold = null;
     [SerializeField] private GameObject[] weaponsList = null;
 
-    [SerializeField] private GameObject camera = null;
-
-    [SerializeField] private GameObject body = null;
+    // [SerializeField] private GameObject camera = null;
+    // [SerializeField] private GameObject body = null;
 
     private CharacterController characterController = null;
     private PlayerControls playerControls = null;
@@ -100,9 +99,9 @@ public class PlayerController : MonoBehaviour
         Vector3 moveVector = transform.right * moveInput.x + transform.forward * moveInput.y;
         characterController.Move(moveVector.normalized * this.moveSpeed * Time.deltaTime);
 
-        //Rotate player
-        Vector3 movement = new Vector3(moveInput.x, 0.0f, moveInput.y);
-        transform.rotation = Quaternion.LookRotation(movement);
+        // //Rotate player
+        // Vector3 movement = new Vector3(moveInput.x, 0.0f, moveInput.y);
+        // transform.rotation = Quaternion.LookRotation(movement);
     }
 
     void Jump()

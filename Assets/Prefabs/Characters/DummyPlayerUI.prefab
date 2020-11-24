@@ -206,8 +206,6 @@ MonoBehaviour:
   - {fileID: 721495253149616551}
   - {fileID: 721495252604203327}
   - {fileID: 721495253915295166}
-  camera: {fileID: 0}
-  body: {fileID: 0}
 --- !u!1 &721495252420509444
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,7 +602,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
@@ -622,7 +620,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_camera: {fileID: 721495253708177350}
-  bananaPeelPrefab: {fileID: 0}
+  bananaPeelPrefab: {fileID: 1164233623134241125, guid: 52c75c4f1af6d4ca09e8f1213c07cf8b,
+    type: 3}
   swingRange: 5
   swingDamage: 1
 --- !u!1 &721495253008032588
@@ -1426,7 +1425,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &721495253915295165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1439,9 +1438,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3244533262540e79c50207abf29cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerWeaponHold: {fileID: 721495252514525285}
   range: 25
-  playerWeaponHold: {fileID: 721495252514525286}
+  throwDuration: 1.5
   hitDamage: 10
+  isThrown: 0
+  movingForward: 0
 --- !u!1 &721495254022788563
 GameObject:
   m_ObjectHideFlags: 0

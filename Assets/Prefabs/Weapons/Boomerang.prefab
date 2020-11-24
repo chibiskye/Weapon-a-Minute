@@ -109,7 +109,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 2
 --- !u!114 &1943229396662374887
 MonoBehaviour:
@@ -123,6 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3244533262540e79c50207abf29cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 25
   playerWeaponHold: {fileID: 0}
+  range: 25
+  throwDuration: 1.5
   hitDamage: 10
+  isThrown: 0
+  movingForward: 0
