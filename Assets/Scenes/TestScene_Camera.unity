@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 0.01
     FarClipPlane: 5000
     Dutch: 0
     LensShift: {x: 0, y: 0}
@@ -440,7 +440,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197570550}
-  m_LocalRotation: {x: 0.11321091, y: -0.7115532, z: 0.11788184, w: 0.6833588}
+  m_LocalRotation: {x: 0.1132109, y: -0.7115532, z: 0.11788184, w: 0.68335885}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -955,6 +955,7 @@ GameObject:
   - component: {fileID: 796342300}
   - component: {fileID: 796342301}
   - component: {fileID: 796342299}
+  - component: {fileID: 796342302}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -986,7 +987,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 0.01
     FarClipPlane: 5000
     Dutch: 0
     LensShift: {x: 0, y: 0}
@@ -1022,7 +1023,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: -90
+    Value: 0
     m_SpeedMode: 0
     m_MaxSpeed: 100
     m_AccelTime: 0.1
@@ -1042,7 +1043,7 @@ MonoBehaviour:
   m_Heading:
     m_Definition: 2
     m_VelocityFilterStrength: 4
-    m_Bias: 0
+    m_Bias: -90
   m_RecenterToTargetHeading:
     m_enabled: 0
     m_WaitTime: 1
@@ -1095,6 +1096,36 @@ MonoBehaviour:
   PlayerIndex: -1
   XYAxis: {fileID: -7871065717747381066, guid: a6eebe4791ffcbb4eb815ca90a967c30, type: 3}
   ZAxis: {fileID: 0}
+--- !u!114 &796342302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796342298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_IgnoreTag: Player
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 0
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0.5
+  m_DampingWhenOccluded: 0.5
+  m_OptimalTargetDistance: 0
 --- !u!1 &816471882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,9 +1281,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 4
   m_FollowOffset: {x: 0, y: 3.5, z: -6.5}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 0
   m_AngularDampingMode: 0
   m_PitchDamping: 0
   m_YawDamping: 0
@@ -1261,7 +1292,7 @@ MonoBehaviour:
   m_Heading:
     m_Definition: 2
     m_VelocityFilterStrength: 4
-    m_Bias: 0
+    m_Bias: -90
   m_RecenterToTargetHeading:
     m_enabled: 0
     m_WaitTime: 1
@@ -1269,7 +1300,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: -90
+    Value: 0
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -1553,7 +1584,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 0.01
     FarClipPlane: 5000
     Dutch: 0
     LensShift: {x: 0, y: 0}
@@ -1572,8 +1603,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856639993}
-  m_LocalRotation: {x: -0.074731916, y: -0.7031466, z: -0.07473191, w: 0.70314664}
-  m_LocalPosition: {x: -1.4784741, y: -2.8295918, z: 0.000000088123926}
+  m_LocalRotation: {x: 0.09271496, y: -0.701002, z: 0.09271494, w: 0.7010022}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 819712056}
@@ -1765,9 +1796,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 4
   m_FollowOffset: {x: 0, y: 3.5, z: -6.5}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 0
   m_AngularDampingMode: 0
   m_PitchDamping: 0
   m_YawDamping: 0
@@ -1776,7 +1807,7 @@ MonoBehaviour:
   m_Heading:
     m_Definition: 2
     m_VelocityFilterStrength: 4
-    m_Bias: 0
+    m_Bias: -90
   m_RecenterToTargetHeading:
     m_enabled: 0
     m_WaitTime: 1
@@ -1784,7 +1815,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: -90
+    Value: 0
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -2168,7 +2199,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: 0.01
   far clip plane: 5000
   field of view: 40
   orthographic: 0
@@ -2207,7 +2238,7 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
-    m_Style: 0
+    m_Style: 2
     m_Time: 2
     m_CustomCurve:
       serializedVersion: 2
@@ -2245,7 +2276,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383789245}
-  m_LocalRotation: {x: 0.10809039, y: -0.6987965, z: 0.10809041, w: 0.69879645}
+  m_LocalRotation: {x: 0.10809037, y: -0.69879645, z: 0.10809037, w: 0.6987965}
   m_LocalPosition: {x: 6.4999995, y: 4.55, z: -0.0000003874302}
   m_LocalScale: {x: 1, y: 1.8196727, z: 0.72677606}
   m_Children: []
@@ -2468,7 +2499,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 0.01
     FarClipPlane: 5000
     Dutch: 0
     LensShift: {x: 0, y: 0}
@@ -2487,7 +2518,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1497351100}
-  m_LocalRotation: {x: 0.10809039, y: -0.69879645, z: 0.108090386, w: 0.6987965}
+  m_LocalRotation: {x: 0.10809036, y: -0.69879645, z: 0.10809036, w: 0.6987965}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2680,7 +2711,7 @@ MonoBehaviour:
   debugLog: {fileID: 58678454}
   cameraTransform: {fileID: 1383789249}
   moveSpeed: 10
-  turnSmoothTime: 0.25
+  turnSmoothTime: 0.15
   timeToSwitch: 5
   weaponsList:
   - {fileID: 327652654}
@@ -2849,9 +2880,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 4
   m_FollowOffset: {x: 0, y: 3.5, z: -6.5}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 0
   m_AngularDampingMode: 0
   m_PitchDamping: 0
   m_YawDamping: 0
@@ -2860,7 +2891,7 @@ MonoBehaviour:
   m_Heading:
     m_Definition: 2
     m_VelocityFilterStrength: 4
-    m_Bias: 0
+    m_Bias: -90
   m_RecenterToTargetHeading:
     m_enabled: 0
     m_WaitTime: 1
@@ -2868,7 +2899,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: -90
+    Value: 0
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
