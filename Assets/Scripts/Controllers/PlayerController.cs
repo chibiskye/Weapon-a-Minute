@@ -76,6 +76,22 @@ public class PlayerController : MonoBehaviour
     // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
+        // // Prevent additional player movement when player is in mid-air
+        // isGrounded = Physics.CheckSphere(groundTransform.position, groundDistance, detectMasks);
+        // if (!isGrounded) return;
+
+        // Handle player movement
+        Vector2 moveInput = playerControls.Movement.Move.ReadValue<Vector2>();
+        if (moveInput.y != 0)
+        {
+            // Only rotate player if there was input in the forward-backward direction
+            float turnAngle = cameraTransform.eulerAngles.y;
+            float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, turnAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
+        }
+        Vector3 moveVector = transform.right * moveInput.x + transform.forward * moveInput.y;
+        characterController.Move(moveVector.normalized * moveSpeed * Time.deltaTime);
+
         // Switch weapons after some time interval
         if (timerOn)
         {
@@ -92,34 +108,6 @@ public class PlayerController : MonoBehaviour
                 prevWeaponIndex = nextWeaponIndex; // save reference to selected weapon
                 switchTimeLeft = timeToSwitch; // reset timer
             }
-        }
-
-        // // Prevent additional player movement when player is in mid-air
-        // isGrounded = Physics.CheckSphere(groundTransform.position, groundDistance, detectMasks);
-        // if (!isGrounded) return;
-
-        // // Move the player
-        // Vector2 moveInput = playerControls.Movement.Move.ReadValue<Vector2>();
-        // Vector3 moveVector = transform.right * moveInput.x + transform.forward * moveInput.y;
-        // characterController.Move(moveVector.normalized * moveSpeed * Time.deltaTime);
-
-        // // Rotate player
-        // // Vector3 movement = new Vector3(moveInput.x, 0.0f, moveInput.y);
-        // // transform.rotation = Quaternion.LookRotation(movement);
-
-        // Handle player movement
-        Vector2 moveInput = playerControls.Movement.Move.ReadValue<Vector2>();
-        Vector3 moveVector = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
-        if (moveVector.magnitude >= 0.1f)
-        {
-            // Smooth player rotation
-            float targetAngle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
-            float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
-
-            // Player moves forward in the direction that the camera points in
-            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            characterController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
         }
     }
 
