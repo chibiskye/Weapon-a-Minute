@@ -41,15 +41,15 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Read mouse position from input controls
-        Vector2 lookInput = cameraControls.Player.Look.ReadValue<Vector2>();
-        float lookX = lookInput.x * mouseSensitivity * Time.deltaTime;
-        float lookY = lookInput.y * mouseSensitivity * Time.deltaTime;
+        // // Read mouse position from input controls
+        // Vector2 lookInput = cameraControls.Player.Look.ReadValue<Vector2>();
+        // float lookX = lookInput.x * mouseSensitivity * Time.deltaTime;
+        // float lookY = lookInput.y * mouseSensitivity * Time.deltaTime;
 
-        // Rotate camera in the y-direction (look up or down)
-        xRotation -= lookY;
-        xRotation = Mathf.Clamp(xRotation, upViewLimit, downViewLimit);
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        // // Rotate camera in the y-direction (look up or down)
+        // xRotation -= lookY;
+        // xRotation = Mathf.Clamp(xRotation, upViewLimit, downViewLimit);
+        // transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         // // Rotate player in the x-direction (turn left or right)
         // playerTransform.Rotate(Vector3.up * lookX);
