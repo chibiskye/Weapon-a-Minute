@@ -11,6 +11,7 @@ public class AIController : MonoBehaviour
     [SerializeField] private Transform player = null;
     [SerializeField] private DebugLogScript debugLog = null;
     [SerializeField] private EnemySwordScript weapon = null;
+    [SerializeField] private FlyingBodyController flyingBodyController = null;
     private NavMeshAgent agent = null;
     private AIControls aiControls = null;
 
@@ -29,8 +30,10 @@ public class AIController : MonoBehaviour
     //States
     [SerializeField] private float sightRange = 20f;
     [SerializeField] private float attackRange = 8f;
+    public bool isFlying = false;
     public bool playerInSightRange = false; // public for debug purposes
     public bool playerInAttackRange = false; // public for debug purposes
+    private bool pauseMainAI = false;
 
     private void Awake()
     {
@@ -52,9 +55,14 @@ public class AIController : MonoBehaviour
         aiControls.Disable();
     }
 
+    public void unpauseMainAI() {
+        pauseMainAI = false;
+    }
+
     private void FixedUpdate()
     {
         if (agent.isStopped) return;
+        if (pauseMainAI) return;
 
         // Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -62,8 +70,18 @@ public class AIController : MonoBehaviour
 
         // Detect and update state
         if (!playerInSightRange && !playerInAttackRange) { Patroling(); }
-        if (playerInSightRange && !playerInAttackRange) { ChasePlayer(); }
-        if (playerInAttackRange && playerInSightRange) { AttackPlayer(); }
+        if (playerInSightRange && !playerInAttackRange) { 
+            if (isFlying) {
+                pauseMainAI = true;
+                flyingBodyController.FlyTowards(player);
+            }
+            else {
+                ChasePlayer();
+            }
+        }
+        if (playerInAttackRange && playerInSightRange && !isFlying) { 
+            AttackPlayer();
+        }
     }
 
     // Patrol when player is not in sight
@@ -122,10 +140,6 @@ public class AIController : MonoBehaviour
         if (!alreadyAttacked)
         {
             weapon.Attack();
-
-            //According to Unity Docs, Coroutines work better than Invoke, so using Coroutine instead
-            // alreadyAttacked = true;
-            // Invoke(nameof(ResetAttack), timeBetweenAttacks);
             StartCoroutine(ResetAttack());
         }
     }
