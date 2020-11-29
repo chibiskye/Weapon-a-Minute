@@ -53,10 +53,12 @@ public class HandGunScript : MonoBehaviour
         Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
 
+        // Instantiate bullet
+        GameObject g = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint);
+
         if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
         {
-            // Instantiate bullet
-            GameObject g = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint);
+            
             g.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
             // Prevents gun from shooting multiple shots too quickly
