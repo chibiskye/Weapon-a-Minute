@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 2515466895740218383}
   - component: {fileID: 4536039501707177209}
   - component: {fileID: 3833824826794704931}
-  - component: {fileID: 5169364699849876240}
+  - component: {fileID: 3917068194022361002}
   m_Layer: 12
   m_Name: Body
   m_TagString: Untagged
@@ -163,7 +163,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5169364699849876240
+--- !u!114 &3917068194022361002
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,10 +172,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3516280613567809261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72a2c498318a5427a880117dd499c74e, type: 3}
+  m_Script: {fileID: 11500000, guid: 976daa40437b141859a49a1297744bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyingToSomething: 0
 --- !u!1 &3712955510169575792
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +186,6 @@ GameObject:
   - component: {fileID: 6666679754006852417}
   - component: {fileID: 2547633304363024580}
   - component: {fileID: 8507923272498840923}
-  - component: {fileID: 6871338751700763938}
   m_Layer: 12
   m_Name: Eyes
   m_TagString: Untagged
@@ -256,19 +254,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6871338751700763938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3712955510169575792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72a2c498318a5427a880117dd499c74e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flyingToSomething: 0
 --- !u!1 &4546810172495501875
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,24 +636,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2304
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   player: {fileID: 0}
   debugLog: {fileID: 0}
-  weapon: {fileID: 0}
-  flyingBodyController: {fileID: 5169364699849876240}
+  weapon: {fileID: 6220954531162266438}
   walkPointRange: 10
   walkPointCheckRange: 2
   walkTime: 10
+  height: 7.21
+  flyingSpeed: 9
+  walker: {fileID: 9043311209493608011}
+  flyingBody: {fileID: 3917068194022361002}
   walkPoint: {x: 0, y: 0, z: 0}
   timeBetweenAttacks: 1
   sightRange: 20
   attackRange: 8
-  isFlying: 1
   playerInSightRange: 0
   playerInAttackRange: 0
+  isFlying: 1
+  flyingToSomething: 0
 --- !u!1 &9043311209493608011
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,17 +806,21 @@ MonoBehaviour:
   player: {fileID: 0}
   debugLog: {fileID: 0}
   weapon: {fileID: 0}
-  flyingBodyController: {fileID: 0}
   walkPointRange: 10
   walkPointCheckRange: 2
   walkTime: 10
+  height: 7.21
+  flyingSpeed: 9
+  walker: {fileID: 0}
+  flyingBody: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   timeBetweenAttacks: 1
   sightRange: 20
   attackRange: 8
-  isFlying: 0
   playerInSightRange: 0
   playerInAttackRange: 0
+  isFlying: 0
+  flyingToSomething: 0
 --- !u!1 &9043311210067724765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,6 +1296,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3269943288430861550}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6220954531162266438 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8877836451192014760, guid: 38ed6ec00d9ceee469568d5bb0b72681,
+    type: 3}
+  m_PrefabInstance: {fileID: 3269943288430861550}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 811e710ecd13f4d9c81210d39aedc280, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6095426392454391337
 PrefabInstance:
   m_ObjectHideFlags: 0
