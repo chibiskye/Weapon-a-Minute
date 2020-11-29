@@ -28,11 +28,6 @@ public class EnemySwordScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(raycastOrigin.position, transform.forward, out hit, range, layerMask))
         {
-            // Quaternion original_rotation = transform.rotation;
-            // transform.rotation = new Quaternion(0, -45, 0, 0);
-            anim.Play();
-            // transform.rotation = original_rotation;
-
             Health opponentHealth = hit.collider.GetComponent<Health>();
             if (opponentHealth != null) // successfully hit the player
             {
@@ -43,6 +38,9 @@ public class EnemySwordScript : MonoBehaviour
             {
                 Debug.Log("Opponent: If you have the guts, stand there and let me hit you!");
             }
+
+            // Play attack animation
+            anim.Play();
         }
         else
         {
