@@ -11,6 +11,9 @@ public class AIController : MonoBehaviour
     [SerializeField] private Transform player = null;
     [SerializeField] private DebugLogScript debugLog = null;
     [SerializeField] private EnemySwordScript weapon = null;
+    [SerializeField] private bool isFlying = false;
+    [SerializeField] private GameObject flyingBody = null; // for flying AI
+    [SerializeField] private float flyingSpeed = 3f; // for flying AI
     private NavMeshAgent agent = null;
     private AIControls aiControls = null;
 
@@ -20,6 +23,7 @@ public class AIController : MonoBehaviour
     [SerializeField] private float walkTime = 10.0f;
     public Vector3 walkPoint; // public for debug purposes
     private bool walkPointSet = false;
+    private float flyingHeight = 8f; // for flying AI
     private float timeLeftToWalk = 0f;
 
     //Attacking
@@ -36,6 +40,11 @@ public class AIController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         timeLeftToWalk = walkTime;
+
+        if (isFlying && flyingBody != null)
+        {
+            flyingHeight = flyingBody.transform.position.y;
+        }
 
         // Detect debug commands
         aiControls = new AIControls();
@@ -71,12 +80,17 @@ public class AIController : MonoBehaviour
     {
         // Set next random walk point
         if (!walkPointSet || timeLeftToWalk <= 0) SearchWalkPoint();
-        timeLeftToWalk -= Time.deltaTime; // calcualte another walk point if take too long to get to point
+        timeLeftToWalk -= Time.deltaTime; // calculate another walk point if take too long to get to point
 
         // Move AI towards walk point
         if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
+            if (isFlying)
+            {
+                Vector3 flyPoint = new Vector3(walkPoint.x, flyingHeight, walkPoint.z);
+                FlyTowards(flyPoint);
+            }
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -103,10 +117,19 @@ public class AIController : MonoBehaviour
         }
     }
 
+    private void FlyTowards(Vector3 destination)
+    {
+        flyingBody.transform.position = Vector3.MoveTowards(flyingBody.transform.position, destination, Time.deltaTime * flyingSpeed);
+    }
+
     // Chase the player when player enters sight range
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        if (isFlying)
+        {
+            FlyTowards(player.position);
+        }
     }
 
     // Attack the player if player spotted and in attack range
@@ -116,8 +139,15 @@ public class AIController : MonoBehaviour
         agent.SetDestination(transform.position);
 
         // Make AI face the player when attacking
-        transform.LookAt(player);
-
+        if (isFlying)
+        {
+            flyingBody.transform.LookAt(player);
+        }
+        else
+        {
+            transform.LookAt(player);
+        }
+        
         // Check if AI has already attacked the player
         if (!alreadyAttacked)
         {
@@ -144,10 +174,16 @@ public class AIController : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        Vector3 gizmoCenter = transform.position;
+        if (isFlying)
+        {
+            gizmoCenter = flyingBody.transform.position;
+        }
+
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(gizmoCenter, attackRange);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.DrawWireSphere(gizmoCenter, sightRange);
     }
 
     void DebugToggleMove()
