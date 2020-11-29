@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoomerangScript : MonoBehaviour
 {
     [SerializeField] private Transform playerWeaponHold = null;
+    [SerializeField] private Camera m_camera = null;
     [SerializeField] private float range = 25.0f;
     [SerializeField] private float throwDuration = 1.5f;
     [SerializeField] private int hitDamage = 10;
@@ -87,9 +88,14 @@ public class BoomerangScript : MonoBehaviour
         if (isThrown) { return; }
         Debug.Log("Boomerang deployed");
 
+        //Set to the position of the dot
+        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, transform.position.z));
+        transform.position = rayOrigin;
+        transform.rotation = Quaternion.Euler(Camera.main.transform.localEulerAngles);
+
         // Set throw location
         throwLocation = new Vector3(transform.position.x, transform.position.y, transform.position.z) + transform.forward * range;
-        // originalRotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+        originalRotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
         isThrown = true;
         
         // Restart coroutine
