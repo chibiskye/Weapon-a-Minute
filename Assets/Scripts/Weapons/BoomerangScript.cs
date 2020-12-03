@@ -5,7 +5,6 @@ using UnityEngine;
 public class BoomerangScript : MonoBehaviour
 {
     [SerializeField] private Transform playerWeaponHold = null;
-    [SerializeField] private Camera m_camera = null;
     [SerializeField] private float range = 25.0f;
     [SerializeField] private float throwDuration = 1.5f;
     [SerializeField] private int hitDamage = 10;
@@ -15,6 +14,7 @@ public class BoomerangScript : MonoBehaviour
     private WeaponControls weaponControls = null;
     private Rigidbody rigidBody = null;
     private IEnumerator boomCoroutine = null;
+    private Camera m_camera = null;
     private Vector3 throwLocation;
     private Quaternion originalRotation;
 
@@ -25,6 +25,8 @@ public class BoomerangScript : MonoBehaviour
 
         weaponControls = new WeaponControls();
         weaponControls.BoomerangInputs.Throw.performed += _ => Throw();
+
+        m_camera = Camera.main;
     }
 
     void OnEnable()
