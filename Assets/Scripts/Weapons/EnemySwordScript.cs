@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySwordScript : MonoBehaviour
+public class EnemySwordScript : WeaponScript
 {
     [SerializeField] private Transform raycastOrigin = null;
     [SerializeField] private float range = 8.0f;
@@ -22,7 +22,7 @@ public class EnemySwordScript : MonoBehaviour
         DebugRaycast();
     }
 
-    public void Attack()
+    public override void Attack()
     {
         // TODO: assume weapon is a sword, replace with other weapons in the future
         RaycastHit hit;
