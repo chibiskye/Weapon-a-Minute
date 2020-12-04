@@ -10,7 +10,10 @@ public class AIController : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround, whatIsPlayer;
     [SerializeField] private Transform player = null;
     [SerializeField] private DebugLogScript debugLog = null;
-    [SerializeField] public WeaponScript weapon = null;
+    [SerializeField] private EnemySwordScript weapon = null;
+    [SerializeField] private bool isFlying = false;
+    [SerializeField] private GameObject flyingBody = null; // for flying AI
+    [SerializeField] private float flyingSpeed = 3f; // for flying AI
     private NavMeshAgent agent = null;
     private AIControls aiControls = null;
 
@@ -18,10 +21,6 @@ public class AIController : MonoBehaviour
     [SerializeField] private float walkPointRange = 10.0f;
     [SerializeField] private float walkPointCheckRange = 2.0f;
     [SerializeField] private float walkTime = 10.0f;
-    [SerializeField] private float height = 7.21f; //For Flying
-    [SerializeField] private float flyingSpeed = 9f;
-    [SerializeField] private GameObject walker = null;
-    [SerializeField] private ApproachScript flyingBody = null;
     public Vector3 walkPoint; // public for debug purposes
     private bool walkPointSet = false;
     private float flyingHeight = 8f; // for flying AI
@@ -34,15 +33,8 @@ public class AIController : MonoBehaviour
     //States
     [SerializeField] private float sightRange = 20f;
     [SerializeField] private float attackRange = 8f;
-
     public bool playerInSightRange = false; // public for debug purposes
     public bool playerInAttackRange = false; // public for debug purposes
-    private bool pauseMainAI = false;
-
-    //States for flying
-    public bool isFlying = false;
-    public bool flyingToSomething = false;
-    private bool movingBack = false;
 
     private void Awake()
     {
@@ -74,58 +66,13 @@ public class AIController : MonoBehaviour
         if (agent.isStopped) return;
 
         // Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(walker.transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(walker.transform.position, attackRange, whatIsPlayer);
-
-        if(isFlying) {
-            
-            if (flyingToSomething) {
-                
-                bool flyingBodyInSightRange = Physics.CheckSphere(flyingBody.transform.position, sightRange, whatIsPlayer);
-                bool flyingBodyInAttackRange = Physics.CheckSphere(flyingBody.transform.position, attackRange, whatIsPlayer);
-                // Debug.Log("Moving to player");
-                flyingBody.Approach(player.position, flyingSpeed);
-                if (flyingBodyInAttackRange) {
-                   // Debug.Log("Attacking");
-                    AttackPlayer();
-                } 
-                else if (!(flyingBodyInSightRange || flyingBodyInAttackRange)) {
-                    //Debug.Log("Unpausing");
-                    flyingToSomething = false;
-                    movingBack = true;
-                }
-                return;
-            } 
-            else if (movingBack) {
-               // Debug.Log("GoingUp");
-                Vector3 goingTo = new Vector3(flyingBody.transform.position.x, height, flyingBody.transform.position.z);
-                flyingBody.Approach(goingTo, flyingSpeed);
-                if (Vector3.Distance(flyingBody.transform.position, goingTo) < 1f) {
-                    movingBack = false;
-
-                    //Put the walker under the flying body
-                    transform.position = new Vector3(flyingBody.transform.position.x, transform.position.y, flyingBody.transform.position.z);
-
-                    SearchWalkPoint();
-                }
-                return;
-            }
-        }
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
         // Detect and update state
         if (!playerInSightRange && !playerInAttackRange) { Patroling(); }
-        if (playerInSightRange && !playerInAttackRange && !flyingToSomething && !movingBack) { 
-            if (isFlying) {
-                //pauseMainAI = true;
-                FlyTowards();
-            }
-            else {
-                ChasePlayer();
-            }
-        }
-        if (playerInAttackRange && playerInSightRange && !isFlying) { 
-            AttackPlayer();
-        }
+        if (playerInSightRange && !playerInAttackRange) { ChasePlayer(); }
+        if (playerInAttackRange && playerInSightRange) { AttackPlayer(); }
     }
 
     // Patrol when player is not in sight
@@ -170,14 +117,9 @@ public class AIController : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
     private void FlyTowards(Vector3 destination)
     {
         flyingBody.transform.position = Vector3.MoveTowards(flyingBody.transform.position, destination, Time.deltaTime * flyingSpeed);
-=======
-    public void FlyTowards() {
-        flyingToSomething = true;
->>>>>>> player_camera_simplification
     }
 
     // Chase the player when player enters sight range
@@ -193,20 +135,10 @@ public class AIController : MonoBehaviour
     // Attack the player if player spotted and in attack range
     private void AttackPlayer()
     {
-        if (!isFlying) {
-            //Make sure enemy doesn't move
-            agent.SetDestination(transform.position);
-        }
-
-        Transform attacker = null;
-        if(isFlying) {
-            attacker = flyingBody.transform;
-        } else {
-            attacker = transform;
-        }
+        //Make sure enemy doesn't move
+        agent.SetDestination(transform.position);
 
         // Make AI face the player when attacking
-<<<<<<< HEAD
         if (isFlying)
         {
             flyingBody.transform.LookAt(player);
@@ -216,15 +148,14 @@ public class AIController : MonoBehaviour
             transform.LookAt(player);
         }
         
-=======
-        attacker.LookAt(player);
-
->>>>>>> player_camera_simplification
         // Check if AI has already attacked the player
         if (!alreadyAttacked)
         {
-            Debug.Log("Not already attacked");
             weapon.Attack();
+
+            //According to Unity Docs, Coroutines work better than Invoke, so using Coroutine instead
+            // alreadyAttacked = true;
+            // Invoke(nameof(ResetAttack), timeBetweenAttacks);
             StartCoroutine(ResetAttack());
         }
     }
