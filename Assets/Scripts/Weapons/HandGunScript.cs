@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandGunScript : MonoBehaviour
+public class HandGunScript : WeaponScript
 {
     [SerializeField] private Camera m_camera = null;
     [SerializeField] private GameObject bullet = null;
     [SerializeField] private Transform bulletSpawnPoint = null;
     [SerializeField] private float range = 30.0f;
     [SerializeField] private float fireRate = 0.5f;
+    [SerializeField] private bool isEnemy = false;
     
     private WeaponControls weaponControls = null;
     private int layerMask = ~((1 << 8) | (1 << 10)); //shooting does not affect the player or other bullets
@@ -50,10 +51,22 @@ public class HandGunScript : MonoBehaviour
         if (!canShoot) return;
 
         // Draw raycast
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+        Vector3 rayOrigin;
+        Transform rayTransform;
+        if(isEnemy)
+        {
+            rayOrigin = transform.position;
+            rayTransform = transform;
+        }
+        else
+        {
+            rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+            rayTransform = m_camera.transform;
+        }
+
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(rayOrigin, rayTransform.forward, out hit, range, layerMask))
         {
             // Instantiate bullet
             GameObject g = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint);
@@ -77,16 +90,33 @@ public class HandGunScript : MonoBehaviour
         }
     }
 
+    public override void Attack()
+    {
+        Debug.Log("Shooting");
+        Shoot();
+    }
+
     // ---------------------------------------------------------------------------------------------
     // Below are methods used for debugging
     // ---------------------------------------------------------------------------------------------
 
     void DebugRaycast()
     {
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+        Vector3 rayOrigin;
+        Transform rayTransform;
+        if(isEnemy)
+        {
+            rayOrigin = transform.position;
+            rayTransform = transform;
+        }
+        else
+        {
+            rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+            rayTransform = m_camera.transform;
+        }
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(rayOrigin, rayTransform.forward, out hit, range, layerMask))
         {
             Debug.DrawRay(rayOrigin, m_camera.transform.forward * hit.distance, Color.yellow);
         }

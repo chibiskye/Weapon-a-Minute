@@ -232,6 +232,7 @@ MonoBehaviour:
   playerInAttackRange: 0
   isFlying: 0
   flyingToSomething: 0
+  hasGun: 1
 --- !u!1 &9043311209493608011
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,6 +640,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HandGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978442053772900141, guid: 33dc71f25e7f8430980eacea047bb123,
+        type: 3}
+      propertyPath: isEnemy
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8589349418409699264, guid: 33dc71f25e7f8430980eacea047bb123,
         type: 3}
