@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private LayerMask detectMasks;
     [SerializeField] private DebugLogScript debugLog = null;
-    [SerializeField] private Transform cameraTransform = null;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float timeToSwitch = 10f;
@@ -26,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController characterController = null;
     private PlayerControls playerControls = null;
+    private Transform cameraTransform = null;
     private float turnSmoothVelocity;
     private int prevWeaponIndex = -1;
     private int nextWeaponIndex = -1;
@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         playerControls = new PlayerControls();
+        cameraTransform = Camera.main.transform;
 
         // Detect user input
         playerControls.Movement.Jump.performed += _ => Jump();
