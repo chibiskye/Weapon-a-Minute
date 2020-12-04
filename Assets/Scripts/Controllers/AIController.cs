@@ -44,8 +44,6 @@ public class AIController : MonoBehaviour
     public bool flyingToSomething = false;
     private bool movingBack = false;
 
-    //For Gunner
-    public bool hasGun = false;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -172,14 +170,9 @@ public class AIController : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
     private void FlyTowards(Vector3 destination)
     {
         flyingBody.transform.position = Vector3.MoveTowards(flyingBody.transform.position, destination, Time.deltaTime * flyingSpeed);
-=======
-    public void FlyTowards() {
-        flyingToSomething = true;
->>>>>>> player_camera_simplification
     }
 
     // Chase the player when player enters sight range
@@ -199,10 +192,6 @@ public class AIController : MonoBehaviour
             //Make sure enemy doesn't move
             agent.SetDestination(transform.position);
         }
-        if(hasGun) {
-            //aim at the player
-            //weapon.transform.LookAt(player);
-        }
 
         Transform attacker = null;
         if(isFlying) {
@@ -212,20 +201,8 @@ public class AIController : MonoBehaviour
         }
 
         // Make AI face the player when attacking
-<<<<<<< HEAD
-        if (isFlying)
-        {
-            flyingBody.transform.LookAt(player);
-        }
-        else
-        {
-            transform.LookAt(player);
-        }
-        
-=======
         attacker.LookAt(player);
 
->>>>>>> player_camera_simplification
         // Check if AI has already attacked the player
         if (!alreadyAttacked)
         {
