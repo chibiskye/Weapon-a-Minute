@@ -43,6 +43,8 @@ public class AIController : MonoBehaviour
     public bool flyingToSomething = false;
     private bool movingBack = false;
 
+    //For Gunner
+    public bool hasGun = false;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -175,6 +177,10 @@ public class AIController : MonoBehaviour
         if (!isFlying) {
             //Make sure enemy doesn't move
             agent.SetDestination(transform.position);
+        }
+        if(hasGun) {
+            //aim at the player
+            //weapon.transform.LookAt(player);
         }
 
         Transform attacker = null;
