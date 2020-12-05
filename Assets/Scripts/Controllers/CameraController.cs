@@ -8,13 +8,13 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform playerTransform = null;
-    [SerializeField] private float mouseSensitivity = 100f;
-    [SerializeField] private float upViewLimit = -90f;
-    [SerializeField] private float downViewLimit = 90f;
+    // [SerializeField] private Transform playerTransform = null;
+    // [SerializeField] private float mouseSensitivity = 100f;
+    // [SerializeField] private float upViewLimit = -90f;
+    // [SerializeField] private float downViewLimit = 90f;
 
     private CameraControls cameraControls = null;
-    private float xRotation = 0f;
+    // private float xRotation = 0f;
 
     // Awake is called once before the Start method
     void Awake()
