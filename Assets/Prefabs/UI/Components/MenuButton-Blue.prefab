@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1147384651356307296}
   - component: {fileID: 7110271036621020139}
   m_Layer: 5
-  m_Name: MenuButton
+  m_Name: MenuButton-Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.16981131, g: 0.38884726, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 0.2641511, b: 1, a: 1}
-    m_PressedColor: {r: 0.10980393, g: 0.25490198, b: 0.65882355, a: 1}
-    m_SelectedColor: {r: 0, g: 0.2627451, b: 1, a: 1}
+    m_HighlightedColor: {r: 0, g: 0.15272544, b: 0.5849056, a: 1}
+    m_PressedColor: {r: 0, g: 0.15294118, b: 0.58431375, a: 1}
+    m_SelectedColor: {r: 0, g: 0.15294118, b: 0.58431375, a: 1}
     m_DisabledColor: {r: 0.16862746, g: 0.38823533, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_text: Menu Button
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

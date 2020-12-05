@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: c4889614bb303834cbdd6a317de61e47
+guid: 8191dd5d94bece849ab91d072e616c4f
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
-  - first:
-      74: -623603649343465320
-    second: Scene
   - first:
       74: 1989289236423521904
     second: Swing
@@ -14,9 +11,9 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material
-    second: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    second: {instanceID: 0}
   materials:
-    materialImportMode: 1
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -47,7 +44,7 @@ ModelImporter:
       takeName: Default Take
       internalID: 0
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 8
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -81,8 +78,8 @@ ModelImporter:
     sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0

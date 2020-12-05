@@ -10,7 +10,7 @@ public class AIController : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround, whatIsPlayer;
     [SerializeField] private Transform player = null;
     [SerializeField] private DebugLogScript debugLog = null;
-    [SerializeField] private EnemySwordScript weapon = null;
+    [SerializeField] private WeaponScript weapon = null;
     [SerializeField] private bool isFlying = false;
     [SerializeField] private GameObject flyingBody = null; // for flying AI
     [SerializeField] private float flyingSpeed = 3f; // for flying AI
@@ -86,7 +86,7 @@ public class AIController : MonoBehaviour
         if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
-            if (isFlying)
+            if (isFlying && !playerInAttackRange)
             {
                 Vector3 flyPoint = new Vector3(walkPoint.x, flyingHeight, walkPoint.z);
                 FlyTowards(flyPoint);
