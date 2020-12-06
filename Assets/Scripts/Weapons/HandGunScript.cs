@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class HandGunScript : WeaponScript
 {
-    [SerializeField] private Camera m_camera = null;
     [SerializeField] private GameObject bullet = null;
     [SerializeField] private Transform bulletSpawnPoint = null;
+    [SerializeField] private Transform body = null;
     [SerializeField] private float range = 30.0f;
     [SerializeField] private float fireRate = 0.5f;
     [SerializeField] private bool isEnemy = false;
     
     private WeaponControls weaponControls = null;
+    private Camera m_camera = null;
     private int layerMask = ~((1 << 10)); //shooting does not affect other bullets TODO fix this
     private bool canShoot = true;
     // private float nextTimeToFire = 0f; //currently not used
@@ -20,6 +21,7 @@ public class HandGunScript : WeaponScript
     {
         weaponControls = new WeaponControls();
         weaponControls.GunInputs.Shoot.performed += _ => Shoot();
+        m_camera = Camera.main;
     }
 
     void OnEnable()
@@ -58,7 +60,7 @@ public class HandGunScript : WeaponScript
         }
         else
         {
-            rayOrigin = transform.position;
+            rayOrigin = body.position;
         }
 
         Transform rayTransform;
@@ -68,7 +70,7 @@ public class HandGunScript : WeaponScript
         }
         else
         {
-            rayTransform = transform;
+            rayTransform = body;
         }
         
         RaycastHit hit;
@@ -116,7 +118,7 @@ public class HandGunScript : WeaponScript
             rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         } else
         {
-            rayOrigin = transform.position;
+            rayOrigin = body.position;
         }
         Transform rayTransform;
         if (!isEnemy)
@@ -125,16 +127,18 @@ public class HandGunScript : WeaponScript
         }
         else
         {
-            rayTransform = transform;
+            rayTransform = body;
         }
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, rayTransform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(rayOrigin, rayTransform.up, out hit, range, layerMask))
         {
+            Debug.Log("D1");
             Debug.DrawRay(rayOrigin, rayTransform.forward * hit.distance, Color.yellow);
         }
         else
         {
+            Debug.Log("D2");
             Debug.DrawRay(rayOrigin, rayTransform.forward * 1000, Color.white);
         }
     }
