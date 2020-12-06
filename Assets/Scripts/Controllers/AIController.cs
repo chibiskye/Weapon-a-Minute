@@ -33,7 +33,7 @@ public class AIController : MonoBehaviour
     //States
     [SerializeField] private float sightRange = 20f;
     [SerializeField] private float attackRange = 8f;
-    [SerializeField] private float yRange = 0.5f;
+    [SerializeField] private float yRange = 1.7f;
     public bool playerInSightRange = false; // public for debug purposes
     public bool playerInAttackRange = false; // public for debug purposes
     public bool playerInYRange = false; // public for debug purposes
