@@ -33,8 +33,10 @@ public class AIController : MonoBehaviour
     //States
     [SerializeField] private float sightRange = 20f;
     [SerializeField] private float attackRange = 8f;
+    [SerializeField] private float yRange = 1.7f;
     public bool playerInSightRange = false; // public for debug purposes
     public bool playerInAttackRange = false; // public for debug purposes
+    public bool playerInYRange = false; // public for debug purposes
 
     private void Awake()
     {
@@ -68,10 +70,11 @@ public class AIController : MonoBehaviour
         // Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
+        playerInYRange = flyingBody.transform.position.y - player.position.y <= yRange;
+        
         // Detect and update state
         if (!playerInSightRange && !playerInAttackRange) { Patroling(); }
-        if (playerInSightRange && !playerInAttackRange) { ChasePlayer(); }
+        if ((playerInSightRange && !playerInAttackRange) || (isFlying && !playerInYRange)) { ChasePlayer(); }
         if (playerInAttackRange && playerInSightRange) { AttackPlayer(); }
     }
 
@@ -126,7 +129,7 @@ public class AIController : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
-        if (isFlying)
+        if (isFlying && !playerInAttackRange)
         {
             FlyTowards(player.position);
         }
@@ -142,6 +145,9 @@ public class AIController : MonoBehaviour
         if (isFlying)
         {
             flyingBody.transform.LookAt(player);
+            if (!playerInYRange) {
+                FlyTowards(player.position);
+            }
         }
         else
         {
