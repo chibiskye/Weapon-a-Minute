@@ -37,8 +37,8 @@ public class WaveSystemScript : MonoBehaviour
 
     void StartNextWave()
     {
-        Debug.Log("Wave" + waveNumber);
         waveNumber++;
+        Debug.Log("Wave" + waveNumber);
         GameObject enemy;
         Vector3[] positions = {new Vector3(-18.17953f, 1f, -0.114f), new Vector3(4.3f, 1f, 44.2f), new Vector3(4.3f, 1f, -44.2f)};
         Quaternion rotation = Quaternion.Euler(new Vector3(0, 90, 0));
@@ -55,16 +55,20 @@ public class WaveSystemScript : MonoBehaviour
                     enemySet.Add(enemy);
                 } break;
             case 2:
-                
                 enemySet.Clear();
                 for (i = 0; i < 2; i++) {
                     enemy = Instantiate(gGunEnemy, positions[i], rotation);
                     enemy.SetActive(false);
                     enemySet.Add(enemy);
-                } 
+                }
                 enemy = Instantiate(gSwordEnemy, positions[i], rotation);
                 enemy.SetActive(false);
                 enemySet.Add(enemy);
+                Debug.Log("hee");
+                break;
+            case 3:
+                enemySet.Clear();
+                enemySet.Add(Instantiate(fSwordEnemy, positions[0], rotation));
                 break;
             default: enemySet.Clear(); Debug.Log("First wave complete"); break;
         }
