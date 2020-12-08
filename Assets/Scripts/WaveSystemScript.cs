@@ -98,9 +98,9 @@ public class WaveSystemScript : MonoBehaviour
             case EnemyType.gSword: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation); break;
             case EnemyType.gGun: enemy = Instantiate(gGunEnemy, GetPosition(posIndex, false), rotation); break;
             case EnemyType.fSword: enemy = Instantiate(fSwordEnemy, GetPosition(posIndex, true), rotation); break;
-            enemy.SetActive(false);
             default: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation); break;
         }
+        enemy.SetActive(false);
         return enemy;
     }
 
