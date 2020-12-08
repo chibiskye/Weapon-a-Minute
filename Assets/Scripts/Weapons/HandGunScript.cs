@@ -6,6 +6,7 @@ public class HandGunScript : WeaponScript
 {
     [SerializeField] private GameObject bullet = null;
     [SerializeField] private Transform bulletSpawnPoint = null;
+    [SerializeField] private Transform camMid = null;
     [SerializeField] private Transform body = null;
     [SerializeField] private float range = 30.0f;
     [SerializeField] private float fireRate = 0.5f;
@@ -97,6 +98,12 @@ public class HandGunScript : WeaponScript
                 g.transform.LookAt(hit.point);
             }
             
+            g.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine(WaitToShoot());
+            g.transform.LookAt(camMid);
             g.SetActive(true);
         }
     }

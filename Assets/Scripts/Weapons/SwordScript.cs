@@ -42,7 +42,7 @@ public class SwordScript : MonoBehaviour
         anim.Play();
         // transform.rotation = original_rotation;
 
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.25f, m_camera.nearClipPlane));
         RaycastHit hit;
 
         if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
@@ -66,7 +66,7 @@ public class SwordScript : MonoBehaviour
 
     void DebugRaycast()
     {
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, m_camera.nearClipPlane));
         RaycastHit hit;
 
         if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))

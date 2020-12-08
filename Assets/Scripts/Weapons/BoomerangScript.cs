@@ -79,7 +79,7 @@ public class BoomerangScript : MonoBehaviour
                 isThrown = false;
                 transform.rotation = originalRotation;
                 transform.position = playerWeaponHold.position;
-                // rigidBody.velocity = new Vector3(0, 0, 0);
+                rigidBody.velocity = new Vector3(0, 0, 0);
             }
         }
     }
@@ -91,7 +91,7 @@ public class BoomerangScript : MonoBehaviour
         Debug.Log("Boomerang deployed");
 
         //Set to the position of the dot
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, transform.position.z));
+        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, m_camera.nearClipPlane));
         transform.position = rayOrigin;
         transform.rotation = Quaternion.Euler(Camera.main.transform.localEulerAngles);
 
