@@ -7,15 +7,26 @@ public class WaveSystemScript : MonoBehaviour
     [SerializeField] private GameObject gSwordEnemy = null;
     [SerializeField] private GameObject gGunEnemy = null;
     [SerializeField] private GameObject fSwordEnemy = null;
+    [SerializeField] private Vector3[] positions = null;
     private int waveNumber;
+    private int positionIndex;
     private List<GameObject> enemySet;
     private List<GameObject>  activeEnemies;
+    private Quaternion rotation;
+
+    enum EnemyType
+    {
+        gSword,
+        gGun,
+        fSword
+    }
     // Start is called before the first frame update
     void Start()
     {
         enemySet = new List<GameObject>();
         activeEnemies = new List<GameObject>();
         waveNumber = 0;
+        rotation = Quaternion.Euler(new Vector3(0, 90, 0));
     }
 
     // Update is called once per frame
@@ -40,37 +51,35 @@ public class WaveSystemScript : MonoBehaviour
         waveNumber++;
         Debug.Log("Wave" + waveNumber);
         GameObject enemy;
-        Vector3[] positions = {new Vector3(-18.17953f, 1f, -0.114f), new Vector3(4.3f, 1f, 44.2f), new Vector3(4.3f, 1f, -44.2f)};
-        Quaternion rotation = Quaternion.Euler(new Vector3(0, 90, 0));
         int i;
         switch(waveNumber)
         {
             case 1: 
                 enemySet.Clear();
-                
-                
                 for (i = 0; i < 3; i++) {
-                    enemy = Instantiate(gSwordEnemy, positions[i], rotation);
-                    enemy.SetActive(false);
-                    enemySet.Add(enemy);
+                    enemySet.Add(CreateEnemy(EnemyType.gSword, i));
                 } break;
             case 2:
                 enemySet.Clear();
                 for (i = 0; i < 2; i++) {
-                    enemy = Instantiate(gGunEnemy, positions[i], rotation);
-                    enemy.SetActive(false);
-                    enemySet.Add(enemy);
+                    enemySet.Add(CreateEnemy(EnemyType.gGun, i));
                 }
-                enemy = Instantiate(gSwordEnemy, positions[i], rotation);
-                enemy.SetActive(false);
-                enemySet.Add(enemy);
-                Debug.Log("hee");
+                enemySet.Add(CreateEnemy(EnemyType.gSword, i));
                 break;
             case 3:
                 enemySet.Clear();
-                enemySet.Add(Instantiate(fSwordEnemy, positions[0], rotation));
+                enemySet.Add(CreateEnemy(EnemyType.fSword, 0));
                 break;
-            default: enemySet.Clear(); Debug.Log("First wave complete"); break;
+            case 4:
+                enemySet.Clear();
+                for (i = 0; i < 2; i++) {
+                    enemySet.Add(CreateEnemy(EnemyType.gSword, i));
+                }
+                enemySet.Add(CreateEnemy(EnemyType.gGun, i));
+                break;
+            
+            default: 
+                break;
         }
 
         foreach (GameObject e in enemySet)
@@ -78,6 +87,32 @@ public class WaveSystemScript : MonoBehaviour
             GameObject newEnemy = Instantiate(e);
             newEnemy.SetActive(true);
             activeEnemies.Add(newEnemy);
+        }
+    }
+
+    GameObject CreateEnemy(EnemyType type, int posIndex)
+    {
+        GameObject enemy;
+        switch(type)
+        {
+            case EnemyType.gSword: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation); break;
+            case EnemyType.gGun: enemy = Instantiate(gGunEnemy, GetPosition(posIndex, false), rotation); break;
+            case EnemyType.fSword: enemy = Instantiate(fSwordEnemy, GetPosition(posIndex, true), rotation); break;
+            enemy.SetActive(false);
+            default: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation); break;
+        }
+        return enemy;
+    }
+
+    Vector3 GetPosition(int index, bool isFlying)
+    {
+        if(isFlying)
+        {
+            return new Vector3(positions[index].x, 2f, positions[index].z);
+        }
+        else
+        {
+            return new Vector3(positions[index].x, 1f, positions[index].z);
         }
     }
 
