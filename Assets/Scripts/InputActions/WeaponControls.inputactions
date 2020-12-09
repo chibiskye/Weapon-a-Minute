@@ -125,14 +125,6 @@
             "id": "0ffe825a-9c82-4a70-a729-35e39060211b",
             "actions": [
                 {
-                    "name": "Swing",
-                    "type": "Button",
-                    "id": "c0a895e1-b468-496e-af8c-790f7c787e16",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Throw",
                     "type": "Button",
                     "id": "0205c9ea-06ad-43bb-9234-a96b9db6f518",
@@ -144,19 +136,8 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "7dcc2bbe-09a3-4ba1-9b1d-1f6e1de90b26",
+                    "id": "aafb7026-db7f-4e53-bc5a-d09f2a7c3fdc",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Swing",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ca0a9ff7-9534-476c-bb98-a1c6c8e6d204",
-                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

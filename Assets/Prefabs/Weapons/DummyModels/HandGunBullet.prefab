@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 502033197918217276}
   - component: {fileID: 5815206510189152248}
   m_Layer: 10
-  m_Name: LazerGunBullet
+  m_Name: HandGunBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
+  hitDamage: 15
 --- !u!1 &270818259454844720
 GameObject:
   m_ObjectHideFlags: 0

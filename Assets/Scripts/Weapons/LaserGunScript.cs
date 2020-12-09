@@ -74,16 +74,16 @@ public class LaserGunScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
         {
-            Debug.Log(hit.transform.name);
-
             laserLine.SetPosition(1, hit.point);
             StartCoroutine(DrawLaserLine());
             StartCoroutine(WaitToShoot());
 
+            float distance = Vector3.Distance(rayOrigin, hit.collider.transform.position);
+
             Health opponentHealth = hit.collider.GetComponent<Health>();
             if (opponentHealth != null) // successfully hit the opponent
             {
-                opponentHealth.LoseHealth(hitDamage);
+                opponentHealth.LoseHealth((int)((distance / range) * hitDamage)); //more distance = more damage
                 Debug.Log("Try and dodge this pink ray of death!");
             }
             else 

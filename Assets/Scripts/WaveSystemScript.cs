@@ -51,7 +51,7 @@ public class WaveSystemScript : MonoBehaviour
         waveNumber++;
         Debug.Log("Wave" + waveNumber);
         GameObject enemy;
-        int i;
+        int i = 0;
         switch(waveNumber)
         {
             case 1: 
@@ -79,6 +79,20 @@ public class WaveSystemScript : MonoBehaviour
                 break;
             
             default: 
+                int post4WaveNum = waveNumber - 4;
+                i++;
+                if (post4WaveNum % 5 == 0) 
+                {
+                    enemySet.Add(CreateEnemy(EnemyType.fSword, i));
+                }
+                else if (post4WaveNum % 2 == 0)
+                {
+                    enemySet.Add(CreateEnemy(EnemyType.gGun, i));
+                }
+                else
+                {
+                    enemySet.Add(CreateEnemy(EnemyType.gSword, i));
+                }
                 break;
         }
 
