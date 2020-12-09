@@ -473,6 +473,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DummyPlayerScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 4232980085572165596, guid: 9bf5eac2a42dc4440acaf82b71658ee3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4907771236958255313, guid: 9bf5eac2a42dc4440acaf82b71658ee3,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -521,12 +526,12 @@ PrefabInstance:
     - target: {fileID: 4907771237885763282, guid: 9bf5eac2a42dc4440acaf82b71658ee3,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.11321864
+      value: 0.113218635
       objectReference: {fileID: 0}
     - target: {fileID: 4907771237885763282, guid: 9bf5eac2a42dc4440acaf82b71658ee3,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.10151781
+      value: 0.10151778
       objectReference: {fileID: 0}
     - target: {fileID: 4907771237885763282, guid: 9bf5eac2a42dc4440acaf82b71658ee3,
         type: 3}
@@ -546,7 +551,7 @@ PrefabInstance:
     - target: {fileID: 4907771237885763282, guid: 9bf5eac2a42dc4440acaf82b71658ee3,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.6598229
+      value: -0.6598228
       objectReference: {fileID: 0}
     - target: {fileID: 4907771238550799339, guid: 9bf5eac2a42dc4440acaf82b71658ee3,
         type: 3}
