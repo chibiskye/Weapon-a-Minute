@@ -102,6 +102,12 @@ public class HandGunScript : WeaponScript
         }
         else
         {
+            //Enemies will only shoot if they have something to target
+            if (isEnemy)
+            {
+                Destroy(g);
+                return;
+            }
             StartCoroutine(WaitToShoot());
             g.transform.LookAt(camMid);
             g.SetActive(true);
