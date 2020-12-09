@@ -77,7 +77,9 @@ public class HandGunScript : WeaponScript
         RaycastHit hit;
 
         // Instantiate bullet
-        GameObject g = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint);
+        HandGunBulletScript bulletScript = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint).GetComponent<HandGunBulletScript>();
+        bulletScript.SetRange(range);
+        GameObject g = bulletScript.gameObject;
 
         if (Physics.Raycast(rayOrigin, rayTransform.forward, out hit, range, layerMask))
         {

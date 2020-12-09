@@ -5,10 +5,12 @@ using UnityEngine;
 public class HandGunBulletScript : MonoBehaviour
 {
     [SerializeField] private float speed = 30f;
-    [SerializeField] private int hitDamage = 10;
+    [SerializeField] private int hitDamage = 15;
 
     private Rigidbody rigidBody = null;
     private float timeToLive = 3f;
+    private float range = 30.0f;
+    private Vector3 originalPosition;
 
     // Deletes self after a set amount of time
     IEnumerator DestroySelf()
@@ -21,6 +23,7 @@ public class HandGunBulletScript : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        originalPosition = transform.position;
         rigidBody.velocity = transform.forward * speed;
         StartCoroutine(DestroySelf());
     }
@@ -35,8 +38,14 @@ public class HandGunBulletScript : MonoBehaviour
         Health opponentHealth = other.GetComponent<Health>();
         if (opponentHealth != null) // successfully hit the player
         {
-            opponentHealth.LoseHealth(hitDamage);
+            float distance = Vector3.Distance(originalPosition, other.transform.position);
+            opponentHealth.LoseHealth((int)((distance / range) * hitDamage)); //more distance = more damage
             Debug.Log("Opponent: Arg! Good shot!");
         }
+    }
+
+    public void SetRange(float newRange)
+    {
+        this.range = newRange;
     }
 }
