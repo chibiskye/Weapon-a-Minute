@@ -118,7 +118,7 @@ public class BoomerangScript : MonoBehaviour
             Health opponentHealth = collision.gameObject.GetComponent<Health>();
             if (opponentHealth != null) // successfully hit the opponent
             {
-                opponentHealth.LoseHealth(hitDamage);
+                opponentHealth.LoseHealth(movingForward ? hitDamage : 3 * hitDamage); //more damage if boomerang is going backwards
                 Debug.Log("Bet you didn't see that coming~");
             }
             else 
