@@ -102,7 +102,7 @@ public class HandGunScript : WeaponScript
             
             g.SetActive(true);
         }
-        else
+        else if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, 400, layerMask)) //TODO this can probably be simplified
         {
             //Enemies will only shoot if they have something to target
             if (isEnemy)
@@ -111,7 +111,7 @@ public class HandGunScript : WeaponScript
                 return;
             }
             StartCoroutine(WaitToShoot());
-            g.transform.LookAt(camMid);
+            g.transform.LookAt(hit.point);
             g.SetActive(true);
         }
     }
