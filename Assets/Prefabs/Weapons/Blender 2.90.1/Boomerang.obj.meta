@@ -3,12 +3,7 @@ guid: 75e0173dc91471d40a69b8e7946d2822
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: boomerang
-    second: {fileID: 2100000, guid: 70e2a739ae4859e46ac542aa1480b687, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
