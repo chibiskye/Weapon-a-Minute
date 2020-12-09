@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/WeaponControls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/InputActions/WeaponControls.inputactions'
 
 using System;
 using System.Collections;
@@ -138,14 +138,6 @@ public class @WeaponControls : IInputActionCollection, IDisposable
             ""id"": ""0ffe825a-9c82-4a70-a729-35e39060211b"",
             ""actions"": [
                 {
-                    ""name"": ""Swing"",
-                    ""type"": ""Button"",
-                    ""id"": ""c0a895e1-b468-496e-af8c-790f7c787e16"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Throw"",
                     ""type"": ""Button"",
                     ""id"": ""0205c9ea-06ad-43bb-9234-a96b9db6f518"",
@@ -157,19 +149,8 @@ public class @WeaponControls : IInputActionCollection, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""7dcc2bbe-09a3-4ba1-9b1d-1f6e1de90b26"",
+                    ""id"": ""aafb7026-db7f-4e53-bc5a-d09f2a7c3fdc"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Swing"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ca0a9ff7-9534-476c-bb98-a1c6c8e6d204"",
-                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -222,7 +203,6 @@ public class @WeaponControls : IInputActionCollection, IDisposable
         m_SwordInputs_Swing = m_SwordInputs.FindAction("Swing", throwIfNotFound: true);
         // BananaInputs
         m_BananaInputs = asset.FindActionMap("BananaInputs", throwIfNotFound: true);
-        m_BananaInputs_Swing = m_BananaInputs.FindAction("Swing", throwIfNotFound: true);
         m_BananaInputs_Throw = m_BananaInputs.FindAction("Throw", throwIfNotFound: true);
         // BoomerangInputs
         m_BoomerangInputs = asset.FindActionMap("BoomerangInputs", throwIfNotFound: true);
@@ -391,13 +371,11 @@ public class @WeaponControls : IInputActionCollection, IDisposable
     // BananaInputs
     private readonly InputActionMap m_BananaInputs;
     private IBananaInputsActions m_BananaInputsActionsCallbackInterface;
-    private readonly InputAction m_BananaInputs_Swing;
     private readonly InputAction m_BananaInputs_Throw;
     public struct BananaInputsActions
     {
         private @WeaponControls m_Wrapper;
         public BananaInputsActions(@WeaponControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Swing => m_Wrapper.m_BananaInputs_Swing;
         public InputAction @Throw => m_Wrapper.m_BananaInputs_Throw;
         public InputActionMap Get() { return m_Wrapper.m_BananaInputs; }
         public void Enable() { Get().Enable(); }
@@ -408,9 +386,6 @@ public class @WeaponControls : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_BananaInputsActionsCallbackInterface != null)
             {
-                @Swing.started -= m_Wrapper.m_BananaInputsActionsCallbackInterface.OnSwing;
-                @Swing.performed -= m_Wrapper.m_BananaInputsActionsCallbackInterface.OnSwing;
-                @Swing.canceled -= m_Wrapper.m_BananaInputsActionsCallbackInterface.OnSwing;
                 @Throw.started -= m_Wrapper.m_BananaInputsActionsCallbackInterface.OnThrow;
                 @Throw.performed -= m_Wrapper.m_BananaInputsActionsCallbackInterface.OnThrow;
                 @Throw.canceled -= m_Wrapper.m_BananaInputsActionsCallbackInterface.OnThrow;
@@ -418,9 +393,6 @@ public class @WeaponControls : IInputActionCollection, IDisposable
             m_Wrapper.m_BananaInputsActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Swing.started += instance.OnSwing;
-                @Swing.performed += instance.OnSwing;
-                @Swing.canceled += instance.OnSwing;
                 @Throw.started += instance.OnThrow;
                 @Throw.performed += instance.OnThrow;
                 @Throw.canceled += instance.OnThrow;
@@ -477,7 +449,6 @@ public class @WeaponControls : IInputActionCollection, IDisposable
     }
     public interface IBananaInputsActions
     {
-        void OnSwing(InputAction.CallbackContext context);
         void OnThrow(InputAction.CallbackContext context);
     }
     public interface IBoomerangInputsActions

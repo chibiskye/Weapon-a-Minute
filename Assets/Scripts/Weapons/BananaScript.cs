@@ -21,7 +21,6 @@ public class BananaScript : MonoBehaviour
         m_collider = GetComponent<Collider>();
 
         weaponControls = new WeaponControls();
-        weaponControls.BananaInputs.Swing.performed += _ => Swing();
         weaponControls.BananaInputs.Throw.performed += _ => Throw();
     }
 
@@ -55,30 +54,6 @@ public class BananaScript : MonoBehaviour
         //This way the player can use the banana again when it is time to switch weapons
         GameObject bananaPeel = Instantiate(bananaPeelPrefab, transform.position, transform.rotation);
         bananaPeel.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-    }
-
-    void Swing()
-    {
-        // Check if player still has weapon in hand
-        if (beenThrown) return;
-
-        // Draw raycast
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
-
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, swingRange, layerMask))
-        {
-            Health opponentHealth = hit.collider.GetComponent<Health>();
-            if (opponentHealth != null) // successfully hit the opponent
-            {
-                Debug.Log("I slap you with a banana!");
-                opponentHealth.LoseHealth(swingDamage);
-            }
-            else // hit something else other than the player
-            {
-                Debug.Log("Why are you dodging so seriously? Scared of a tiny little banana?");
-            }
-        }
     }
 
     // ---------------------------------------------------------------------------------------------
