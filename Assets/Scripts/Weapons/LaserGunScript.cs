@@ -93,7 +93,6 @@ public class LaserGunScript : MonoBehaviour
         }
         else if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, 400, layerMask))
         {
-            //laserLine.SetPosition(1, rayOrigin + (m_camera.transform.forward * range));
             laserLine.SetPosition(1, hit.point);
             StartCoroutine(DrawLaserLine());
             StartCoroutine(WaitToShoot());
