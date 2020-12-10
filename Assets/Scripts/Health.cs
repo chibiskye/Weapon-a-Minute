@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// using System.Collections;
+// using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -11,6 +11,11 @@ public class Health : MonoBehaviour
     void Awake()
     {
         currentHealth = maxHealth;
+    }
+
+    public void SetHeathBar(HealthBar bar)
+    {
+        healthBar = bar;
     }
 
     public void SetMaxHealth(int health)

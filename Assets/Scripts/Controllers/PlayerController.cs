@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 // Camera controls implemented with the help of the following tutorials:
 // - Third person movement = https://youtu.be/4HpC--2iowE
@@ -13,11 +14,11 @@ public class PlayerController : MonoBehaviour
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private LayerMask detectMasks;
     [SerializeField] private DebugLogScript debugLog = null;
+    [SerializeField] private TimeDisplayScript timeDisplay = null;
+    [SerializeField] private WeaponDisplayScript weaponDisplay = null;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float turnSmoothTime = 0.1f;
-    [SerializeField] private float timeToSwitch = 10f;
-    // [SerializeField] private Transform l_HandWeaponHold = null;
-    // [SerializeField] private Transform r_HandWeaponHold = null;
+    [SerializeField] private float timeToSwitch = 60f;
     [SerializeField] private GameObject[] weaponsList = null;
 
     // [SerializeField] private GameObject camera = null;
@@ -26,13 +27,12 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController = null;
     private PlayerControls playerControls = null;
     private Transform cameraTransform = null;
-    private float turnSmoothVelocity;
+    private float turnSmoothVelocity; // used for reference variable
+    
+    private bool switchTimerOn = true;
+    private float switchTimeLeft = 60f;
     private int prevWeaponIndex = -1;
     private int nextWeaponIndex = -1;
-    private float switchTimeLeft = 0f;
-    private bool timerOn = true;
-    // private GameObject l_handWeapon = null;
-    // private GameObject r_HandWeapon = null;
     // private bool isGrounded = true;
 
     // Awake is called once before the Start method
@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour
     {
         playerControls = new PlayerControls();
         cameraTransform = Camera.main.transform;
+        switchTimeLeft = timeToSwitch;
+        timeDisplay.DisplayTime(timeToSwitch);
+        SwitchWeapon();
 
         // Detect user input
         playerControls.Movement.Jump.performed += _ => Jump();
@@ -94,20 +97,16 @@ public class PlayerController : MonoBehaviour
         characterController.Move(moveVector.normalized * moveSpeed * Time.deltaTime);
 
         // Switch weapons after some time interval
-        if (timerOn)
+        if (switchTimerOn)
         {
-            switchTimeLeft -= Time.deltaTime; // update timer
+            switchTimeLeft -= Time.deltaTime;
+            timeDisplay.DisplayTime(switchTimeLeft);
+
             if (switchTimeLeft <= 0)
             {
-                // Randomly select a weapon to summon next, cannot use same weapon twice in a row
-                nextWeaponIndex = Random.Range(0, weaponsList.Length);
-                while (weaponsList[nextWeaponIndex] == null && nextWeaponIndex != prevWeaponIndex)
-                {
-                    nextWeaponIndex = Random.Range(0, weaponsList.Length);
-                }
-                DebugSummon(nextWeaponIndex);
-                prevWeaponIndex = nextWeaponIndex; // save reference to selected weapon
+                timeDisplay.DisplayTime(0);
                 switchTimeLeft = timeToSwitch; // reset timer
+                SwitchWeapon();
             }
         }
     }
@@ -118,14 +117,26 @@ public class PlayerController : MonoBehaviour
         Debug.Log("jump");
     }
 
+    void SwitchWeapon()
+    {
+        // Randomly select a weapon to summon next, cannot use same weapon twice in a row
+        nextWeaponIndex = Random.Range(0, weaponsList.Length);
+        while (weaponsList[nextWeaponIndex] == null && nextWeaponIndex != prevWeaponIndex)
+        {
+            nextWeaponIndex = Random.Range(0, weaponsList.Length);
+        }
+        DebugSummon(nextWeaponIndex);
+        prevWeaponIndex = nextWeaponIndex; // save reference to selected weapon
+    }
+
     // ---------------------------------------------------------------------------------------------
     // Below are methods used for debugging
     // ---------------------------------------------------------------------------------------------
 
     void DebugToggleTimer()
     {
-        timerOn = !timerOn;
-        if (timerOn)
+        switchTimerOn = !switchTimerOn;
+        if (switchTimerOn)
         {
             debugLog.AddLog("Random weapon switching: ON");
         }
@@ -153,8 +164,9 @@ public class PlayerController : MonoBehaviour
         {
             if (i == weaponIndex)
             {
-                DebugLogWeapon(weaponIndex);
-                weaponsList[weaponIndex].SetActive(true);
+                GameObject weapon = weaponsList[weaponIndex];
+                weapon.SetActive(true);
+                weaponDisplay.DisplayWeapon(weapon.transform.name);
             }
             else if (weaponsList[i] != null) // ignore destroyed or one-time-use weapons
             {
@@ -162,25 +174,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    // void DebugSummonGun()
-    // {
-    //     // Check if player is already holding a weapon
-    //     if (r_HandWeapon) Destroy(r_HandWeapon);
-
-    //     // Instantiate weapon on player's right hand
-    //     GameObject gun = weaponsList[0];
-
-    //     // Add slight offset in y-direction above player hand
-    //     Vector3 gunPosition = new Vector3(r_HandWeaponHold.transform.position.x, r_HandWeaponHold.transform.position.y + 0.2f, r_HandWeaponHold.transform.position.z);
-
-    //     // Rotate gun to make it horizontal
-    //     Quaternion gunRotation = Quaternion.Euler(90f, 0f, 0f);
-
-    //     r_HandWeapon = Instantiate(gun, gunPosition, gunRotation, r_HandWeaponHold);
-    //     r_HandWeapon.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-    //     r_HandWeapon.SetActive(true);
-    // }
 
     void DebugLogWeapon(int weaponIndex)
     {
