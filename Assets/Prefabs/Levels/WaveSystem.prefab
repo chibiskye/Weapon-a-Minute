@@ -43,10 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e5c13ab821c4bb8b00b997dbd12f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gSwordEnemy: {fileID: 9043311209219805184, guid: addba4b4c26434d338e08b08921b6b12,
-    type: 3}
-  gGunEnemy: {fileID: 9043311209219805184, guid: 7bf6b7f7367584bbcb71f86d252e84f8,
-    type: 3}
-  fSwordEnemy: {fileID: 4339821174654394967, guid: e0b9fbb456acf4ecabcd7563c2e670f6,
-    type: 3}
+  gSwordEnemy: {fileID: 0}
+  gGunEnemy: {fileID: 0}
+  fSwordEnemy: {fileID: 0}
   positions: []
