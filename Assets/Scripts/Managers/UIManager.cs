@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ScreenScript : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     [SerializeField] private FadeAwayScript fadeAwayScript = null;
     [SerializeField] private GameObject titleScreen = null;
