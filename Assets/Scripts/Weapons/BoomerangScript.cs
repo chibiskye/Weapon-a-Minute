@@ -17,6 +17,7 @@ public class BoomerangScript : MonoBehaviour
     private Camera m_camera = null;
     private Vector3 throwLocation;
     private Quaternion originalRotation;
+    private int layerMask = ~((1 << 10)); //shooting does not affect other bullets TODO fix this
 
     void Awake()
     {
@@ -92,12 +93,18 @@ public class BoomerangScript : MonoBehaviour
 
         //Set to the position of the dot
         Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, m_camera.nearClipPlane));
-        transform.position = rayOrigin;
-        transform.rotation = Quaternion.Euler(Camera.main.transform.localEulerAngles);
+        //transform.position = rayOrigin;
+        //transform.rotation = Quaternion.Euler(Camera.main.transform.localEulerAngles);
+
+        originalRotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+
+        RaycastHit hit;
+        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, 400, layerMask)) {
+            transform.LookAt(hit.transform);
+        }
 
         // Set throw location
         throwLocation = new Vector3(transform.position.x, transform.position.y, transform.position.z) + transform.forward * range;
-        originalRotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
         isThrown = true;
         
         // Restart coroutine
