@@ -29,6 +29,7 @@ public class EnemySwordScript : WeaponScript
         if (Physics.Raycast(raycastOrigin.position, transform.forward, out hit, range, layerMask))
         {
             Health opponentHealth = hit.collider.GetComponent<Health>();
+            Debug.Log(opponentHealth);
             if (opponentHealth != null) // successfully hit the player
             {
                 Debug.Log("Opponent: Attack in the name of our Lord and Savior!!!");
