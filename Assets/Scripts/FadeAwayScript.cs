@@ -11,6 +11,7 @@ public class FadeAwayScript : MonoBehaviour
     void Awake()
     {
         image = GetComponent<Image>();
+        image.enabled = true;
         image.canvasRenderer.SetAlpha(0);
     }
 
