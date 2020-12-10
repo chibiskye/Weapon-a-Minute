@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SwordScript : MonoBehaviour
 {
-    [SerializeField] private Camera m_camera = null;
+    [SerializeField] private Camera playerCamera = null;
     [SerializeField] private float range = 8.0f;
     [SerializeField] private int hitDamage = 10;
     [SerializeField] private float hitRate = 0.8f;
@@ -32,6 +32,11 @@ public class SwordScript : MonoBehaviour
         weaponControls.Disable();
     }
 
+    void Start()
+    {
+        playerCamera = GameObject.FindWithTag("PlayerCamera").GetComponent<Camera>();
+    }
+
     IEnumerator WaitToSwing()
     {
         canSwing = false;
@@ -52,10 +57,10 @@ public class SwordScript : MonoBehaviour
         anim.Play();
         // transform.rotation = original_rotation;
 
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.25f, m_camera.nearClipPlane));
+        Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.25f, playerCamera.nearClipPlane));
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, range, layerMask))
         {
             Health opponentHealth = hit.collider.GetComponent<Health>();
             if (opponentHealth != null) // successfully hit the opponent
@@ -77,16 +82,16 @@ public class SwordScript : MonoBehaviour
 
     void DebugRaycast()
     {
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, m_camera.nearClipPlane));
+        Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, playerCamera.nearClipPlane));
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, range, layerMask))
         {
-            Debug.DrawRay(rayOrigin, m_camera.transform.forward * hit.distance, Color.yellow);
+            Debug.DrawRay(rayOrigin, playerCamera.transform.forward * hit.distance, Color.yellow);
         }
         else
         {
-            Debug.DrawRay(rayOrigin, m_camera.transform.forward * 1000, Color.white);
+            Debug.DrawRay(rayOrigin, playerCamera.transform.forward * 1000, Color.white);
         }
     }
 }

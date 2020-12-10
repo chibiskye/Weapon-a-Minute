@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BananaScript : MonoBehaviour
 {
-    [SerializeField] private Camera m_camera = null;
+    [SerializeField] private Camera playerCamera = null;
     [SerializeField] private GameObject bananaPeelPrefab = null;
     [SerializeField] private float swingRange = 5.0f;
     [SerializeField] private int swingDamage = 1;
@@ -26,6 +26,11 @@ public class BananaScript : MonoBehaviour
         weaponControls.BananaInputs.Throw.performed += _ => Throw();
 
         ready = true;
+    }
+
+    void Start()
+    {
+        playerCamera = GameObject.FindWithTag("PlayerCamera").GetComponent<Camera>();
     }
 
     void OnEnable()
@@ -79,16 +84,16 @@ public class BananaScript : MonoBehaviour
 
     void DebugRaycast()
     {
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+        Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, swingRange, layerMask))
+        if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, swingRange, layerMask))
         {
-            Debug.DrawRay(rayOrigin, m_camera.transform.forward * hit.distance, Color.yellow);
+            Debug.DrawRay(rayOrigin, playerCamera.transform.forward * hit.distance, Color.yellow);
         }
         else
         {
-            Debug.DrawRay(rayOrigin, m_camera.transform.forward * 1000, Color.white);
+            Debug.DrawRay(rayOrigin, playerCamera.transform.forward * 1000, Color.white);
         }
     }
 }

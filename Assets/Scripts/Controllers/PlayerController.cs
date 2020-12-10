@@ -38,22 +38,12 @@ public class PlayerController : MonoBehaviour
     // Awake is called once before the Start method
     void Awake()
     {
-        cameraTransform = Camera.main.transform;
-
-        // Setup switch timer and weapon player will be spawned with
-        switchTimeLeft = timeToSwitch;
-        timeDisplay.DisplayTime(timeToSwitch);
-        SwitchWeapon();
-
-        // Lock cursor to center of screen and make it invisible
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
         // Detect user input
         playerControls = new PlayerControls();
         playerControls.Movement.Jump.performed += _ => Jump();
 
         // Debug commands
+        debugLog = FindObjectOfType<DebugLogScript>();
         playerControls.Debug.ToggleSwitchTimer.performed += _ => DebugToggleTimer();
         playerControls.Debug.HealthDecrease.performed += _ => DebugTakeDamage(10);
         playerControls.Debug.HealthIncrease.performed += _ => DebugAddHealth(10);
@@ -80,7 +70,16 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Find references to required components
+        cameraTransform = GameObject.FindWithTag("PlayerCamera").transform;
+        timeDisplay = GameObject.FindWithTag("SwitchTimerDisplay").GetComponent<TimeDisplayScript>();
+        weaponDisplay = GameObject.FindWithTag("WeaponDisplay").GetComponent<WeaponDisplayScript>();
         characterController = GetComponent<CharacterController>();
+
+        // Setup switch timer and weapon player will be spawned with
+        switchTimeLeft = timeToSwitch;
+        timeDisplay.DisplayTime(timeToSwitch);
+        SwitchWeapon();
     }
 
     // FixedUpdate is called once per physics frame

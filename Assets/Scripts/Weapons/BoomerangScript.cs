@@ -14,7 +14,7 @@ public class BoomerangScript : MonoBehaviour
     private WeaponControls weaponControls = null;
     private Rigidbody rigidBody = null;
     private IEnumerator boomCoroutine = null;
-    private Camera m_camera = null;
+    private Camera playerCamera = null;
     private Vector3 throwLocation;
     private Quaternion originalRotation;
     private int layerMask = ~((1 << 10)); //shooting does not affect other bullets TODO fix this
@@ -26,8 +26,6 @@ public class BoomerangScript : MonoBehaviour
 
         weaponControls = new WeaponControls();
         weaponControls.BoomerangInputs.Throw.performed += _ => Throw();
-
-        m_camera = Camera.main;
     }
 
     void OnEnable()
@@ -46,13 +44,17 @@ public class BoomerangScript : MonoBehaviour
         weaponControls.Disable();
     }
 
+    void Start()
+    {
+        playerCamera = GameObject.FindWithTag("PlayerCamera").GetComponent<Camera>();
+    }
+
     IEnumerator Boom()
     {
         movingForward = true;
         yield return new WaitForSeconds(throwDuration);
         movingForward = false;
     }
-
 
     // Update is called once per frame
     void FixedUpdate()
@@ -92,14 +94,14 @@ public class BoomerangScript : MonoBehaviour
         Debug.Log("Boomerang deployed");
 
         //Set to the position of the dot
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, m_camera.nearClipPlane));
+        Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, playerCamera.nearClipPlane));
         //transform.position = rayOrigin;
         //transform.rotation = Quaternion.Euler(Camera.main.transform.localEulerAngles);
 
         originalRotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
 
         RaycastHit hit;
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, 400, layerMask)) {
+        if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, 400, layerMask)) {
             transform.LookAt(hit.transform);
         }
 

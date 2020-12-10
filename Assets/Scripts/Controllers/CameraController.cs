@@ -20,6 +20,10 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         cameraControls = new CameraControls();
+
+        // Lock cursor to center of screen and make it invisible
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // OnEnable is called when script is first enabled

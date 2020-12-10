@@ -13,7 +13,7 @@ public class HandGunScript : WeaponScript
     [SerializeField] private bool isEnemy = false;
     
     private WeaponControls weaponControls = null;
-    private Camera m_camera = null;
+    private Camera playerCamera = null;
     private int layerMask = ~((1 << 10)); //shooting does not affect other bullets TODO fix this
     private bool canShoot = true;
     // private float nextTimeToFire = 0f; //currently not used
@@ -22,7 +22,6 @@ public class HandGunScript : WeaponScript
     {
         weaponControls = new WeaponControls();
         weaponControls.GunInputs.Shoot.performed += _ => Shoot();
-        m_camera = Camera.main;
     }
 
     void OnEnable()
@@ -34,6 +33,11 @@ public class HandGunScript : WeaponScript
     void OnDisable()
     {
         weaponControls.Disable();
+    }
+
+    void Start()
+    {
+        playerCamera = GameObject.FindWithTag("PlayerCamera").GetComponent<Camera>();
     }
 
     IEnumerator WaitToShoot()
@@ -57,7 +61,7 @@ public class HandGunScript : WeaponScript
         Vector3 rayOrigin;
         if (!isEnemy) // if the player is using the gun
         {
-            rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+            rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         }
         else
         {
@@ -67,7 +71,7 @@ public class HandGunScript : WeaponScript
         Transform rayTransform;
         if (!isEnemy)
         {
-            rayTransform = m_camera.transform;
+            rayTransform = playerCamera.transform;
         }
         else
         {
@@ -103,7 +107,7 @@ public class HandGunScript : WeaponScript
             
             g.SetActive(true);
         }
-        else if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, 400, layerMask)) //TODO this can probably be simplified
+        else if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, 400, layerMask)) //TODO this can probably be simplified
         {
             //Enemies will only shoot if they have something to target
             if (isEnemy)
@@ -131,7 +135,7 @@ public class HandGunScript : WeaponScript
         Vector3 rayOrigin;
         if(!isEnemy) // if the player is using the gun
         {
-            rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+            rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         } else
         {
             rayOrigin = body.position;
@@ -139,7 +143,7 @@ public class HandGunScript : WeaponScript
         Transform rayTransform;
         if (!isEnemy)
         {
-            rayTransform = m_camera.transform;
+            rayTransform = playerCamera.transform;
         }
         else
         {

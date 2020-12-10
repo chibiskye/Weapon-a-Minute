@@ -6,24 +6,25 @@ public class GameManager : MonoBehaviour
 {
     public bool debugMode = false; // public for debugging purposes
 
-    [SerializeField] private GameObject screen = null;
+    // [SerializeField] private GameObject screen = null;
     // [SerializeField] private Camera screenCamera = null;
-    [SerializeField] private UIManager uiManager = null;
+    // [SerializeField] private UIManager uiManager = null;
     [SerializeField] private GameObject levelPrefab = null;
     [SerializeField] private GameObject playerPrefab = null;
 
-    // private UIManager uiManager = null;
-    // private Camera screenCamera = null;
+    private UIManager uiManager = null;
+    private WaveSystemScript waveSystem = null;
     private Camera m_camera = null;
     private GameObject level = null;
     private GameObject player = null;
+    private bool isPaused = false;
 
     void Awake()
     {
-        // uiManager = FindObjectOfType<UIManager>();
-        // screenCamera = FindObjectOfType<Camera>();
+        uiManager = FindObjectOfType<UIManager>();
+        waveSystem = FindObjectOfType<WaveSystemScript>();
         m_camera = Camera.main;
-        screen.SetActive(true);
+        waveSystem.enabled = false;
     }
 
     void Start()
@@ -40,14 +41,16 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        // screenCamera.enabled = false;
+        m_camera.enabled = false;
+        waveSystem.enabled = true;
         level = Instantiate(levelPrefab, this.transform);
         player = Instantiate(playerPrefab, this.transform);
+        
     }
 
     private void EnableDebugMode()
     {
-        // screenCamera.enabled = false;
+        m_camera.enabled = false;
         uiManager.ShowScreenOnly("Player");
         level = Instantiate(levelPrefab, this.transform);
         player = Instantiate(playerPrefab, this.transform);

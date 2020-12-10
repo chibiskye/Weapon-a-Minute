@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 152430133664209619}
   m_Layer: 5
-  m_Name: TimerDisplay
+  m_Name: SwitchTimerDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 152430134588616521}
   - component: {fileID: 152430134588616520}
   m_Layer: 5
-  m_Name: Timer
+  m_Name: SwitchTimer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
