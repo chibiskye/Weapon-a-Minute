@@ -8,6 +8,7 @@ TagManager:
   - hit
   - wall
   - cube
+  - PlayerCamera
   layers:
   - Default
   - TransparentFX
