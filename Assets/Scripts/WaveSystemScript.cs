@@ -81,6 +81,9 @@ public class WaveSystemScript : MonoBehaviour
             default: 
                 int post4WaveNum = waveNumber - 4;
                 i++;
+                if (i <= positions.Length) {
+                    i = 0;
+                }
                 if (post4WaveNum % 5 == 0) 
                 {
                     enemySet.Add(CreateEnemy(EnemyType.fSword, i));
