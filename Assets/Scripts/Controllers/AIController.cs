@@ -63,6 +63,11 @@ public class AIController : MonoBehaviour
         aiControls.Disable();
     }
 
+    void Start()
+    {
+        player = GameObject.FindWithTag("Player").transform;
+    }
+
     private void FixedUpdate()
     {
         if (agent.isStopped) return;
@@ -70,7 +75,10 @@ public class AIController : MonoBehaviour
         // Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-        playerInYRange = flyingBody.transform.position.y - player.position.y <= yRange;
+        if (isFlying)
+        {
+            playerInYRange = flyingBody.transform.position.y - player.position.y <= yRange;
+        }
         
         // Detect and update state
         if (!playerInSightRange && !playerInAttackRange) { Patroling(); }

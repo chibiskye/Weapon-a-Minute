@@ -50,10 +50,8 @@ public class GameManager : MonoBehaviour
 
     private void EnableDebugMode()
     {
-        m_camera.enabled = false;
         uiManager.ShowScreenOnly("Player");
-        level = Instantiate(levelPrefab, this.transform);
-        player = Instantiate(playerPrefab, this.transform);
+        StartGame();
     }
 
 // Singleton code -------------------------------------------------------------------------

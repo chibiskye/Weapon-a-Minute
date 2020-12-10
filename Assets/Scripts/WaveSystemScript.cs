@@ -112,10 +112,10 @@ public class WaveSystemScript : MonoBehaviour
         GameObject enemy;
         switch(type)
         {
-            case EnemyType.gSword: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation); break;
-            case EnemyType.gGun: enemy = Instantiate(gGunEnemy, GetPosition(posIndex, false), rotation); break;
-            case EnemyType.fSword: enemy = Instantiate(fSwordEnemy, GetPosition(posIndex, true), rotation); break;
-            default: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation); break;
+            case EnemyType.gSword: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation, this.transform); break;
+            case EnemyType.gGun: enemy = Instantiate(gGunEnemy, GetPosition(posIndex, false), rotation, this.transform); break;
+            case EnemyType.fSword: enemy = Instantiate(fSwordEnemy, GetPosition(posIndex, true), rotation, this.transform); break;
+            default: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation, this.transform); break;
         }
         enemy.SetActive(false);
         return enemy;
