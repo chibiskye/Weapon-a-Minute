@@ -8,10 +8,12 @@ public class BananaScript : MonoBehaviour
     [SerializeField] private GameObject bananaPeelPrefab = null;
     [SerializeField] private float swingRange = 5.0f;
     [SerializeField] private int swingDamage = 1;
+    [SerializeField] private float waitTime = 5.0f;
 
     private WeaponControls weaponControls = null;
     private Rigidbody rigidBody = null;
     private Collider m_collider = null;
+    private bool ready = true;
     private int layerMask = ~(1 << 8); //attacking doesn't affect the player
     private bool beenThrown = false;
 
@@ -22,33 +24,48 @@ public class BananaScript : MonoBehaviour
 
         weaponControls = new WeaponControls();
         weaponControls.BananaInputs.Throw.performed += _ => Throw();
+
+        ready = true;
     }
 
     void OnEnable()
     {
         beenThrown = false;
+        ready = true;
+        if (weaponControls == null) { return; }
         weaponControls.Enable();
     }
 
     void OnDisable()
     {
+        if (weaponControls == null) { return; }
         weaponControls.Disable();
     }
 
     void FixedUpdate()
     {
+        GetComponent<MeshRenderer>().enabled = ready; //Hide when not ready
+        m_collider.enabled = ready;
         DebugRaycast();
+    }
+
+    IEnumerator WaitForNextBanana()
+    {
+        ready = false;
+        yield return new WaitForSeconds(waitTime);
+        ready = true;
     }
 
     void Throw()
     {
         // Check if player still has weapon in hand
-        if (beenThrown) return;
+        if(!ready) { return; };
         Debug.Log("Hehehe");
 
         // Update state
         beenThrown = true;
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        StartCoroutine(WaitForNextBanana());
 
         //To represent the player throwing the banana as a banana peel, without destroying the gameobject 
         //This way the player can use the banana again when it is time to switch weapons

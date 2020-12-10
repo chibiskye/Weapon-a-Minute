@@ -37,7 +37,9 @@ public class BananaPeelScript : MonoBehaviour
             Destroy(gameObject);
 
             Health opponentHealth = other.gameObject.GetComponent<Health>();
-            opponentHealth.LoseHealth(throwDamage);
+            if (opponentHealth != null) {
+                opponentHealth.LoseHealth(throwDamage);
+            }
         }
     }
 }
