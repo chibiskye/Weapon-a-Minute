@@ -7,13 +7,14 @@ public class GameManager : MonoBehaviour
     public bool debugMode = false; // public for debugging purposes
 
     [SerializeField] private GameObject screen = null;
-    [SerializeField] private Camera screenCamera = null;
+    // [SerializeField] private Camera screenCamera = null;
     [SerializeField] private UIManager uiManager = null;
     [SerializeField] private GameObject levelPrefab = null;
     [SerializeField] private GameObject playerPrefab = null;
 
     // private UIManager uiManager = null;
     // private Camera screenCamera = null;
+    private Camera m_camera = null;
     private GameObject level = null;
     private GameObject player = null;
 
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     {
         // uiManager = FindObjectOfType<UIManager>();
         // screenCamera = FindObjectOfType<Camera>();
+        m_camera = Camera.main;
         screen.SetActive(true);
     }
 
@@ -38,14 +40,14 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        screenCamera.enabled = false;
+        // screenCamera.enabled = false;
         level = Instantiate(levelPrefab, this.transform);
         player = Instantiate(playerPrefab, this.transform);
     }
 
     private void EnableDebugMode()
     {
-        screenCamera.enabled = false;
+        // screenCamera.enabled = false;
         uiManager.ShowScreenOnly("Player");
         level = Instantiate(levelPrefab, this.transform);
         player = Instantiate(playerPrefab, this.transform);

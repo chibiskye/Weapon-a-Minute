@@ -19,10 +19,6 @@ public class CameraController : MonoBehaviour
     // Awake is called once before the Start method
     void Awake()
     {
-        // Lock cursor to center of screen and make it invisible
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
         cameraControls = new CameraControls();
     }
 
