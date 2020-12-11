@@ -317,7 +317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelPrefab: {fileID: 3961349369612244790, guid: 31d64f3ff73c3474a875fd3c72fffa44,
     type: 3}
-  playerPrefab: {fileID: 7012757423058490635, guid: 46b9c43d8ad47924e8378e0d0263b6ee,
+  playerPrefab: {fileID: 2611450203685391512, guid: 6d385bfdf6b3703409f6d04bddd95e95,
     type: 3}
   enemyWaveSystem: {fileID: 5562472822693303422, guid: d2acbb0e2af39b144b4db529201f7c49,
     type: 3}
