@@ -8,6 +8,7 @@ public class BoomerangScript : MonoBehaviour
     [SerializeField] private float range = 25.0f;
     [SerializeField] private float throwDuration = 1.5f;
     [SerializeField] private int hitDamage = 10;
+    [SerializeField] private Transform bulletSpawnPoint = null; // reference to the bullet spawn point
     public bool isThrown; // public for debug purposes
     public bool movingForward; // public for debug purposes
 
@@ -59,6 +60,7 @@ public class BoomerangScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        DebugRaycast();
         // Check if boomerang has been thrown
         if (isThrown)
         {
@@ -94,15 +96,17 @@ public class BoomerangScript : MonoBehaviour
         Debug.Log("Boomerang deployed");
 
         //Set to the position of the dot
-        Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, playerCamera.nearClipPlane));
+        Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         //transform.position = rayOrigin;
         //transform.rotation = Quaternion.Euler(Camera.main.transform.localEulerAngles);
 
         originalRotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+        transform.position = bulletSpawnPoint.position;
+        transform.rotation = bulletSpawnPoint.rotation;
 
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, 400, layerMask)) {
-            transform.LookAt(hit.transform);
+            transform.LookAt(hit.point);
         }
 
         // Set throw location
@@ -138,6 +142,20 @@ public class BoomerangScript : MonoBehaviour
             // Return boomerang to player if anything was hit
             StopCoroutine(boomCoroutine);
             movingForward = false;
+        }
+    }
+
+    void DebugRaycast()
+    {
+        Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
+        if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, 400, layerMask)) {
+            Debug.DrawRay(rayOrigin, transform.forward * hit.distance, Color.yellow);
+        }
+        else
+        {
+            // Debug.Log("D2");
+            Debug.DrawRay(rayOrigin, transform.forward * 1000, Color.white);
         }
     }
 }
