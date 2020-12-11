@@ -36,7 +36,7 @@ public class BananaPeelScript : MonoBehaviour
             Debug.Log("Opponent: A trap! I was careless!");
             Destroy(gameObject);
 
-            Health opponentHealth = other.gameObject.GetComponent<Health>();
+            HealthScript opponentHealth = other.gameObject.GetComponent<HealthScript>();
             if (opponentHealth != null) {
                 opponentHealth.LoseHealth(throwDamage);
             }

@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8828926052113075097
 Transform:
   m_ObjectHideFlags: 0
@@ -138,8 +138,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14013291cc14f420381ff1e40fdbdf70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 238105279803398058, guid: f9ae9607c5825485583759234278da17, type: 3}
+  bulletPrefab: {fileID: 238105279803398058, guid: f9ae9607c5825485583759234278da17,
+    type: 3}
   bulletSpawnPoint: {fileID: 8828926051096907191}
+  playerCamera: {fileID: 0}
+  enemyBody: {fileID: 0}
   range: 30
   fireRate: 0.5
   isEnemy: 0

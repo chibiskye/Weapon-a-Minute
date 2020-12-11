@@ -9,6 +9,10 @@ TagManager:
   - wall
   - cube
   - PlayerCamera
+  - SwitchTimerDisplay
+  - WeaponDisplay
+  - PlayerScreen
+  - Opponent
   layers:
   - Default
   - TransparentFX

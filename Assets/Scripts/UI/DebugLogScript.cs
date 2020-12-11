@@ -14,4 +14,9 @@ public class DebugLogScript : MonoBehaviour
     {
         debugLog.text += (text + "\n");
     }
+
+    public void ClearLog()
+    {
+        debugLog.text = "";
+    }
 }

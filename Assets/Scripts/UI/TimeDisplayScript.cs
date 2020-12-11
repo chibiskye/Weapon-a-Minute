@@ -6,6 +6,17 @@ using TMPro;
 public class TimeDisplayScript : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text = null;
+    [SerializeField] private float maxTime = 60f;
+
+    public void SetMaxTime(float time)
+    {
+        maxTime = time;
+    }
+
+    public void ResetTime()
+    {
+        DisplayTime(maxTime);
+    }
 
     public void DisplayTime(float time)
     {

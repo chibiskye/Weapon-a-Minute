@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class WaveSystemScript : MonoBehaviour
 {
-    [SerializeField] private GameObject gSwordEnemy = null;
-    [SerializeField] private GameObject gGunEnemy = null;
-    [SerializeField] private GameObject fSwordEnemy = null;
+    [SerializeField] private GameObject gSwordEnemy = null; // prefab
+    [SerializeField] private GameObject gGunEnemy = null; // prefab
+    [SerializeField] private GameObject fSwordEnemy = null;  // prefab
     [SerializeField] private Vector3[] positions = null;
     private int waveNumber;
     private int positionIndex;
     private List<GameObject> enemySet;
-    private List<GameObject>  activeEnemies;
+    private List<GameObject> activeEnemies;
     private Quaternion rotation;
 
     enum EnemyType
@@ -20,11 +20,13 @@ public class WaveSystemScript : MonoBehaviour
         gGun,
         fSword
     }
+
     // Start is called before the first frame update
     void Start()
     {
         enemySet = new List<GameObject>();
         activeEnemies = new List<GameObject>();
+
         waveNumber = 0;
         rotation = Quaternion.Euler(new Vector3(0, 90, 0));
     }
@@ -37,10 +39,11 @@ public class WaveSystemScript : MonoBehaviour
             if (!enemy.active)
             {
                 activeEnemies.Remove(enemy);
+                Destroy(enemy.gameObject);
             }
         }
 
-        if (activeEnemies.Count == 0f)
+        if (activeEnemies.Count == 0)
         {
             StartNextWave();
         }
@@ -50,32 +53,39 @@ public class WaveSystemScript : MonoBehaviour
     {
         waveNumber++;
         Debug.Log("Wave" + waveNumber);
-        GameObject enemy;
+
+        // GameObject enemy;
         int i = 0;
         switch(waveNumber)
         {
             case 1: 
-                enemySet.Clear();
+                // enemySet.Clear();
                 for (i = 0; i < 3; i++) {
-                    enemySet.Add(CreateEnemy(EnemyType.gSword, i));
+                    // enemySet.Add(CreateEnemy(EnemyType.gSword, i));
+                    activeEnemies.Add(CreateEnemy(EnemyType.gSword, i));
                 } break;
             case 2:
-                enemySet.Clear();
+                // enemySet.Clear();
                 for (i = 0; i < 2; i++) {
-                    enemySet.Add(CreateEnemy(EnemyType.gGun, i));
+                    // enemySet.Add(CreateEnemy(EnemyType.gGun, i));
+                    activeEnemies.Add(CreateEnemy(EnemyType.gGun, i));
                 }
-                enemySet.Add(CreateEnemy(EnemyType.gSword, i));
+                // enemySet.Add(CreateEnemy(EnemyType.gSword, i));
+                activeEnemies.Add(CreateEnemy(EnemyType.gSword, i));
                 break;
             case 3:
-                enemySet.Clear();
-                enemySet.Add(CreateEnemy(EnemyType.fSword, 0));
+                // enemySet.Clear();
+                // enemySet.Add(CreateEnemy(EnemyType.fSword, 0));
+                activeEnemies.Add(CreateEnemy(EnemyType.fSword, 0));
                 break;
             case 4:
-                enemySet.Clear();
+                // enemySet.Clear();
                 for (i = 0; i < 2; i++) {
-                    enemySet.Add(CreateEnemy(EnemyType.gSword, i));
+                    // enemySet.Add(CreateEnemy(EnemyType.gSword, i));
+                    activeEnemies.Add(CreateEnemy(EnemyType.gSword, i));
                 }
-                enemySet.Add(CreateEnemy(EnemyType.gGun, i));
+                // enemySet.Add(CreateEnemy(EnemyType.gGun, i));
+                activeEnemies.Add(CreateEnemy(EnemyType.gGun, i));
                 break;
             
             default: 
@@ -96,14 +106,19 @@ public class WaveSystemScript : MonoBehaviour
                 {
                     enemySet.Add(CreateEnemy(EnemyType.gSword, i));
                 }
-                break;
+
+                foreach (GameObject e in enemySet)
+                {
+                    GameObject newEnemy = Instantiate(e);
+                    newEnemy.SetActive(true);
+                    activeEnemies.Add(newEnemy);
+                }
+                return;
         }
 
-        foreach (GameObject e in enemySet)
+        foreach (GameObject enemy in activeEnemies)
         {
-            GameObject newEnemy = Instantiate(e);
-            newEnemy.SetActive(true);
-            activeEnemies.Add(newEnemy);
+            enemy.SetActive(true);
         }
     }
 
@@ -112,10 +127,10 @@ public class WaveSystemScript : MonoBehaviour
         GameObject enemy;
         switch(type)
         {
-            case EnemyType.gSword: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation); break;
-            case EnemyType.gGun: enemy = Instantiate(gGunEnemy, GetPosition(posIndex, false), rotation); break;
-            case EnemyType.fSword: enemy = Instantiate(fSwordEnemy, GetPosition(posIndex, true), rotation); break;
-            default: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation); break;
+            case EnemyType.gSword: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation, this.transform); break;
+            case EnemyType.gGun: enemy = Instantiate(gGunEnemy, GetPosition(posIndex, false), rotation, this.transform); break;
+            case EnemyType.fSword: enemy = Instantiate(fSwordEnemy, GetPosition(posIndex, true), rotation, this.transform); break;
+            default: enemy = Instantiate(gSwordEnemy, GetPosition(posIndex, false), rotation, this.transform); break;
         }
         enemy.SetActive(false);
         return enemy;
