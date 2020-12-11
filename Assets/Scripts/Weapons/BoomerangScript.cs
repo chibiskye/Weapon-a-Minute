@@ -9,6 +9,7 @@ public class BoomerangScript : MonoBehaviour
     [SerializeField] private float throwDuration = 1.5f;
     [SerializeField] private int hitDamage = 10;
     [SerializeField] private Transform bulletSpawnPoint = null; // reference to the bullet spawn point
+    [SerializeField] private AudioSource hitSF;
     public bool isThrown; // public for debug purposes
     public bool movingForward; // public for debug purposes
 
@@ -38,11 +39,15 @@ public class BoomerangScript : MonoBehaviour
         movingForward = false;
         transform.position = playerWeaponHold.position;
         transform.rotation = originalRotation;
+        
+        hitSF.enabled = true;
     }
 
     void OnDisable()
     {
         weaponControls.Disable();
+
+        hitSF.enabled = false;
     }
 
     void Start()
@@ -128,6 +133,7 @@ public class BoomerangScript : MonoBehaviour
         
         if (isThrown && collision.gameObject.layer != 8) // ignore player collider
         {
+            hitSF.Play();
             HealthScript opponentHealth = collision.gameObject.GetComponent<HealthScript>();
             if (opponentHealth != null) // successfully hit the opponent
             {
