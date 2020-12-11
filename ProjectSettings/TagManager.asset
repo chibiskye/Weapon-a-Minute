@@ -12,7 +12,6 @@ TagManager:
   - SwitchTimerDisplay
   - WeaponDisplay
   - PlayerScreen
-  - Opponent
   - Destroyable
   layers:
   - Default

@@ -5,40 +5,48 @@ using UnityEngine;
 public class WaveSystemScript : MonoBehaviour
 {
     [SerializeField] private GameObject gSwordEnemy = null; // prefab
-    [SerializeField] private GameObject gGunEnemy = null; // prefab
-    [SerializeField] private GameObject fSwordEnemy = null;  // prefab
+    [SerializeField] private GameObject gGunEnemy = null;
+    [SerializeField] private GameObject fSwordEnemy = null;
     [SerializeField] private Vector3[] positions = null;
-    private int waveNumber;
-    private int positionIndex;
-    private List<GameObject> enemySet;
-    private List<GameObject> activeEnemies;
-    private Quaternion rotation;
 
     enum EnemyType
     {
-        gSword,
-        gGun,
-        fSword
+        gSword = 10,
+        gGun = 20,
+        fSword = 50
     }
+
+    private InfoDisplayScript infoDisplay = null;
+    private List<GameObject> enemySet;
+    private Dictionary<GameObject, EnemyType> activeEnemies;
+    private Quaternion rotation;
+    private int positionIndex;
+    private int waveNumber;
+    private int playerScore;
 
     // Start is called before the first frame update
     void Start()
     {
+        infoDisplay = GameObject.FindWithTag("PlayerScreen").GetComponentInChildren<InfoDisplayScript>();
+        activeEnemies = new Dictionary<GameObject, EnemyType>();
         enemySet = new List<GameObject>();
-        activeEnemies = new List<GameObject>();
 
         waveNumber = 0;
+        playerScore = 0;
         rotation = Quaternion.Euler(new Vector3(0, 90, 0));
     }
 
-    // Update is called once per frame
+    // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
-        foreach (GameObject enemy in activeEnemies)
+        foreach (var entry in activeEnemies)
         {
+            GameObject enemy = entry.Key;
             if (!enemy.active)
             {
                 activeEnemies.Remove(enemy);
+                playerScore += (int)entry.Value;
+                infoDisplay.DisplayScore(playerScore);
                 Destroy(enemy.gameObject);
             }
         }
@@ -54,6 +62,11 @@ public class WaveSystemScript : MonoBehaviour
         waveNumber++;
         Debug.Log("Wave" + waveNumber);
 
+        if (infoDisplay != null)
+        {
+            infoDisplay.DisplayWave(waveNumber);
+        }
+
         // GameObject enemy;
         int i = 0;
         switch(waveNumber)
@@ -62,32 +75,33 @@ public class WaveSystemScript : MonoBehaviour
                 // enemySet.Clear();
                 for (i = 0; i < 3; i++) {
                     // enemySet.Add(CreateEnemy(EnemyType.gSword, i));
-                    activeEnemies.Add(CreateEnemy(EnemyType.gSword, i));
+                    activeEnemies.Add(CreateEnemy(EnemyType.gSword, i), EnemyType.gSword);
                 } break;
             case 2:
-                // enemySet.Clear();
+                enemySet.Clear();
                 for (i = 0; i < 2; i++) {
                     // enemySet.Add(CreateEnemy(EnemyType.gGun, i));
-                    activeEnemies.Add(CreateEnemy(EnemyType.gGun, i));
+                    activeEnemies.Add(CreateEnemy(EnemyType.gGun, i), EnemyType.gGun);
                 }
                 // enemySet.Add(CreateEnemy(EnemyType.gSword, i));
-                activeEnemies.Add(CreateEnemy(EnemyType.gSword, i));
+                activeEnemies.Add(CreateEnemy(EnemyType.gSword, i), EnemyType.gSword);
                 break;
             case 3:
-                // enemySet.Clear();
+                enemySet.Clear();
                 // enemySet.Add(CreateEnemy(EnemyType.fSword, 0));
-                activeEnemies.Add(CreateEnemy(EnemyType.fSword, 0));
+                activeEnemies.Add(CreateEnemy(EnemyType.fSword, 0), EnemyType.fSword);
                 break;
             case 4:
-                // enemySet.Clear();
+                enemySet.Clear();
                 for (i = 0; i < 2; i++) {
                     // enemySet.Add(CreateEnemy(EnemyType.gSword, i));
-                    activeEnemies.Add(CreateEnemy(EnemyType.gSword, i));
+                    activeEnemies.Add(CreateEnemy(EnemyType.gSword, i), EnemyType.gSword);
                 }
                 // enemySet.Add(CreateEnemy(EnemyType.gGun, i));
-                activeEnemies.Add(CreateEnemy(EnemyType.gGun, i));
+                activeEnemies.Add(CreateEnemy(EnemyType.gGun, i), EnemyType.gGun);
                 break;
             
+            // TODO: apply proper enum values to enemies after Wave4
             default: 
                 int post4WaveNum = waveNumber - 4;
                 i++;
@@ -111,12 +125,12 @@ public class WaveSystemScript : MonoBehaviour
                 {
                     GameObject newEnemy = Instantiate(e);
                     newEnemy.SetActive(true);
-                    activeEnemies.Add(newEnemy);
+                    activeEnemies.Add(newEnemy, EnemyType.gSword);
                 }
                 return;
         }
 
-        foreach (GameObject enemy in activeEnemies)
+        foreach (GameObject enemy in activeEnemies.Keys)
         {
             enemy.SetActive(true);
         }

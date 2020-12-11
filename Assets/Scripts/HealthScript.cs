@@ -49,7 +49,7 @@ public class HealthScript : MonoBehaviour
         currentHealth -= health;
         if (currentHealth <= 0)
         {
-            gameObject.SetActive(false);    // better to set inactive than destroy to avoid null references
+            gameObject.SetActive(false); // better to set inactive than destroy to avoid null references
         }
 
         // Update health bar, if applicable
