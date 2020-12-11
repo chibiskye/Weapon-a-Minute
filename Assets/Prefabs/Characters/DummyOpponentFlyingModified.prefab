@@ -605,6 +605,7 @@ MonoBehaviour:
   isFlying: 1
   flyingBody: {fileID: 4339821174353036316}
   flyingSpeed: 3
+  heart: {fileID: 680483004586662795, guid: feb7a413185db443e96b74e37f7123de, type: 3}
   walkPointRange: 10
   walkPointCheckRange: 2
   walkTime: 10

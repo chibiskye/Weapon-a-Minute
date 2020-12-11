@@ -190,6 +190,7 @@ MonoBehaviour:
   isFlying: 0
   flyingBody: {fileID: 0}
   flyingSpeed: 3
+  heart: {fileID: 680483004586662795, guid: feb7a413185db443e96b74e37f7123de, type: 3}
   walkPointRange: 10
   walkPointCheckRange: 2
   walkTime: 10
@@ -851,12 +852,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3790720143385574017, guid: 3f44cabbca22cb04f8e259526969ca67, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3f44cabbca22cb04f8e259526969ca67, type: 3}
---- !u!224 &9043311210605233919 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1265188755175134511, guid: 3f44cabbca22cb04f8e259526969ca67,
-    type: 3}
-  m_PrefabInstance: {fileID: 7786321170645029840}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &205857174541306982 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7986513658495016886, guid: 3f44cabbca22cb04f8e259526969ca67,
@@ -869,3 +864,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86455dcbe51d8bc478c6a968a370342a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &9043311210605233919 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1265188755175134511, guid: 3f44cabbca22cb04f8e259526969ca67,
+    type: 3}
+  m_PrefabInstance: {fileID: 7786321170645029840}
+  m_PrefabAsset: {fileID: 0}

@@ -20,6 +20,7 @@ public class AIController : MonoBehaviour
     [SerializeField] private float flyingSpeed = 3f; // for flying AI
     private NavMeshAgent agent = null;
     private AIControls aiControls = null;
+    [SerializeField] private HeartScript heart; // to be dropped
 
     //Patroling
     [SerializeField] private float walkPointRange = 10.0f;
@@ -42,6 +43,9 @@ public class AIController : MonoBehaviour
     public bool playerInAttackRange = false; // public for debug purposes
     public bool playerInYRange = false; // public for debug purposes
 
+    private bool beenDisabled = false;
+    private HeartScript heartToDrop = null;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -51,10 +55,17 @@ public class AIController : MonoBehaviour
         {
             flyingHeight = flyingBody.transform.position.y;
         }
+        if (isFlying) 
+        {
+            heart.SetValue(50);
+        }
 
         // Detect debug commands
         aiControls = new AIControls();
         aiControls.Debug.ToggleMovement.performed += _ => DebugToggleMove();
+
+        heartToDrop = Instantiate(heart, transform.position, transform.rotation, transform);
+        heartToDrop.gameObject.transform.parent = null;
     }
 
     void OnEnable()
@@ -64,6 +75,7 @@ public class AIController : MonoBehaviour
 
     void OnDisable()
     {
+        heartToDrop.MakeReady();
         aiControls.Disable();
     }
 
@@ -74,6 +86,7 @@ public class AIController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        heartToDrop.gameObject.transform.position = transform.position;
         if (agent.isStopped) return;
 
         // Check for sight and attack range
