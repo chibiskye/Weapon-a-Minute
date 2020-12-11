@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//Current AI Specific Code was implemented by following a tutorial by 'Dave / GameDevelopment' on YouTube
+// Current AI Specific Code was implemented by following a tutorial by 'Dave / GameDevelopment' on YouTube
+
+// Script will not run if game object does not have a navagent component
+[RequireComponent(typeof(NavMeshAgent))]
+
 public class AIController : MonoBehaviour
 {
     //Components

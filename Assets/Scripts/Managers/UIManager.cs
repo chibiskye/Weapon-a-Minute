@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
         if (gameOverScreen != null)     screensList.Add("GameOver", gameOverScreen);
     }
 
-    public void ShowScreenOnly(string screenName)
+    public void ShowScreenOnly (string screenName)
     {
         StartCoroutine(fadeAwayScript.FadeAway());
 
@@ -38,12 +38,31 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowScreenForeground(string screenName)
+    public void ShowScreenForeground (string screenName)
     {
         GameObject screen = screensList[screenName];
         if (screen != null)
         {
             screen.SetActive(true);
         }
+    }
+
+    public void HideScreen (string screenName)
+    {
+        GameObject screen = screensList[screenName];
+        if (screen != null)
+        {
+            screen.SetActive(false);
+        }
+    }
+
+    public void ResetPlayerScreen()
+    {
+        DebugLogScript debugLog = GetComponentInChildren<DebugLogScript>();
+        TimeDisplayScript timeDisplay = GetComponentInChildren<TimeDisplayScript>();
+        WeaponDisplayScript weaponDisplay = GetComponentInChildren<WeaponDisplayScript>();
+        debugLog.ClearLog();
+        timeDisplay.ResetTime();
+        weaponDisplay.DisplayWeapon("");
     }
 }

@@ -82,7 +82,7 @@ public class LaserGunScript : MonoBehaviour
 
             float distance = Vector3.Distance(rayOrigin, hit.collider.transform.position);
 
-            Health opponentHealth = hit.collider.GetComponent<Health>();
+            HealthScript opponentHealth = hit.collider.GetComponent<HealthScript>();
             if (opponentHealth != null) // successfully hit the opponent
             {
                 opponentHealth.LoseHealth((int)((distance / range) * hitDamage)); //more distance = more damage

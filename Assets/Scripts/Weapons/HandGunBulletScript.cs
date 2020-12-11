@@ -40,7 +40,7 @@ public class HandGunBulletScript : MonoBehaviour
         Destroy(gameObject);
 
         // Check if player was hit
-        Health opponentHealth = other.GetComponent<Health>();
+        HealthScript opponentHealth = other.GetComponent<HealthScript>();
         if (opponentHealth != null) // successfully hit the player
         {
             float distance = Vector3.Distance(originalPosition, other.transform.position);

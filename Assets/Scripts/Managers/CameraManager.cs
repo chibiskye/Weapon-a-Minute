@@ -6,7 +6,7 @@ using UnityEngine;
 // - Mouse sensitivity and x-rotation = https://youtu.be/_QajrabyTJc
 // - Third person Cinemachine camera = https://youtu.be/4HpC--2iowE 
 
-public class CameraController : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
     // [SerializeField] private Transform playerTransform = null;
     // [SerializeField] private float mouseSensitivity = 100f;
@@ -20,10 +20,6 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         cameraControls = new CameraControls();
-
-        // Lock cursor to center of screen and make it invisible
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // OnEnable is called when script is first enabled

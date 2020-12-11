@@ -80,7 +80,7 @@ public class ShieldScript : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, attackRange, layerMask))
         {
-            Health opponentHealth = hit.collider.GetComponent<Health>();
+            HealthScript opponentHealth = hit.collider.GetComponent<HealthScript>();
             if (opponentHealth != null) // successfully hit the opponent
             {
                 opponentHealth.LoseHealth(hitDamage);

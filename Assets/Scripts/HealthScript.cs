@@ -2,9 +2,9 @@
 // using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class HealthScript : MonoBehaviour
 {
-    [SerializeField] private HealthBar healthBar = null;
+    [SerializeField] private HealthBarScript healthBar = null;
     [SerializeField] private int maxHealth = 100;
     [SerializeField] public int currentHealth = 100; // public for debug purposes
 
@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void SetHealthBar(HealthBar bar)
+    public void SetHealthBar(HealthBarScript bar)
     {
         healthBar = bar;
     }
@@ -56,6 +56,15 @@ public class Health : MonoBehaviour
         if (healthBar != null)
         {
             healthBar.SetHealth(currentHealth);
+        }
+    }
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(maxHealth);
         }
     }
 

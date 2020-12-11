@@ -124,7 +124,7 @@ public class BoomerangScript : MonoBehaviour
         
         if (isThrown && collision.gameObject.layer != 8) // ignore player collider
         {
-            Health opponentHealth = collision.gameObject.GetComponent<Health>();
+            HealthScript opponentHealth = collision.gameObject.GetComponent<HealthScript>();
             if (opponentHealth != null) // successfully hit the opponent
             {
                 opponentHealth.LoseHealth(movingForward ? hitDamage : 3 * hitDamage); //more damage if boomerang is going backwards
