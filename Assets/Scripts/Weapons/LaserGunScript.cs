@@ -11,11 +11,13 @@ public class LaserGunScript : MonoBehaviour
     [SerializeField] private float shootDuration = 0.01f;
     [SerializeField] private int hitDamage = 10;
     [SerializeField] private AudioSource laserGunSF = null;
+    [SerializeField] private AudioSource pinkRayLine = null;
 
     private WeaponControls weaponControls = null;
     private LineRenderer laserLine = null;
     private int layerMask = ~(1 << 8); //shooting does not affect the player
     private bool canShoot = true;
+    private bool pinkRayLineSpoken = false;
 
     void Awake()
     {
@@ -29,6 +31,7 @@ public class LaserGunScript : MonoBehaviour
     {
         weaponControls.Enable();
         canShoot = true;
+        pinkRayLineSpoken = false;
     }
 
     void OnDisable()
@@ -90,6 +93,11 @@ public class LaserGunScript : MonoBehaviour
             {
                 opponentHealth.LoseHealth((int)((distance / range) * hitDamage)); //more distance = more damage
                 Debug.Log("Try and dodge this pink ray of death!");
+                if (!pinkRayLineSpoken) {
+                    pinkRayLine.Play();
+                }
+                
+                pinkRayLineSpoken = true;
             }
             else 
             {
