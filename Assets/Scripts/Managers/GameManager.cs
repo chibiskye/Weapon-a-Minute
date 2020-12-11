@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static bool DebugMode = false; // public static so that other classes can reference
+    public static bool DebugMode = true; // public static so that other classes can reference
     public static bool GameStart = false;
     public static bool GamePaused = false;
     public static bool GameOver = false;
@@ -141,6 +141,11 @@ public class GameManager : MonoBehaviour
         if (player != null)     Destroy(player.gameObject);
         if (level != null)      Destroy(level.gameObject);
         if (waveSystem != null) Destroy(waveSystem.gameObject);
+        GameObject[] destroyables = GameObject.FindGameObjectsWithTag("Destroyable");
+        foreach (GameObject obj in destroyables) {
+            Destroy(obj);
+        }
+        
         uiManager.HideScreen("Pause");
         uiManager.HideScreen("GameOver");
         uiManager.ResetPlayerScreen();

@@ -61,8 +61,14 @@ public class UIManager : MonoBehaviour
         DebugLogScript debugLog = GetComponentInChildren<DebugLogScript>();
         TimeDisplayScript timeDisplay = GetComponentInChildren<TimeDisplayScript>();
         WeaponDisplayScript weaponDisplay = GetComponentInChildren<WeaponDisplayScript>();
-        debugLog.ClearLog();
-        timeDisplay.ResetTime();
-        weaponDisplay.DisplayWeapon("");
+        if (debugLog != null) {
+            debugLog.ClearLog();
+        }
+        if (debugLog != null) {
+            timeDisplay.ResetTime();
+        }
+        if (debugLog != null) {
+            weaponDisplay.DisplayWeapon("");
+        }
     }
 }
