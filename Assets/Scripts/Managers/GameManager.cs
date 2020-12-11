@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
             UnlockCursor();
         }
 
-        if (player != null && !player.active)
+        if (player != null && !player.activeSelf)
         {
             GameEnd();
         }

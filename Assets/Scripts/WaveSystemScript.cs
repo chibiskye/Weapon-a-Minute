@@ -40,7 +40,7 @@ public class WaveSystemScript : MonoBehaviour
         foreach (var entry in activeEnemies)
         {
             GameObject enemy = entry.Key;
-            if (!enemy.active)
+            if (!enemy.activeSelf)
             {
                 int points = (int)entry.Value;
                 PlayerController.PlayerScore += points;
