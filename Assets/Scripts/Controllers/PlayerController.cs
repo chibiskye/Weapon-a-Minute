@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
         healthScript.ResetHealth();
 
         // Set default text for player info
+        PlayerScore = 0;
         if (infoDisplay == null) {
             infoDisplay = GameObject.FindWithTag("PlayerScreen").GetComponentInChildren<InfoDisplayScript>();
             infoDisplay.ResetWave();

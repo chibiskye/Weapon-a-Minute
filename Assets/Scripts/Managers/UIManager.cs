@@ -77,4 +77,9 @@ public class UIManager : MonoBehaviour
             weaponDisplay.DisplayWeapon("");
         }
     }
+
+    public void ResetInputState()
+    {
+        
+    }
 }
