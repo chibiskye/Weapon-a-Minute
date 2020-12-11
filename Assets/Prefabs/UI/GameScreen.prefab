@@ -397,6 +397,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CreditsScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 7827127309628396221, guid: d37b193e05247d445a50793ca82589d4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d37b193e05247d445a50793ca82589d4, type: 3}
 --- !u!224 &1043401465050051634 stripped
