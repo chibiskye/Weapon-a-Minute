@@ -9,12 +9,14 @@ public class SwordScript : MonoBehaviour
     [SerializeField] private int hitDamage = 10;
     [SerializeField] private float hitRate = 0.8f;
     [SerializeField] private AudioSource hitSound = null;
+    [SerializeField] private AudioSource letMeHitYou = null;
 
     private WeaponControls weaponControls = null;
     private Animation anim = null;
     private bool canSwing = true;
     private bool swungOnce = false;
     private int layerMask = ~(1 << 8); //attacking doesn't affect the player
+    private bool spoken = false;
 
     void Awake()
     {
@@ -33,6 +35,7 @@ public class SwordScript : MonoBehaviour
 
         canSwing = true;
         swungOnce = false;
+        spoken = false;
         hitSound.enabled = true;
     }
 
@@ -86,6 +89,10 @@ public class SwordScript : MonoBehaviour
             else 
             {
                 Debug.Log("I dare you to come closer!");
+                if (!spoken) {
+                    letMeHitYou.Play();
+                    spoken = true;
+                }
             }
         }
         StartCoroutine(WaitToSwing());
