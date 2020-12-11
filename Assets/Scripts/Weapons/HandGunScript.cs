@@ -11,6 +11,7 @@ public class HandGunScript : WeaponScript
     [SerializeField] private float range = 30.0f;
     [SerializeField] private float fireRate = 0.5f;
     [SerializeField] private bool isEnemy = false;
+    [SerializeField] private AudioSource handGunSF = null;
     
     private WeaponControls weaponControls = null;
     private int layerMask = ~((1 << 10)); //shooting does not affect other bullets, TODO fix this
@@ -32,6 +33,7 @@ public class HandGunScript : WeaponScript
             weaponControls.Enable();
         }
         canShoot = true;
+        handGunSF.enabled = true;
     }
 
     void OnDisable()
@@ -40,6 +42,7 @@ public class HandGunScript : WeaponScript
         {
             weaponControls.Disable();
         }
+        handGunSF.enabled = false;
     }
 
     void Start()
@@ -79,6 +82,7 @@ public class HandGunScript : WeaponScript
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, rayTransform.forward, out hit, range, layerMask))
         {
+            handGunSF.Play();
             // bullet.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
             // Prevents gun from shooting multiple shots too quickly
@@ -95,14 +99,14 @@ public class HandGunScript : WeaponScript
                 bullet.transform.LookAt(hit.point);
             }
         }
-        else
+        else if (Physics.Raycast(rayOrigin, rayTransform.forward, out hit, 400, layerMask))
         {
             //Enemies will only shoot if they have something to target
-            // if (isEnemy)
-            // {
-            //     Destroy(bullet);
-            //     return;
-            // }
+            if (isEnemy)
+            {
+                 Destroy(bullet);
+                 return;
+            }
             StartCoroutine(WaitToShoot());
             bullet.transform.LookAt(hit.point);
         }

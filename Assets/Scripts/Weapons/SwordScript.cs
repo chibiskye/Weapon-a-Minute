@@ -8,28 +8,38 @@ public class SwordScript : MonoBehaviour
     [SerializeField] private float range = 8.0f;
     [SerializeField] private int hitDamage = 10;
     [SerializeField] private float hitRate = 0.8f;
+    [SerializeField] private AudioSource hitSound = null;
 
     private WeaponControls weaponControls = null;
     private Animation anim = null;
     private bool canSwing = true;
+    private bool swungOnce = false;
     private int layerMask = ~(1 << 8); //attacking doesn't affect the player
 
     void Awake()
     {
         anim = GetComponent<Animation>();
+        //hitSound = GetComponent<AudioSource>();
 
         weaponControls = new WeaponControls();
         weaponControls.SwordInputs.Swing.performed += _ => Swing();
+
+        canSwing = true;
     }
 
     void OnEnable()
     {
         weaponControls.Enable();
+
+        canSwing = true;
+        swungOnce = false;
+        hitSound.enabled = true;
     }
 
     void OnDisable()
     {
         weaponControls.Disable();
+        hitSound.enabled = false;
     }
 
     void Start()
@@ -51,7 +61,9 @@ public class SwordScript : MonoBehaviour
 
     void Swing()
     {
+        Debug.Log("A");
         if (!canSwing) return;
+        Debug.Log("B");
         // Quaternion original_rotation = transform.rotation;
         // transform.rotation = new Quaternion(0, -45, 0, 0);
         anim.Play();
@@ -65,6 +77,9 @@ public class SwordScript : MonoBehaviour
             HealthScript opponentHealth = hit.collider.GetComponent<HealthScript>();
             if (opponentHealth != null) // successfully hit the opponent
             {
+                if (!swungOnce) {
+                    hitSound.Play();
+                }
                 opponentHealth.LoseHealth(hitDamage);
                 Debug.Log("I'll stab you to death!");
             }
