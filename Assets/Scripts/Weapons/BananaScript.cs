@@ -9,6 +9,7 @@ public class BananaScript : MonoBehaviour
     [SerializeField] private float swingRange = 5.0f;
     // [SerializeField] private int swingDamage = 1;
     [SerializeField] private float waitTime = 5.0f;
+    [SerializeField] private AudioSource giggle = null;
 
     private WeaponControls weaponControls = null;
     private Rigidbody rigidBody = null;
@@ -66,6 +67,7 @@ public class BananaScript : MonoBehaviour
         // Check if player still has weapon in hand
         if(!ready) { return; };
         Debug.Log("Hehehe");
+        giggle.Play();
 
         // Update state
         beenThrown = true;
