@@ -95,14 +95,14 @@ public class HandGunScript : WeaponScript
                 bullet.transform.LookAt(hit.point);
             }
         }
-        else
+        else if (Physics.Raycast(rayOrigin, rayTransform.forward, out hit, 400, layerMask))
         {
             //Enemies will only shoot if they have something to target
-            // if (isEnemy)
-            // {
-            //     Destroy(bullet);
-            //     return;
-            // }
+            if (isEnemy)
+            {
+                 Destroy(bullet);
+                 return;
+            }
             StartCoroutine(WaitToShoot());
             bullet.transform.LookAt(hit.point);
         }
