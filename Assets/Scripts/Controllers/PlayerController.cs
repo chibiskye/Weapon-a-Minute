@@ -11,17 +11,19 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
+    public static int PlayerScore = 0;
+
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private LayerMask detectMasks;
     [SerializeField] private DebugLogScript debugLog = null;
     [SerializeField] private TimeDisplayScript timeDisplay = null;
     [SerializeField] private WeaponDisplayScript weaponDisplay = null;
+    [SerializeField] private InfoDisplayScript infoDisplay = null;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float timeToSwitch = 60f;
     [SerializeField] private GameObject[] weaponsList = null;
 
-    // private GameManager gameManager = null;
     private CharacterController characterController = null;
     private PlayerControls playerControls = null;
     private Transform cameraTransform = null;
@@ -37,25 +39,23 @@ public class PlayerController : MonoBehaviour
     // Awake is called once before the Start method
     void Awake()
     {
-
         // Detect user input
         playerControls = new PlayerControls();
         playerControls.Movement.Jump.performed += _ => Jump();
 
         // Debug commands
-        // gameManager = GameManager.Instance;
         if (GameManager.DebugMode)
         {
             debugLog = FindObjectOfType<DebugLogScript>();
             playerControls.Debug.ToggleSwitchTimer.performed += _ => DebugToggleTimer();
             playerControls.Debug.HealthDecrease.performed += _ => DebugTakeDamage(10);
             playerControls.Debug.HealthIncrease.performed += _ => DebugAddHealth(10);
-            playerControls.Debug.SummonHandGun.performed += _ => DebugSummon(0);
-            playerControls.Debug.SummonLaserGun.performed += _ => DebugSummon(1);
-            playerControls.Debug.SummonSword.performed += _ => DebugSummon(2);
-            playerControls.Debug.SummonShield.performed += _ => DebugSummon(3);
-            playerControls.Debug.SummonBanana.performed += _ => DebugSummon(4);
-            playerControls.Debug.SummonBoomerang.performed += _ => DebugSummon(5);
+            playerControls.Debug.SummonHandGun.performed += _ => ActivateWeapon(0);
+            playerControls.Debug.SummonLaserGun.performed += _ => ActivateWeapon(1);
+            playerControls.Debug.SummonSword.performed += _ => ActivateWeapon(2);
+            playerControls.Debug.SummonShield.performed += _ => ActivateWeapon(3);
+            playerControls.Debug.SummonBanana.performed += _ => ActivateWeapon(4);
+            playerControls.Debug.SummonBoomerang.performed += _ => ActivateWeapon(5);
         }
     }
 
@@ -75,17 +75,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         // Find references to required components
+        characterController = GetComponent<CharacterController>();
         if (cameraTransform == null) {
-            // cameraTransform = GameObject.FindWithTag("PlayerCamera").transform;
             cameraTransform = GetComponentInChildren<Camera>().transform;
         }
-        if (timeDisplay == null) {
-            timeDisplay = GameObject.FindWithTag("PlayerScreen").GetComponentInChildren<TimeDisplayScript>();
-        }
-        if (weaponDisplay == null) {
-            weaponDisplay = GameObject.FindWithTag("PlayerScreen").GetComponentInChildren<WeaponDisplayScript>();
-        }
-        characterController = GetComponent<CharacterController>();
 
         // Set health bar UI element for health script
         healthScript = GetComponent<HealthScript>();
@@ -93,9 +86,23 @@ public class PlayerController : MonoBehaviour
         healthScript.SetHealthBar(healthBar);
         healthScript.ResetHealth();
 
+        // Set default text for player info
+        if (infoDisplay == null) {
+            infoDisplay = GameObject.FindWithTag("PlayerScreen").GetComponentInChildren<InfoDisplayScript>();
+            infoDisplay.ResetWave();
+            infoDisplay.ResetScore();
+        }
+
         // Setup switch timer and weapon player will be spawned with
         switchTimeLeft = timeToSwitch;
-        timeDisplay.DisplayTime(timeToSwitch);
+        if (timeDisplay == null) {
+            timeDisplay = GameObject.FindWithTag("PlayerScreen").GetComponentInChildren<TimeDisplayScript>();
+            timeDisplay.SetMaxTime(timeToSwitch);
+            timeDisplay.ResetTime();
+        }
+        if (weaponDisplay == null) {
+            weaponDisplay = GameObject.FindWithTag("PlayerScreen").GetComponentInChildren<WeaponDisplayScript>();
+        }
         SwitchWeapon();
     }
 
@@ -160,8 +167,25 @@ public class PlayerController : MonoBehaviour
         {
             nextWeaponIndex = Random.Range(0, weaponsList.Length);
         }
-        DebugSummon(nextWeaponIndex);
+        ActivateWeapon(nextWeaponIndex);
         prevWeaponIndex = nextWeaponIndex; // save reference to selected weapon
+    }
+
+    void ActivateWeapon(int weaponIndex)
+    {
+        for (int i = 0; i < weaponsList.Length; i++)
+        {
+            if (i == weaponIndex)
+            {
+                GameObject weapon = weaponsList[weaponIndex];
+                weapon.SetActive(true);
+                weaponDisplay.DisplayWeapon(weapon.transform.name);
+            }
+            else if (weaponsList[i] != null) // ignore destroyed or one-time-use weapons
+            {
+                weaponsList[i].SetActive(false);
+            }
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -191,46 +215,29 @@ public class PlayerController : MonoBehaviour
         healthScript.AddHealth(health);
     }
 
-    void DebugSummon(int weaponIndex)
-    {
-        for (int i = 0; i < weaponsList.Length; i++)
-        {
-            if (i == weaponIndex)
-            {
-                GameObject weapon = weaponsList[weaponIndex];
-                weapon.SetActive(true);
-                weaponDisplay.DisplayWeapon(weapon.transform.name);
-            }
-            else if (weaponsList[i] != null) // ignore destroyed or one-time-use weapons
-            {
-                weaponsList[i].SetActive(false);
-            }
-        }
-    }
-
-    void DebugLogWeapon(int weaponIndex)
-    {
-        string debugText = "Current weapon: ";
-        switch (weaponIndex)
-        {
-            case 0:
-                debugLog.AddLog(debugText + "HAND GUN");
-                break;
-            case 1:
-                debugLog.AddLog(debugText + "LASER GUN");
-                break;
-            case 2:
-                debugLog.AddLog(debugText + "SWORD");
-                break;
-            case 3:
-                debugLog.AddLog(debugText + "SHIELD");
-                break;
-            case 4:
-                debugLog.AddLog(debugText + "BANANA");
-                break;
-            case 5:
-                debugLog.AddLog(debugText + "BOOMERANG");
-                break;
-        }
-    }
+    // void DebugLogWeapon(int weaponIndex)
+    // {
+    //     string debugText = "Current weapon: ";
+    //     switch (weaponIndex)
+    //     {
+    //         case 0:
+    //             debugLog.AddLog(debugText + "HAND GUN");
+    //             break;
+    //         case 1:
+    //             debugLog.AddLog(debugText + "LASER GUN");
+    //             break;
+    //         case 2:
+    //             debugLog.AddLog(debugText + "SWORD");
+    //             break;
+    //         case 3:
+    //             debugLog.AddLog(debugText + "SHIELD");
+    //             break;
+    //         case 4:
+    //             debugLog.AddLog(debugText + "BANANA");
+    //             break;
+    //         case 5:
+    //             debugLog.AddLog(debugText + "BOOMERANG");
+    //             break;
+    //     }
+    // }
 }
