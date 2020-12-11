@@ -149,6 +149,7 @@ public class GameManager : MonoBehaviour
         uiManager.HideScreen("Pause");
         uiManager.HideScreen("GameOver");
         uiManager.ResetPlayerScreen();
+        uiManager.ResetInputState();
     }
 
     private void ResetState()
