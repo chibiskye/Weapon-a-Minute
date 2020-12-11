@@ -36,6 +36,12 @@ public class UIManager : MonoBehaviour
             GameObject screen = item.Value;
             screen.SetActive((item.Key == screenName));
         }
+
+        if (screenName == "HighScore" || screenName == "GameOver")
+        {
+            HighScoreScript highScore = screensList[screenName].GetComponentInChildren<HighScoreScript>();
+            highScore.DisplayScores();
+        }
     }
 
     public void ShowScreenForeground (string screenName)

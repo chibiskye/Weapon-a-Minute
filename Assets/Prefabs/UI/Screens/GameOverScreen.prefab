@@ -1202,6 +1202,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7365084947331158073}
     m_Modifications:
+    - target: {fileID: 3446534074651713585, guid: 6bba81b2f72a89c4089c3c5814be3e25,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -204.40994
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128992644713929943, guid: 6bba81b2f72a89c4089c3c5814be3e25,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -205
+      objectReference: {fileID: 0}
     - target: {fileID: 5466233433000052833, guid: 6bba81b2f72a89c4089c3c5814be3e25,
         type: 3}
       propertyPath: m_fontColor.r
@@ -1311,11 +1321,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HighScore
-      objectReference: {fileID: 0}
-    - target: {fileID: 5466233434184065966, guid: 6bba81b2f72a89c4089c3c5814be3e25,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.78431374
       objectReference: {fileID: 0}
     - target: {fileID: 5466233434184065967, guid: 6bba81b2f72a89c4089c3c5814be3e25,
         type: 3}
@@ -1461,6 +1466,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4281677109
+      objectReference: {fileID: 0}
+    - target: {fileID: 8483221342829025647, guid: 6bba81b2f72a89c4089c3c5814be3e25,
+        type: 3}
+      propertyPath: numHighScores
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bba81b2f72a89c4089c3c5814be3e25, type: 3}

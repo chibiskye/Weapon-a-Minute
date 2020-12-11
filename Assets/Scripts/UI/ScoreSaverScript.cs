@@ -6,25 +6,28 @@ using UnityEngine.UI;
 public class ScoreSaverScript : MonoBehaviour
 {
     [SerializeField] private Text nameInputText = null;
-
+    private HighScoreScript highScore = null;
     private InfoDisplayScript infoDisplay = null;
 
     void Awake()
     {
+        highScore = transform.parent.GetComponentInChildren<HighScoreScript>();
         infoDisplay = GetComponent<InfoDisplayScript>();
     }
 
     void OnEnable()
     {
-        infoDisplay.DisplayScore(PlayerController.PlayerScore);
+        if (infoDisplay != null)
+        {
+            infoDisplay.DisplayScore(PlayerController.PlayerScore);
+        }
     }
     
     public void SaveScore()
     {
-        if (nameInputText != null)
+        if (highScore != null && nameInputText != null)
         {
-            Debug.Log(nameInputText.text);
-            Debug.Log(PlayerController.PlayerScore);
+            highScore.UpdateHighScores(nameInputText.text, PlayerController.PlayerScore);
         }
     }
 
