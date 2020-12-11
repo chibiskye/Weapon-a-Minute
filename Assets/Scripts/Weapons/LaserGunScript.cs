@@ -10,6 +10,7 @@ public class LaserGunScript : MonoBehaviour
     [SerializeField] private float fireRate = 0.5f;
     [SerializeField] private float shootDuration = 0.01f;
     [SerializeField] private int hitDamage = 10;
+    [SerializeField] private AudioSource laserGunSF = null;
 
     private WeaponControls weaponControls = null;
     private LineRenderer laserLine = null;
@@ -76,6 +77,8 @@ public class LaserGunScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, range, layerMask))
         {
+            laserGunSF.Play();
+
             laserLine.SetPosition(1, hit.point);
             StartCoroutine(DrawLaserLine());
             StartCoroutine(WaitToShoot());
