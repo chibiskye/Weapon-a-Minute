@@ -8,6 +8,9 @@ public class DebugLogScript : MonoBehaviour
     void Awake()
     {
         debugLog = GetComponent<Text>();
+        if (!GameManager.DebugMode) {
+            gameObject.SetActive(false);
+        }
     }
 
     public void AddLog(string text)
