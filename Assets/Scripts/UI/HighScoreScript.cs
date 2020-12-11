@@ -10,7 +10,7 @@ public class HighScoreScript : MonoBehaviour
     [SerializeField] private int maxHighScores = 10;
     [SerializeField] private int numScoresToShow = 10;
 
-    public void UpdateHighScores (string name, int score)
+    public void UpdateHighScores(string name, int score)
     {
         int scoreCount = PlayerPrefs.GetInt("HighScoreCount");
         if (scoreCount == 0) {
@@ -21,6 +21,7 @@ public class HighScoreScript : MonoBehaviour
             {
                 int hscore = PlayerPrefs.GetInt($"HighScore{i}_Score");
                 if (score > hscore) {
+                    ShiftScoresAfterIndex(i);
                     SetHighScore(i, name, score);
                     break;
                 }
@@ -47,5 +48,16 @@ public class HighScoreScript : MonoBehaviour
         PlayerPrefs.SetString($"HighScore{rank}_Name", name);
         PlayerPrefs.SetInt($"HighScore{rank}_Score", score);
         PlayerPrefs.SetInt("HighScoreCount", PlayerPrefs.GetInt("HighScoreCount")+1);
+    }
+
+    private void ShiftScoresAfterIndex(int index)
+    {
+        int startIndex = Mathf.Max(PlayerPrefs.GetInt("HighScoreCount")+1, maxHighScores);
+        for (int i = startIndex; i > index; i--)
+        {
+            string prevName = PlayerPrefs.GetString($"HighScore{i-1}_Name");
+            int prevScore = PlayerPrefs.GetInt($"HighScore{i-1}_Score");
+            SetHighScore(i, prevName, prevScore);
+        }
     }
 }
