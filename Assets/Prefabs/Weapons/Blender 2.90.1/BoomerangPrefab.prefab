@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1691024171658748770}
   - component: {fileID: 882418217994624129}
+  - component: {fileID: 825087985299311926}
   - component: {fileID: 3241866775689350242}
   - component: {fileID: 9010107885775707478}
-  - component: {fileID: 825087985299311926}
   m_Layer: 0
   m_Name: BoomerangPrefab
   m_TagString: Untagged
@@ -48,42 +48,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3241866775689350242
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034616764144417240}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 2
---- !u!114 &9010107885775707478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034616764144417240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f3244533262540e79c50207abf29cb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerWeaponHold: {fileID: 0}
-  range: 25
-  throwDuration: 1.5
-  hitDamage: 10
-  bulletSpawnPoint: {fileID: 0}
-  hitSF: {fileID: 825087985299311926}
-  isThrown: 0
-  movingForward: 0
 --- !u!82 &825087985299311926
 AudioSource:
   m_ObjectHideFlags: 0
@@ -180,6 +144,42 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &3241866775689350242
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034616764144417240}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 2
+--- !u!114 &9010107885775707478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034616764144417240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3244533262540e79c50207abf29cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerWeaponHold: {fileID: 0}
+  range: 25
+  throwDuration: 1.5
+  hitDamage: 10
+  bulletSpawnPoint: {fileID: 0}
+  hitSF: {fileID: 825087985299311926}
+  isThrown: 0
+  movingForward: 0
 --- !u!1 &5553358756649649301
 GameObject:
   m_ObjectHideFlags: 0
