@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void SetHeathBar(HealthBar bar)
+    public void SetHealthBar(HealthBar bar)
     {
         healthBar = bar;
     }

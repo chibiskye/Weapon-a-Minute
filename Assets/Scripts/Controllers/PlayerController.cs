@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController = null;
     private PlayerControls playerControls = null;
     private Transform cameraTransform = null;
+    private Health healthScript = null;
     private float turnSmoothVelocity; // used for reference variable
     
     private bool switchTimerOn = true;
@@ -75,6 +76,11 @@ public class PlayerController : MonoBehaviour
         timeDisplay = GameObject.FindWithTag("SwitchTimerDisplay").GetComponent<TimeDisplayScript>();
         weaponDisplay = GameObject.FindWithTag("WeaponDisplay").GetComponent<WeaponDisplayScript>();
         characterController = GetComponent<CharacterController>();
+
+        // Set health bar UI element for health script
+        healthScript = GetComponent<Health>();
+        HealthBar healthBar = GameObject.FindWithTag("PlayerScreen").GetComponentInChildren<HealthBar>();
+        healthScript.SetHealthBar(healthBar);
 
         // Setup switch timer and weapon player will be spawned with
         switchTimeLeft = timeToSwitch;
@@ -153,13 +159,11 @@ public class PlayerController : MonoBehaviour
 
     void DebugTakeDamage(int damage)
     {
-        Health healthScript = GetComponent<Health>();
         healthScript.LoseHealth(damage);
     }
 
     void DebugAddHealth(int health)
     {
-        Health healthScript = GetComponent<Health>();
         healthScript.AddHealth(health);
     }
 

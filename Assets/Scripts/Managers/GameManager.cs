@@ -45,13 +45,20 @@ public class GameManager : MonoBehaviour
         waveSystem.enabled = true;
         level = Instantiate(levelPrefab, this.transform);
         player = Instantiate(playerPrefab, this.transform);
-        
     }
 
     private void EnableDebugMode()
     {
         uiManager.ShowScreenOnly("Player");
         StartGame();
+    }
+
+    void Update()
+    {
+        if (!player.active)
+        {
+            uiManager.ShowScreenForeground("GameOver");
+        }
     }
 
 // Singleton code -------------------------------------------------------------------------

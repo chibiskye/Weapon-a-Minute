@@ -268,8 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f03568e83168004b8b617ddd32f3033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 5025996068926473637, guid: e1409466dd9770d479bc511a53dbdb75,
-    type: 3}
+  playerCamera: {fileID: 0}
   range: 8
   hitDamage: 10
   hitRate: 0.8
@@ -379,7 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577b489b54578d146826c92e7be10724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 4907771238550799252}
+  playerCamera: {fileID: 0}
   attackRange: 8
   hitDamage: 10
 --- !u!1 &4907771236958255315
@@ -1474,7 +1473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c979ba10e479c4fa23eac65a17621d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 4907771238550799252}
+  playerCamera: {fileID: 0}
   laserSpawnPoint: {fileID: 4907771237852972589}
   range: 30
   fireRate: 0.1
@@ -1839,7 +1838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4897f7ad833549d44a9ab352c53d484f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 4907771238550799252}
+  playerCamera: {fileID: 0}
   bananaPeelPrefab: {fileID: 1164233623134241125, guid: 52c75c4f1af6d4ca09e8f1213c07cf8b,
     type: 3}
   swingRange: 5
@@ -2751,6 +2750,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandGun
       objectReference: {fileID: 0}
+    - target: {fileID: 8828926052113075096, guid: 33dc71f25e7f8430980eacea047bb123,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8828926052113075097, guid: 33dc71f25e7f8430980eacea047bb123,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2813,9 +2817,9 @@ PrefabInstance:
       objectReference: {fileID: 4907771237145488399}
     - target: {fileID: 8828926052113075098, guid: 33dc71f25e7f8430980eacea047bb123,
         type: 3}
-      propertyPath: camMid
+      propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 5939943571261095477}
+      objectReference: {fileID: 4907771238550799252}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33dc71f25e7f8430980eacea047bb123, type: 3}
 --- !u!4 &4452237453009892998 stripped

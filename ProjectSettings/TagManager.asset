@@ -11,6 +11,8 @@ TagManager:
   - PlayerCamera
   - SwitchTimerDisplay
   - WeaponDisplay
+  - PlayerScreen
+  - Opponent
   layers:
   - Default
   - TransparentFX
