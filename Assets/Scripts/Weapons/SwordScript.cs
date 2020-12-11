@@ -20,11 +20,15 @@ public class SwordScript : MonoBehaviour
 
         weaponControls = new WeaponControls();
         weaponControls.SwordInputs.Swing.performed += _ => Swing();
+
+        canSwing = true;
     }
 
     void OnEnable()
     {
         weaponControls.Enable();
+
+        canSwing = true;
     }
 
     void OnDisable()
@@ -51,7 +55,9 @@ public class SwordScript : MonoBehaviour
 
     void Swing()
     {
+        Debug.Log("A");
         if (!canSwing) return;
+        Debug.Log("B");
         // Quaternion original_rotation = transform.rotation;
         // transform.rotation = new Quaternion(0, -45, 0, 0);
         anim.Play();
