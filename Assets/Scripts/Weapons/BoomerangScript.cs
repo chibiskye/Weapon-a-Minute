@@ -8,7 +8,7 @@ public class BoomerangScript : MonoBehaviour
     [SerializeField] private float range = 25.0f;
     [SerializeField] private float throwDuration = 1.5f;
     [SerializeField] private int hitDamage = 10;
-    [SerializeField] private Transform bulletSpawnPoint = null; // reference to the bullet spawn point
+    // [SerializeField] private Transform bulletSpawnPoint = null; // reference to the bullet spawn point
     [SerializeField] private AudioSource hitSF;
     public bool isThrown; // public for debug purposes
     public bool movingForward; // public for debug purposes
@@ -105,9 +105,9 @@ public class BoomerangScript : MonoBehaviour
         //transform.position = rayOrigin;
         //transform.rotation = Quaternion.Euler(Camera.main.transform.localEulerAngles);
 
-        originalRotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
-        transform.position = bulletSpawnPoint.position;
-        transform.rotation = bulletSpawnPoint.rotation;
+        // originalRotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+        // transform.position = bulletSpawnPoint.position;
+        // transform.rotation = bulletSpawnPoint.rotation;
 
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, 400, layerMask)) {

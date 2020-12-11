@@ -7,7 +7,7 @@ public class BananaScript : MonoBehaviour
     [SerializeField] private Camera playerCamera = null;
     [SerializeField] private GameObject bananaPeelPrefab = null;
     [SerializeField] private float swingRange = 5.0f;
-    [SerializeField] private int swingDamage = 1;
+    // [SerializeField] private int swingDamage = 1;
     [SerializeField] private float waitTime = 5.0f;
 
     private WeaponControls weaponControls = null;
@@ -49,7 +49,7 @@ public class BananaScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        GetComponent<MeshRenderer>().enabled = ready; //Hide when not ready
+        GetComponentInChildren<MeshRenderer>().enabled = ready; //Hide when not ready
         m_collider.enabled = ready;
         DebugRaycast();
     }

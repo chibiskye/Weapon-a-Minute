@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject titleScreen = null;
     [SerializeField] private GameObject controlsScreen = null;
     [SerializeField] private GameObject highScoreScreen = null;
+    [SerializeField] private GameObject creditsScreen = null;
     [SerializeField] private GameObject pauseScreen = null;
     [SerializeField] private GameObject gameOverScreen = null;
     [SerializeField] private GameObject playerScreen = null;
@@ -23,6 +24,7 @@ public class UIManager : MonoBehaviour
         if (titleScreen != null)        screensList.Add("Title", titleScreen);
         if (controlsScreen != null)     screensList.Add("Controls", controlsScreen);
         if (highScoreScreen != null)    screensList.Add("HighScore", highScoreScreen);
+        if (creditsScreen != null)      screensList.Add("Credits", creditsScreen);
         if (pauseScreen != null)        screensList.Add("Pause", pauseScreen);
         if (gameOverScreen != null)     screensList.Add("GameOver", gameOverScreen);
     }
@@ -76,5 +78,10 @@ public class UIManager : MonoBehaviour
         if (debugLog != null) {
             weaponDisplay.DisplayWeapon("");
         }
+    }
+
+    public void ResetInputState()
+    {
+        
     }
 }

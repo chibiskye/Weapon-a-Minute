@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     //     }
     // }
 
-    public static bool DebugMode = true; // public static so that other classes can reference
+    public static bool DebugMode = false; // public static so that other classes can reference
     public static bool GameStart = false;
     public static bool GamePaused = false;
     public static bool GameOver = false;
@@ -25,10 +25,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerPrefab = null;
     [SerializeField] private GameObject enemyWaveSystem = null;
 
-    private WaveSystemScript waveSystem = null;
-    private UIManager uiManager = null;
-    private GameControls gameControls = null;
     private Camera m_camera = null;
+    private UIManager uiManager = null;
+    private AudioSource backgroundMusic = null;
+    private GameControls gameControls = null;
+
+    private WaveSystemScript waveSystem = null;
     private GameObject level = null;
     private GameObject player = null;
 
@@ -45,6 +47,9 @@ public class GameManager : MonoBehaviour
         if (uiManager == null) {
             uiManager = FindObjectOfType<UIManager>();
         }
+
+        backgroundMusic = GetComponent<AudioSource>();
+        backgroundMusic.Play();
 
         gameControls = new GameControls();
         gameControls.GameState.Pause.performed += _ => TogglePauseGame();
@@ -96,7 +101,7 @@ public class GameManager : MonoBehaviour
             UnlockCursor();
         }
 
-        if (player != null && !player.active)
+        if (player != null && !player.activeSelf)
         {
             GameEnd();
         }
@@ -112,12 +117,14 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0f;
             uiManager.ShowScreenForeground("Pause");
+            backgroundMusic.Pause();
         }
         else // unpause
         {
             Time.timeScale = 1f;
             uiManager.HideScreen("Pause");
             LockCursor();
+            backgroundMusic.Play();
         }
     }
 
@@ -149,6 +156,7 @@ public class GameManager : MonoBehaviour
         uiManager.HideScreen("Pause");
         uiManager.HideScreen("GameOver");
         uiManager.ResetPlayerScreen();
+        uiManager.ResetInputState();
     }
 
     private void ResetState()

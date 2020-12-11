@@ -9,7 +9,7 @@ public class TurnOffPatch : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!turnOffSignal.active) {
+        if (!turnOffSignal.activeSelf) {
             gameObject.SetActive(false);
         }
     }
