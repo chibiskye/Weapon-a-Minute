@@ -22,7 +22,6 @@ public class WaveSystemScript : MonoBehaviour
     private Quaternion rotation;
     private int positionIndex;
     private int waveNumber;
-    private int playerScore;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +31,6 @@ public class WaveSystemScript : MonoBehaviour
         enemySet = new List<GameObject>();
 
         waveNumber = 0;
-        playerScore = 0;
         rotation = Quaternion.Euler(new Vector3(0, 90, 0));
     }
 
@@ -44,9 +42,11 @@ public class WaveSystemScript : MonoBehaviour
             GameObject enemy = entry.Key;
             if (!enemy.active)
             {
+                int points = (int)entry.Value;
+                PlayerController.PlayerScore += points;
+                infoDisplay.DisplayScore(PlayerController.PlayerScore);
+
                 activeEnemies.Remove(enemy);
-                playerScore += (int)entry.Value;
-                infoDisplay.DisplayScore(playerScore);
                 Destroy(enemy.gameObject);
             }
         }
@@ -60,7 +60,7 @@ public class WaveSystemScript : MonoBehaviour
     void StartNextWave()
     {
         waveNumber++;
-        Debug.Log("Wave" + waveNumber);
+        // Debug.Log("Wave" + waveNumber);
 
         if (infoDisplay != null)
         {
@@ -100,8 +100,7 @@ public class WaveSystemScript : MonoBehaviour
                 // enemySet.Add(CreateEnemy(EnemyType.gGun, i));
                 activeEnemies.Add(CreateEnemy(EnemyType.gGun, i), EnemyType.gGun);
                 break;
-            
-            // TODO: apply proper enum values to enemies after Wave4
+
             default: 
                 int post4WaveNum = waveNumber - 4;
                 i++;
@@ -125,7 +124,7 @@ public class WaveSystemScript : MonoBehaviour
                 {
                     GameObject newEnemy = Instantiate(e);
                     newEnemy.SetActive(true);
-                    activeEnemies.Add(newEnemy, EnemyType.gSword);
+                    activeEnemies.Add(newEnemy, EnemyType.gSword); // TODO: apply proper enum values to enemies after Wave4
                 }
                 return;
         }

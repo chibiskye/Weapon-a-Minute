@@ -11,6 +11,8 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
+    public static int PlayerScore = 0;
+
     // SerializeField makes private variables visible in the Inspector without making the variable public to other scripts
     [SerializeField] private LayerMask detectMasks;
     [SerializeField] private DebugLogScript debugLog = null;
@@ -37,7 +39,6 @@ public class PlayerController : MonoBehaviour
     // Awake is called once before the Start method
     void Awake()
     {
-
         // Detect user input
         playerControls = new PlayerControls();
         playerControls.Movement.Jump.performed += _ => Jump();

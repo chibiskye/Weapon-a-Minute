@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
+    // private static GameManager _instance;
 
-    public static GameManager Instance {
-        get {
-            if (_instance == null)
-            {
-                _instance = new GameManager();
-            }
-            return _instance;
-        }
-    }
+    // public static GameManager Instance {
+    //     get {
+    //         if (_instance == null)
+    //         {
+    //             _instance = new GameManager();
+    //         }
+    //         return _instance;
+    //     }
+    // }
 
     public static bool DebugMode = true; // public static so that other classes can reference
     public static bool GameStart = false;
@@ -34,12 +34,12 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if (_instance != null && _instance != this) {
-            Destroy(this.gameObject); // destroy any existing instances
-        } else {
-            _instance = this;
-            // DontDestroyOnLoad(this); // persist over scene changes
-        }
+        // if (_instance != null && _instance != this) {
+        //     Destroy(this.gameObject); // destroy any existing instances
+        // } else {
+        //     _instance = this;
+        //     // DontDestroyOnLoad(this); // persist over scene changes
+        // }
 
         m_camera = Camera.main;
         if (uiManager == null) {
@@ -172,8 +172,4 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
-
-// Singleton code -------------------------------------------------------------------------
-
-    
 }

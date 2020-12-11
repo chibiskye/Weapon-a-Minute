@@ -20,11 +20,17 @@ public class InfoDisplayScript : MonoBehaviour
 
     public void DisplayWave(int wave)
     {
-        waveText.SetText(string.Format("Wave {0}", wave));
+        if (waveText != null)
+        {
+            waveText.SetText(string.Format("Wave {0}", wave));
+        }
     }
 
     public void DisplayScore(int score)
     {
-        scoreText.SetText(string.Format("Score: {0}", score));
+        if (scoreText != null)
+        {
+            scoreText.SetText(string.Format("Score: {0}", score));
+        }
     }
 }
