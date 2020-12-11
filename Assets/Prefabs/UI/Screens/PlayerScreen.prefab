@@ -487,7 +487,7 @@ GameObject:
   - component: {fileID: 6732948798458348236}
   - component: {fileID: 8170199511646415459}
   m_Layer: 5
-  m_Name: WeaponChangeText
+  m_Name: WeaponAnnounce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -503,9 +503,10 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8152960794813137827}
   m_Father: {fileID: 2302510074606633080}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -539,26 +540,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'One minute is up! Weapon changing in...
-
-    You received a pistol that
-    somehow fell from the sky!
-
-    You received a sword you picked up off the ground!
-
-    You
-    received a boomerang you bought in a gift shop!
-
-    You received a hammer used
-    to make rice cake!
-
-    You received a laser gun that the aliens left behind!
-
-    You
-    received an old monk''s bamboo staff!
-
-    You received an unlimited supply of
-    bananas!'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -821,13 +803,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2302510074606633080}
+  - component: {fileID: 1125992372198584208}
   m_Layer: 5
   m_Name: Announcements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2302510074606633080
 RectTransform:
   m_ObjectHideFlags: 0
@@ -839,7 +822,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8152960794813137827}
   - {fileID: 2341395557220598122}
   - {fileID: 3276080856118878842}
   m_Father: {fileID: 152430134753722846}
@@ -850,6 +832,21 @@ RectTransform:
   m_AnchoredPosition: {x: -0.89990234, y: 1.3712158}
   m_SizeDelta: {x: -360.98544, y: -26.257507}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1125992372198584208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3296714724538896316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391def18c4bbe9342befd404d44a5774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponAnnounceText: {fileID: 8170199511646415459}
+  countdown: {fileID: 7613598377752346368}
+  announceTime: 5
 --- !u!1 &3304747100404237547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,12 +1060,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2302510074606633080}
+  m_Father: {fileID: 2341395557220598122}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -13.90564}
+  m_AnchoredPosition: {x: 0, y: -13.905334}
   m_SizeDelta: {x: 440, y: 27.81131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2199588271051191959
@@ -1258,7 +1255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3276080856118878842
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1271,7 +1268,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2302510074606633080}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}

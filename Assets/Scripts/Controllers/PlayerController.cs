@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TimeDisplayScript timeDisplay = null;
     [SerializeField] private WeaponDisplayScript weaponDisplay = null;
     [SerializeField] private InfoDisplayScript infoDisplay = null;
+    [SerializeField] private AnnouncementScript announcement = null;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float timeToSwitch = 60f;
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private HealthScript healthScript = null;
     private float turnSmoothVelocity; // used as reference variable
     
+    private Coroutine announcementCoroutine = null;
     private bool switchTimerOn = true;
     private float switchTimeLeft = 60f;
     private int prevWeaponIndex = -1;
@@ -53,9 +55,9 @@ public class PlayerController : MonoBehaviour
             playerControls.Debug.SummonHandGun.performed += _ => ActivateWeapon(0);
             playerControls.Debug.SummonLaserGun.performed += _ => ActivateWeapon(1);
             playerControls.Debug.SummonSword.performed += _ => ActivateWeapon(2);
-            playerControls.Debug.SummonShield.performed += _ => ActivateWeapon(3);
-            playerControls.Debug.SummonBanana.performed += _ => ActivateWeapon(4);
-            playerControls.Debug.SummonBoomerang.performed += _ => ActivateWeapon(5);
+            playerControls.Debug.SummonBanana.performed += _ => ActivateWeapon(3);
+            playerControls.Debug.SummonBoomerang.performed += _ => ActivateWeapon(4);
+            // playerControls.Debug.SummonShield.performed += _ => ActivateWeapon(5);
         }
     }
 
@@ -92,6 +94,9 @@ public class PlayerController : MonoBehaviour
             infoDisplay = GameObject.FindWithTag("PlayerScreen").GetComponentInChildren<InfoDisplayScript>();
             infoDisplay.ResetWave();
             infoDisplay.ResetScore();
+        }
+        if (announcement == null) {
+            announcement = GameObject.FindWithTag("PlayerScreen").GetComponentInChildren<AnnouncementScript>();
         }
 
         // Setup switch timer and weapon player will be spawned with
@@ -145,11 +150,16 @@ public class PlayerController : MonoBehaviour
             switchTimeLeft -= Time.deltaTime;
             timeDisplay.DisplayTime(switchTimeLeft);
 
-            if (switchTimeLeft <= 0)
+            if (switchTimeLeft <= 0f)
             {
                 timeDisplay.DisplayTime(0);
                 switchTimeLeft = timeToSwitch; // reset timer
                 SwitchWeapon();
+            }
+            else if (switchTimeLeft <= 4f)
+            {
+                // StartCoroutine(announcement.InitiateCountdown());
+                announcementCoroutine = StartCoroutine(announcement.Announce("WeaponChange"));
             }
         }
     }
@@ -180,7 +190,12 @@ public class PlayerController : MonoBehaviour
             {
                 GameObject weapon = weaponsList[weaponIndex];
                 weapon.SetActive(true);
-                weaponDisplay.DisplayWeapon(weapon.transform.name);
+
+                string weaponName = weapon.transform.name;
+                weaponDisplay.DisplayWeapon(weaponName);
+
+                if (announcementCoroutine != null) StopCoroutine(announcementCoroutine);
+                StartCoroutine(announcement.Announce(weaponName));
             }
             else if (weaponsList[i] != null) // ignore destroyed or one-time-use weapons
             {

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     //     }
     // }
 
-    public static bool DebugMode = true; // public static so that other classes can reference
+    public static bool DebugMode = false; // public static so that other classes can reference
     public static bool GameStart = false;
     public static bool GamePaused = false;
     public static bool GameOver = false;
