@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 
-public class HealthBar : MonoBehaviour
+public class HealthBarScript : MonoBehaviour
 {
     private Slider slider = null;
     private TextMeshProUGUI healthText = null;
@@ -17,13 +17,19 @@ public class HealthBar : MonoBehaviour
     public void SetMaxHealth(int health)
     {
         slider.maxValue = health;
-        healthText.SetText(string.Format("{0} / {1}", slider.maxValue, slider.maxValue));
+        if (healthText != null)
+        {
+            healthText.SetText(string.Format("{0} / {1}", slider.maxValue, slider.maxValue));
+        }
     }
 
     // Sets current value for slider
     public void SetHealth(int health)
     {
         slider.value = health;
-        healthText.SetText(string.Format("{0} / {1}", slider.value, slider.maxValue));
+        if (healthText != null)
+        {
+            healthText.SetText(string.Format("{0} / {1}", slider.value, slider.maxValue));
+        }
     }
 }

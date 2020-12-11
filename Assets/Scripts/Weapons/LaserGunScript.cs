@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaserGunScript : MonoBehaviour
 {
-    [SerializeField] private Camera m_camera = null;
+    [SerializeField] private Camera playerCamera = null;
     [SerializeField] private Transform laserSpawnPoint = null;
     [SerializeField] private float range = 30.0f;
     [SerializeField] private float fireRate = 0.5f;
@@ -18,6 +18,8 @@ public class LaserGunScript : MonoBehaviour
 
     void Awake()
     {
+        laserLine = GetComponent<LineRenderer>();
+        
         weaponControls = new WeaponControls();
         weaponControls.GunInputs.Shoot.performed += _ => Shoot();
     }
@@ -35,7 +37,7 @@ public class LaserGunScript : MonoBehaviour
 
     void Start()
     {
-        laserLine = GetComponent<LineRenderer>();
+        playerCamera = GameObject.FindWithTag("PlayerCamera").GetComponent<Camera>();
     }
 
     // Makes sure that the player cannot spam laser beams
@@ -67,12 +69,12 @@ public class LaserGunScript : MonoBehaviour
         // Set starting point for laser line
         laserLine.SetPosition(0, laserSpawnPoint.position);
 
-        // Gets center of m_camera viewport
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+        // Gets center of playerCamera viewport
+        Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
 
         // Set end point for laser line and draw raycast
         RaycastHit hit;
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, range, layerMask))
         {
             laserLine.SetPosition(1, hit.point);
             StartCoroutine(DrawLaserLine());
@@ -80,7 +82,7 @@ public class LaserGunScript : MonoBehaviour
 
             float distance = Vector3.Distance(rayOrigin, hit.collider.transform.position);
 
-            Health opponentHealth = hit.collider.GetComponent<Health>();
+            HealthScript opponentHealth = hit.collider.GetComponent<HealthScript>();
             if (opponentHealth != null) // successfully hit the opponent
             {
                 opponentHealth.LoseHealth((int)((distance / range) * hitDamage)); //more distance = more damage
@@ -91,7 +93,7 @@ public class LaserGunScript : MonoBehaviour
                 Debug.Log("Darn! What a slippery foe!");
             }
         }
-        else if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, 400, layerMask)) //TODO this can probably be simplified
+        else if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, 400, layerMask)) //TODO this can probably be simplified
         {
             laserLine.SetPosition(1, hit.point);
             StartCoroutine(DrawLaserLine());
@@ -105,16 +107,16 @@ public class LaserGunScript : MonoBehaviour
 
     void DebugRaycast()
     {
-        Vector3 rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+        Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, range, layerMask))
+        if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, range, layerMask))
         {
-            Debug.DrawRay(rayOrigin, m_camera.transform.forward * hit.distance, Color.yellow);
+            Debug.DrawRay(rayOrigin, playerCamera.transform.forward * hit.distance, Color.yellow);
         }
         else
         {
-            Debug.DrawRay(rayOrigin, m_camera.transform.forward * 1000, Color.white);
+            Debug.DrawRay(rayOrigin, playerCamera.transform.forward * 1000, Color.white);
         }
     }
 }

@@ -28,6 +28,11 @@ public class HandGunBulletScript : MonoBehaviour
         StartCoroutine(DestroySelf());
     }
 
+    public void SetRange(float newRange)
+    {
+        this.range = newRange;
+    }
+
     // OnTriggerEnter is called whenever the game object collides with another collider
     void OnTriggerEnter(Collider other)
     {
@@ -35,17 +40,12 @@ public class HandGunBulletScript : MonoBehaviour
         Destroy(gameObject);
 
         // Check if player was hit
-        Health opponentHealth = other.GetComponent<Health>();
+        HealthScript opponentHealth = other.GetComponent<HealthScript>();
         if (opponentHealth != null) // successfully hit the player
         {
             float distance = Vector3.Distance(originalPosition, other.transform.position);
             opponentHealth.LoseHealth((int)((distance / range) * hitDamage)); //more distance = more damage
             Debug.Log("Opponent: Arg! Good shot!");
         }
-    }
-
-    public void SetRange(float newRange)
-    {
-        this.range = newRange;
     }
 }

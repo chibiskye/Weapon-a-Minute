@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 152430133664209619}
+  - component: {fileID: 2312094805597486754}
   m_Layer: 5
-  m_Name: TimerDisplay
+  m_Name: SwitchTimerDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,6 +38,19 @@ RectTransform:
   m_AnchoredPosition: {x: -87, y: -38}
   m_SizeDelta: {x: 153.34668, y: 54.235672}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2312094805597486754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152430133664209618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d411eb2f67a8a9488d0e0fc20b88f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 152430134588616520}
 --- !u!1 &152430133821326951
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +198,7 @@ GameObject:
   - component: {fileID: 152430134588616521}
   - component: {fileID: 152430134588616520}
   m_Layer: 5
-  m_Name: Timer
+  m_Name: SwitchTimer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -236,7 +250,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1:00
+  m_text: 0:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -675,7 +689,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Boomerang
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -702,7 +716,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.4
+  m_fontSize: 20
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -791,6 +805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6955938185335727239}
+  - component: {fileID: 5280631675246694303}
   m_Layer: 5
   m_Name: WeaponDisplay
   m_TagString: Untagged
@@ -819,6 +834,19 @@ RectTransform:
   m_AnchoredPosition: {x: -106.4, y: 44.9}
   m_SizeDelta: {x: 203.25, y: 76.91995}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5280631675246694303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3763258804575610975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8e6635200ea0b45970db5863ca8f04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 2490972094702701433}
 --- !u!1 &4106178517345847906
 GameObject:
   m_ObjectHideFlags: 0

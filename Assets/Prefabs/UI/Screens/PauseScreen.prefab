@@ -429,7 +429,7 @@ PrefabInstance:
     - target: {fileID: 3409947149488892941, guid: 08044af0aa1b44e4688556f7b3f8ad3d,
         type: 3}
       propertyPath: m_Name
-      value: MainMenuButton
+      value: TitleScreenButton
       objectReference: {fileID: 0}
     - target: {fileID: 6136502353185533167, guid: 08044af0aa1b44e4688556f7b3f8ad3d,
         type: 3}
@@ -551,15 +551,30 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.82124996
       objectReference: {fileID: 0}
+    - target: {fileID: 6401833794817232216, guid: 08044af0aa1b44e4688556f7b3f8ad3d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6401833794817232216, guid: 08044af0aa1b44e4688556f7b3f8ad3d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6401833794817232216, guid: 08044af0aa1b44e4688556f7b3f8ad3d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8650096765076153053, guid: 08044af0aa1b44e4688556f7b3f8ad3d,
         type: 3}
       propertyPath: m_text
-      value: Main Menu
+      value: Title Screen
       objectReference: {fileID: 0}
     - target: {fileID: 8650096765076153053, guid: 08044af0aa1b44e4688556f7b3f8ad3d,
         type: 3}
       propertyPath: m_fontSize
-      value: 22.85
+      value: 21.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08044af0aa1b44e4688556f7b3f8ad3d, type: 3}
@@ -700,6 +715,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.82124996
+      objectReference: {fileID: 0}
+    - target: {fileID: 6401833794817232216, guid: 08044af0aa1b44e4688556f7b3f8ad3d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6401833794817232216, guid: 08044af0aa1b44e4688556f7b3f8ad3d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6401833794817232216, guid: 08044af0aa1b44e4688556f7b3f8ad3d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8650096765076153053, guid: 08044af0aa1b44e4688556f7b3f8ad3d,
         type: 3}

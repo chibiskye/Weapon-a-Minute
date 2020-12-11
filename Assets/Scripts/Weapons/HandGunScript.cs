@@ -4,36 +4,50 @@ using UnityEngine;
 
 public class HandGunScript : WeaponScript
 {
-    [SerializeField] private GameObject bullet = null;
+    [SerializeField] private GameObject bulletPrefab = null;
     [SerializeField] private Transform bulletSpawnPoint = null;
-    [SerializeField] private Transform camMid = null;
-    [SerializeField] private Transform body = null;
+    [SerializeField] private Camera playerCamera = null;
+    [SerializeField] private Transform bodyTransform = null;
     [SerializeField] private float range = 30.0f;
     [SerializeField] private float fireRate = 0.5f;
     [SerializeField] private bool isEnemy = false;
     
     private WeaponControls weaponControls = null;
-    private Camera m_camera = null;
-    private int layerMask = ~((1 << 10)); //shooting does not affect other bullets TODO fix this
+    private int layerMask = ~((1 << 10)); //shooting does not affect other bullets, TODO fix this
     private bool canShoot = true;
-    // private float nextTimeToFire = 0f; //currently not used
 
     void Awake()
     {
-        weaponControls = new WeaponControls();
-        weaponControls.GunInputs.Shoot.performed += _ => Shoot();
-        m_camera = Camera.main;
+        if (!isEnemy)
+        {
+            weaponControls = new WeaponControls();
+            weaponControls.GunInputs.Shoot.performed += _ => Shoot();
+        }
     }
 
     void OnEnable()
     {
-        weaponControls.Enable();
+        if (weaponControls != null)
+        {
+            weaponControls.Enable();
+        }
         canShoot = true;
     }
 
     void OnDisable()
     {
-        weaponControls.Disable();
+        if (weaponControls != null)
+        {
+            weaponControls.Disable();
+        }
+    }
+
+    void Start()
+    {
+        if (!isEnemy)
+        {
+            playerCamera = GameObject.FindWithTag("PlayerCamera").GetComponent<Camera>();
+        }
     }
 
     IEnumerator WaitToShoot()
@@ -53,39 +67,19 @@ public class HandGunScript : WeaponScript
         // Check if able to shoot
         if (!canShoot) return;
 
-        // Draw raycast
-        Vector3 rayOrigin;
-        if (!isEnemy) // if the player is using the gun
-        {
-            rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
-        }
-        else
-        {
-            rayOrigin = body.position;
-        }
-
-        Transform rayTransform;
-        if (!isEnemy)
-        {
-            rayTransform = m_camera.transform;
-        }
-        else
-        {
-            rayTransform = body;
-        }
-        
-        RaycastHit hit;
-
         // Instantiate bullet
-        HandGunBulletScript bulletScript = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint).GetComponent<HandGunBulletScript>();
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletSpawnPoint);
+        bullet.gameObject.transform.parent = null; // detaches bullet from shooter so rotation not affected by shooter
+        HandGunBulletScript bulletScript = bullet.GetComponent<HandGunBulletScript>();
         bulletScript.SetRange(range);
-        GameObject g = bulletScript.gameObject;
-        g.transform.parent = null;
 
+        // Draw raycast
+        Vector3 rayOrigin = (!isEnemy) ? playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)) : bodyTransform.position;
+        Transform rayTransform = (!isEnemy) ? playerCamera.transform : bodyTransform;
+        RaycastHit hit;
         if (Physics.Raycast(rayOrigin, rayTransform.forward, out hit, range, layerMask))
         {
-            
-            g.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+            // bullet.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
             // Prevents gun from shooting multiple shots too quickly
             StartCoroutine(WaitToShoot());
@@ -93,28 +87,28 @@ public class HandGunScript : WeaponScript
             if (hit.transform.gameObject.layer == 12 || hit.transform.gameObject.layer == 8) // successfully hit the target
             {
                 Debug.Log("Take this bullet from me!");
-                g.transform.LookAt(hit.transform);
+                bullet.transform.LookAt(hit.transform);
             }
             else // hit something else other than the player
             {
                 Debug.Log("Darn! What a slippery foe!");
-                g.transform.LookAt(hit.point);
+                bullet.transform.LookAt(hit.point);
             }
-            
-            g.SetActive(true);
         }
-        else if (Physics.Raycast(rayOrigin, m_camera.transform.forward, out hit, 400, layerMask)) //TODO this can probably be simplified
+        else
         {
             //Enemies will only shoot if they have something to target
-            if (isEnemy)
-            {
-                Destroy(g);
-                return;
-            }
+            // if (isEnemy)
+            // {
+            //     Destroy(bullet);
+            //     return;
+            // }
             StartCoroutine(WaitToShoot());
-            g.transform.LookAt(hit.point);
-            g.SetActive(true);
+            bullet.transform.LookAt(hit.point);
         }
+
+        // Fire away!
+        bullet.SetActive(true);
     }
 
     public override void Attack()
@@ -128,33 +122,17 @@ public class HandGunScript : WeaponScript
 
     void DebugRaycast()
     {
-        Vector3 rayOrigin;
-        if(!isEnemy) // if the player is using the gun
-        {
-            rayOrigin = m_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
-        } else
-        {
-            rayOrigin = body.position;
-        }
-        Transform rayTransform;
-        if (!isEnemy)
-        {
-            rayTransform = m_camera.transform;
-        }
-        else
-        {
-            rayTransform = body;
-        }
+        Vector3 rayOrigin = (!isEnemy) ? playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)) : bodyTransform.position;
+        Transform rayTransform = (!isEnemy) ? playerCamera.transform : bodyTransform;
         RaycastHit hit;
-
         if (Physics.Raycast(rayOrigin, rayTransform.up, out hit, range, layerMask))
         {
-            Debug.Log("D1");
+            // Debug.Log("D1");
             Debug.DrawRay(rayOrigin, rayTransform.forward * hit.distance, Color.yellow);
         }
         else
         {
-            Debug.Log("D2");
+            // Debug.Log("D2");
             Debug.DrawRay(rayOrigin, rayTransform.forward * 1000, Color.white);
         }
     }

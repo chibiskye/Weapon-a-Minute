@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//Current AI Specific Code was implemented by following a tutorial by 'Dave / GameDevelopment' on YouTube
+// Current AI Specific Code was implemented by following a tutorial by 'Dave / GameDevelopment' on YouTube
+
+// Script will not run if game object does not have a navagent component
+[RequireComponent(typeof(NavMeshAgent))]
+
 public class AIController : MonoBehaviour
 {
     //Components
@@ -63,6 +67,11 @@ public class AIController : MonoBehaviour
         aiControls.Disable();
     }
 
+    void Start()
+    {
+        player = GameObject.FindWithTag("Player").transform;
+    }
+
     private void FixedUpdate()
     {
         if (agent.isStopped) return;
@@ -70,7 +79,10 @@ public class AIController : MonoBehaviour
         // Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-        playerInYRange = flyingBody.transform.position.y - player.position.y <= yRange;
+        if (isFlying)
+        {
+            playerInYRange = flyingBody.transform.position.y - player.position.y <= yRange;
+        }
         
         // Detect and update state
         if (!playerInSightRange && !playerInAttackRange) { Patroling(); }

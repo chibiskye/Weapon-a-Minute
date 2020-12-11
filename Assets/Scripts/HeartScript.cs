@@ -20,7 +20,7 @@ public class HeartScript : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         if (other.gameObject.tag == "Player") {
-            Health health = other.gameObject.GetComponent<Health>();
+            HealthScript health = other.gameObject.GetComponent<HealthScript>();
             if (health != null) {
                 health.AddHealth(value);
                 Destroy(gameObject);

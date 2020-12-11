@@ -279,10 +279,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14013291cc14f420381ff1e40fdbdf70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 5025996068926473637, guid: e1409466dd9770d479bc511a53dbdb75,
-    type: 3}
-  bullet: {fileID: 238105279803398058, guid: f9ae9607c5825485583759234278da17, type: 3}
+  bulletPrefab: {fileID: 0}
   bulletSpawnPoint: {fileID: 77436851656838715}
+  playerCamera: {fileID: 0}
+  bodyTransform: {fileID: 0}
   range: 30
   fireRate: 0.5
   isEnemy: 0
@@ -350,10 +350,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f03568e83168004b8b617ddd32f3033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 5025996068926473637, guid: e1409466dd9770d479bc511a53dbdb75,
-    type: 3}
+  playerCamera: {fileID: 0}
   range: 8
   hitDamage: 10
+  hitRate: 0.8
 --- !u!1 &77436853710662973
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,10 +588,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f03568e83168004b8b617ddd32f3033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 4907771238550799252, guid: 9bf5eac2a42dc4440acaf82b71658ee3,
-    type: 3}
+  playerCamera: {fileID: 0}
   range: 8
   hitDamage: 10
+  hitRate: 0.8
 --- !u!1 &4384986752466304039
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +739,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8701374251315634255}
-  m_LocalRotation: {x: 0.113218635, y: -0.6598228, z: 0.10151778, w: 0.73587334}
+  m_LocalRotation: {x: 0.11303371, y: -0.6611607, z: 0.10172363, w: 0.73467153}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1102,7 +1102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577b489b54578d146826c92e7be10724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 8701374251977571591}
+  playerCamera: {fileID: 0}
   attackRange: 8
   hitDamage: 10
 --- !u!1 &8701374251454678592
@@ -1130,7 +1130,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8701374251454678592}
   m_LocalRotation: {x: 0.09052305, y: -0.64877266, z: 0.078146085, w: 0.7515269}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000000059604645}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8701374251400912769}
@@ -1562,7 +1562,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8701374251977571704}
   - component: {fileID: 8701374251977571591}
-  - component: {fileID: 8701374251977571705}
   - component: {fileID: 8701374251977571590}
   m_Layer: 0
   m_Name: MainCamera
@@ -1578,7 +1577,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8701374251977571588}
-  m_LocalRotation: {x: 0.10797929, y: -0.65712434, z: 0.09590992, w: 0.7398172}
+  m_LocalRotation: {x: 0.107967995, y: -0.65721136, z: 0.09592263, w: 0.73973984}
   m_LocalPosition: {x: 6.474843, y: 4.3999195, z: -0.955396}
   m_LocalScale: {x: 1, y: 1.8196727, z: 0.72677606}
   m_Children: []
@@ -1628,22 +1627,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &8701374251977571705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8701374251977571588}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cc154802894fd94bb3d98110233175f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTransform: {fileID: 8701374252136292575}
-  mouseSensitivity: 5
-  upViewLimit: -5
-  downViewLimit: 10
 --- !u!114 &8701374251977571590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1836,6 +1819,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3639
   debugLog: {fileID: 0}
+  timeDisplay: {fileID: 0}
+  weaponDisplay: {fileID: 0}
   moveSpeed: 10
   turnSmoothTime: 0.1
   timeToSwitch: 5
@@ -2357,7 +2342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c979ba10e479c4fa23eac65a17621d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 8701374251977571591}
+  playerCamera: {fileID: 0}
   laserSpawnPoint: {fileID: 8701374251215780030}
   range: 30
   fireRate: 0.5
@@ -2691,11 +2676,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4897f7ad833549d44a9ab352c53d484f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 8701374251977571591}
+  playerCamera: {fileID: 0}
   bananaPeelPrefab: {fileID: 1605994437985541248, guid: 52c75c4f1af6d4ca09e8f1213c07cf8b,
     type: 3}
   swingRange: 5
   swingDamage: 1
+  waitTime: 5
 --- !u!1 &8701374252845401215
 GameObject:
   m_ObjectHideFlags: 0
