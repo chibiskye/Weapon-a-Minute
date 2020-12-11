@@ -6,6 +6,7 @@ public class BananaPeelScript : MonoBehaviour
 {
     [SerializeField] private int throwDamage = 10;
     [SerializeField] private float throwForce = 5f;
+    [SerializeField] private AudioSource sf;
     private Rigidbody rigidBody = null;
     private Collider m_collider = null;
     
@@ -33,8 +34,9 @@ public class BananaPeelScript : MonoBehaviour
         // If opponent was hit, decrease opponent health and destroy self
         else if (other.gameObject.layer == 12)
         {
+            sf.Play();
             Debug.Log("Opponent: A trap! I was careless!");
-            Destroy(gameObject);
+            Destroy(gameObject, 0.5f);
 
             HealthScript opponentHealth = other.gameObject.GetComponent<HealthScript>();
             if (opponentHealth != null) {
