@@ -2001,12 +2001,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5390092062071413312}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1765463930726333419 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8828926051096907191, guid: 33dc71f25e7f8430980eacea047bb123,
-    type: 3}
-  m_PrefabInstance: {fileID: 7063497306895021660}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7342473976859329652
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2271,11 +2265,6 @@ PrefabInstance:
       propertyPath: playerWeaponHold
       value: 
       objectReference: {fileID: 7012757423682160211}
-    - target: {fileID: 9010107885775707478, guid: 9225cb9124570f94693421f7380f610f,
-        type: 3}
-      propertyPath: bulletSpawnPoint
-      value: 
-      objectReference: {fileID: 1765463930726333419}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9225cb9124570f94693421f7380f610f, type: 3}
 --- !u!1 &7637669442091651221 stripped
