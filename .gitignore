@@ -61,3 +61,5 @@ crashlytics-build.properties
 # OS files
 .DS_Store
 
+# Blender files from Blender 2.90.1
+Assets/Prefabs/*/Blender 2.90.1/Blender Files
